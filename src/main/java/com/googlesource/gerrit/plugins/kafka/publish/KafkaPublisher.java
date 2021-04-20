@@ -14,9 +14,12 @@
 
 package com.googlesource.gerrit.plugins.kafka.publish;
 
+import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
@@ -48,5 +51,18 @@ public class KafkaPublisher implements EventListener {
     if (session.isOpen()) {
       session.publish(gson.toJson(event));
     }
+  }
+
+  public boolean publish(String topic, EventMessage event) {
+    return session.publish(topic, getPayload(event));
+  }
+
+  private String getPayload(EventMessage event) {
+    return gson.toJson(event);
+  }
+
+  @VisibleForTesting
+  public JsonObject eventToJson(Event event) {
+    return gson.toJsonTree(event).getAsJsonObject();
   }
 }

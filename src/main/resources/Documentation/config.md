@@ -7,7 +7,7 @@ Sample config
 ---------------------
 
 ```
-[plugin "events-kafka"]
+[plugin "@PLUGIN@"]
         bootstrapServers = localhost:9092
 ```
 
@@ -32,3 +32,19 @@ Default Values
 | bufferMemory        | 33554432
 | keySerializer       | org.apache.kafka.common.serialization.StringSerializer
 | valueSerializer     | org.apache.kafka.common.serialization.StringSerializer
+
+Additional properties
+---------------------
+
+`plugin.@PLUGIN@.groupId`
+:	Kafka consumer group for receiving messages.
+	Default: Gerrit instance-id
+
+`plugin.@PLUGIN@.pollingIntervalMs`
+:	Polling interval in msec for receiving messages from Kafka topic subscription.
+	Default: 1000
+
+`plugin.@PLUGIN@.sendAsync`
+:	Send messages to Kafka asynchronously, detaching the calling process from the
+	acknowledge of the message being sent.
+	Default: true
