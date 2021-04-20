@@ -32,3 +32,19 @@ Default Values
 | bufferMemory        | 33554432
 | keySerializer       | org.apache.kafka.common.serialization.StringSerializer
 | valueSerializer     | org.apache.kafka.common.serialization.StringSerializer
+
+Additional properties
+---------------------
+
+`plugin.kafka-events.groupId`
+:	Kafka consumer group for receiving messages.
+	Default: Gerrit instance-id
+
+`plugin.kafka-events.pollingIntervalMs`
+:	Polling interval in msec for receiving messages from Kafka topic subscription.
+	Default: 1000
+
+`plugin.kafka-events.sendAsync`
+:	Send messages to Kafka asynchronously, detaching the calling process from the
+	acknowledge of the message being sent.
+	Default: true
