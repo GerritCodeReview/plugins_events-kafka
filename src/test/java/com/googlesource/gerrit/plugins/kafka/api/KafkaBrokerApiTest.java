@@ -70,18 +70,6 @@ public class KafkaBrokerApiTest {
   private KafkaSession session;
   private Gson gson;
 
-  public static class TestKafkaContainer extends KafkaContainer {
-    public TestKafkaContainer() {
-      addFixedExposedPort(KAFKA_PORT, KAFKA_PORT);
-      addFixedExposedPort(ZOOKEEPER_PORT, ZOOKEEPER_PORT);
-    }
-
-    @Override
-    public String getBootstrapServers() {
-      return String.format("PLAINTEXT://%s:%s", getContainerIpAddress(), KAFKA_PORT);
-    }
-  }
-
   public static class TestWorkQueue extends WorkQueue {
 
     @Inject
@@ -149,7 +137,7 @@ public class KafkaBrokerApiTest {
 
   @BeforeClass
   public static void beforeClass() throws Exception {
-    kafka = new TestKafkaContainer();
+    kafka = new KafkaContainer();
     kafka.start();
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }

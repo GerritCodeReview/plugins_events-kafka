@@ -133,6 +133,12 @@ public class KafkaEventSubscriber {
       try {
         while (!closed.get()) {
           if (resetOffset.getAndSet(false)) {
+            // Make sure there is an assignment for this consumer
+            while (consumer.assignment().isEmpty() && !closed.get()) {
+              logger.atInfo().log(
+                  "Resetting offset: no partitions assigned to the consumer, request assignment.");
+              consumer.poll(Duration.ofMillis(configuration.getPollingInterval()));
+            }
             consumer.seekToBeginning(consumer.assignment());
           }
           ConsumerRecords<byte[], byte[]> consumerRecords =

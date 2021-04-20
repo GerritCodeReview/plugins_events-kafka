@@ -2,13 +2,13 @@ package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import com.google.gerrit.metrics.Counter1;
 import com.google.gerrit.metrics.Description;
-import com.google.gerrit.metrics.Field;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.kafka.KafkaEventsMetrics;
 
 @Singleton
-class KafkaEventSubscriberMetrics {
+class KafkaEventSubscriberMetrics extends KafkaEventsMetrics {
 
   private static final String SUBSCRIBER_POLL_FAILURE_COUNTER =
       "subscriber_msg_consumer_poll_failure_counter";
@@ -26,7 +26,7 @@ class KafkaEventSubscriberMetrics {
             new Description("Number of failed attempts to poll messages by the subscriber")
                 .setRate()
                 .setUnit("errors"),
-            Field.ofString(
+            stringField(
                 SUBSCRIBER_POLL_FAILURE_COUNTER, "Subscriber failed to poll messages count"));
     this.subscriberFailureCounter =
         metricMaker.newCounter(
@@ -34,8 +34,7 @@ class KafkaEventSubscriberMetrics {
             new Description("Number of messages failed to consume by the subscriber consumer")
                 .setRate()
                 .setUnit("errors"),
-            Field.ofString(
-                SUBSCRIBER_FAILURE_COUNTER, "Subscriber failed to consume messages count"));
+            stringField(SUBSCRIBER_FAILURE_COUNTER, "Subscriber failed to consume messages count"));
   }
 
   public void incrementSubscriberFailedToPollMessages() {
