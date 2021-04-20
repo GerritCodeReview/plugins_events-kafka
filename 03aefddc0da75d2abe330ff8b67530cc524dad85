@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2d4c11_e5a325dd",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6f06c29_5d38d0fb",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "beb0c892_53b86088",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-20T13:43:26Z",
       "side": 1,
       "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee0eee05_18be1b86",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beb0c892_53b86088",
       "range": {
         "startLine": 27,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00e800b8_de565b54",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8205cb_db1e9c2c",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02a8c6f5_38d2832b",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-04-20T13:43:26Z",
       "side": 1,
       "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79133a22_c8bfd65f",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a8c6f5_38d2832b",
       "range": {
         "startLine": 37,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64904428_ae083927",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48051315_ae5fd08b",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d73de8c_0f2fce63",
@@ -129,6 +249,24 @@
       "writtenOn": "2021-04-20T13:43:26Z",
       "side": 1,
       "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56bf93a_9c5f706b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d73de8c_0f2fce63",
       "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -150,6 +288,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "404efe76_d987126d",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d20fb19b_d828057a",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47c4acbe_d5be67e7",
@@ -167,6 +323,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c725e312_622928b9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c4acbe_d5be67e7",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b41de34f_401e45de",
@@ -180,6 +354,24 @@
       "writtenOn": "2021-04-20T13:43:26Z",
       "side": 1,
       "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9226b031_bc47125d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T15:39:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b41de34f_401e45de",
       "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
