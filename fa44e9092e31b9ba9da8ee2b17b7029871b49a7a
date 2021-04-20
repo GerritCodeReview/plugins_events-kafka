@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52f3497f_d5169613",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-04-20T13:36:34Z",
+      "side": 1,
+      "message": "Nope, we need to also support stable-2.16. This should come *after* we have branches:\n- stable-2.16\n- stable-3.0\n- stable-3.1\n- stable-3.2\n- stable-3.3\n",
+      "revId": "fa44e9092e31b9ba9da8ee2b17b7029871b49a7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
