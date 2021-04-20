@@ -22,6 +22,166 @@
       },
       "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb0c892_53b86088",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c8205cb_db1e9c2c",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a8c6f5_38d2832b",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48051315_ae5fd08b",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "same here, a renaming is required",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d73de8c_0f2fce63",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20fb19b_d828057a",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c4acbe_d5be67e7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41de34f_401e45de",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-20T13:43:26Z",
+      "side": 1,
+      "message": "kafka-events -\u003e events-kafka in all the file",
+      "revId": "03aefddc0da75d2abe330ff8b67530cc524dad85",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
