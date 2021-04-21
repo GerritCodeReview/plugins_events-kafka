@@ -22,6 +22,30 @@
       },
       "revId": "47f74d9e3f8a3cbeb20981ad6207a96fcb1a06a6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62209cbf_5a90c52b",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-04-21T21:12:35Z",
+      "side": 1,
+      "message": "I\u0027d prefer the first import to be \u0027as-is\u0027 in the original repo.",
+      "parentUuid": "ab964af4_4d25f204",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 18,
+        "endChar": 59
+      },
+      "revId": "47f74d9e3f8a3cbeb20981ad6207a96fcb1a06a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
