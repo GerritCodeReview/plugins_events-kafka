@@ -3,7 +3,7 @@
     "gerritforge:plugins-events-kafka-build-test": {
       "state": "NOT_STARTED",
       "created": "2021-04-20T23:38:32Z",
-      "updated": "2021-04-21T20:43:31Z"
+      "updated": "2021-04-21T20:43:34Z"
     },
     "gerritforge:plugins-events-kafka-code-style": {
       "state": "SUCCESSFUL",
