@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67590724_84de7fd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-21T07:18:23Z",
+      "side": 1,
+      "message": "I have seen the build failed. However I ran the tests locally and they work fine.",
+      "revId": "01a24238a1a38bfc741ed41aa25d1de1fe2b772c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
