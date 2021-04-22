@@ -15,10 +15,13 @@
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.gerritforge.gerrit.eventbroker.EventMessage.Header;
+import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Map;
+import java.util.UUID;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -42,11 +45,19 @@ public class KafkaEventDeserializer implements Deserializer<EventMessage> {
 
   @Override
   public EventMessage deserialize(String topic, byte[] data) {
-    final EventMessage result =
-        gson.fromJson(stringDeserializer.deserialize(topic, data), EventMessage.class);
-    result.validate();
+    String json = stringDeserializer.deserialize(topic, data);
+    try {
+      EventMessage result = gson.fromJson(json, EventMessage.class);
+      result.validate();
+      return result;
 
-    return result;
+    } catch (NullPointerException e) {
+      Event event = gson.fromJson(json, Event.class);
+      EventMessage result =
+          new EventMessage(new Header(UUID.randomUUID(), event.instanceId), event);
+      result.validate();
+      return result;
+    }
   }
 
   @Override
