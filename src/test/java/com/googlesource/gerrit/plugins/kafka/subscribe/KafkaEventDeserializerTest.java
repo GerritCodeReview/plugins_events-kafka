@@ -34,10 +34,10 @@ public class KafkaEventDeserializerTest {
   }
 
   @Test
-  public void kafkaEventDeserializerShouldParseAKafkaEvent() {
+  public void kafkaEventDeserializerShouldParseAKafkaEventMessage() {
     final UUID eventId = UUID.randomUUID();
     final String eventType = "event-type";
-    final UUID sourceInstanceId = UUID.randomUUID();
+    final String sourceInstanceId = UUID.randomUUID().toString();
     final long eventCreatedOn = 10L;
     final String eventJson =
         String.format(
@@ -50,6 +50,14 @@ public class KafkaEventDeserializerTest {
 
     assertThat(event.getHeader().eventId).isEqualTo(eventId);
     assertThat(event.getHeader().sourceInstanceId).isEqualTo(sourceInstanceId);
+  }
+
+  @Test
+  public void kafkaEventDeserializerShouldParseAKafkaEvent() {
+    final String eventJson = "{ \"type\": \"project-created\", \"instanceId\":\"instance-id\" }";
+    final EventMessage event = deserializer.deserialize("ignored", eventJson.getBytes(UTF_8));
+
+    assertThat(event.getHeader().sourceInstanceId).isEqualTo("instance-id");
   }
 
   @Test(expected = RuntimeException.class)
