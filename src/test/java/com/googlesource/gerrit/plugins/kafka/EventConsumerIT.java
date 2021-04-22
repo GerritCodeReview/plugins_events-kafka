@@ -131,14 +131,14 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
-  @GerritConfig(name = "plugin.kafka-events.groupId", value = "test-consumer-group")
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
   @GerritConfig(
-      name = "plugin.kafka-events.keyDeserializer",
+      name = "plugin.events-kafka.keyDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
   @GerritConfig(
-      name = "plugin.kafka-events.valueDeserializer",
+      name = "plugin.events-kafka.valueDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
-  @GerritConfig(name = "plugin.kafka-events.pollingIntervalMs", value = "500")
+  @GerritConfig(name = "plugin.events-kafka.pollingIntervalMs", value = "500")
   public void shouldReplayAllEvents() throws InterruptedException {
     String topic = "a_topic";
     EventMessage eventMessage =
