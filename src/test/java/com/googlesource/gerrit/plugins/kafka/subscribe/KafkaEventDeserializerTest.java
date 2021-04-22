@@ -17,8 +17,8 @@ package com.googlesource.gerrit.plugins.kafka.subscribe;
 import static com.google.common.truth.Truth.assertThat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.gerritforge.gerrit.eventbroker.EventGsonProvider;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import java.util.UUID;
 import org.junit.Before;
