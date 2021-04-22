@@ -16,6 +16,23 @@
       "message": "OK, I need to investigate why this isn\u0027t working :-(",
       "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b0b81e3_3e49d9bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-22T13:01:31Z",
+      "side": 1,
+      "message": "The followup change should fix the test failure: https://gerrit-review.googlesource.com/c/plugins/events-kafka/+/304068",
+      "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
