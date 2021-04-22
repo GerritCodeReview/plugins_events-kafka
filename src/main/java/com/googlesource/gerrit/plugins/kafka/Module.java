@@ -14,9 +14,9 @@
 
 package com.googlesource.gerrit.plugins.kafka;
 
-import com.gerritforge.gerrit.eventbroker.EventGsonProvider;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
