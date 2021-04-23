@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf26448_ff72374e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T11:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9466a4a_9df0fb8a",
+      "revId": "0d1088c41a7ef170f0db1c862fec24bcf9fa4738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8704a3b6_fe2e2355",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-23T11:54:19Z",
       "side": 1,
       "message": "Nit: no new line between footers.",
+      "revId": "0d1088c41a7ef170f0db1c862fec24bcf9fa4738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "127195a4_403a4132",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T11:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8704a3b6_fe2e2355",
       "revId": "0d1088c41a7ef170f0db1c862fec24bcf9fa4738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
