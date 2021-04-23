@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445f39e1_6b099aa5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T11:47:27Z",
+      "side": 1,
+      "message": "Reference Issue 14436 in the commit message?",
+      "revId": "53c791f4d1b46c55411e66710d4cdf8a9b666be5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
