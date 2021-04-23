@@ -51,6 +51,23 @@
       "parentUuid": "2b0b81e3_3e49d9bd",
       "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0fd0fe7_d4144f98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T10:28:28Z",
+      "side": 1,
+      "message": "Why this change is needed? Wouldn\u0027t the follow-up change would be enough?",
+      "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
