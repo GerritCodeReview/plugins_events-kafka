@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9466a4a_9df0fb8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T11:54:19Z",
+      "side": 1,
+      "message": "Nit: Bug: Issue 14436",
+      "revId": "0d1088c41a7ef170f0db1c862fec24bcf9fa4738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8704a3b6_fe2e2355",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-23T11:54:19Z",
+      "side": 1,
+      "message": "Nit: no new line between footers.",
+      "revId": "0d1088c41a7ef170f0db1c862fec24bcf9fa4738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
