@@ -16,6 +16,24 @@
       "message": "Can this be squashed into the parent change?",
       "revId": "1f5bc7ce357765344716933259a471672646a230",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b9a7e57_e4bb406c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-23T07:53:58Z",
+      "side": 1,
+      "message": "Should it be? The previous commit is a like-for-like porting from the old repository. I think keeping it separate is the demonstration that this fix is needed to get the tests passing.",
+      "parentUuid": "d00ecd3b_921c74ab",
+      "revId": "1f5bc7ce357765344716933259a471672646a230",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
