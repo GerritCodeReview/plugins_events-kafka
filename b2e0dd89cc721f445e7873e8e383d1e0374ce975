@@ -68,6 +68,24 @@
       "message": "Why this change is needed? Wouldn\u0027t the follow-up change would be enough?",
       "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6adbcd2_8f45db03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-23T11:42:36Z",
+      "side": 1,
+      "message": "I have abandoned 304069 and squashed it in here.",
+      "parentUuid": "c0fd0fe7_d4144f98",
+      "revId": "b2e0dd89cc721f445e7873e8e383d1e0374ce975",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
