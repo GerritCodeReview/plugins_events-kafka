@@ -16,6 +16,24 @@
       "message": "Reference Issue 14436 in the commit message?",
       "revId": "53c791f4d1b46c55411e66710d4cdf8a9b666be5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb814b2_6b4aded9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-23T11:52:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "445f39e1_6b099aa5",
+      "revId": "53c791f4d1b46c55411e66710d4cdf8a9b666be5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
