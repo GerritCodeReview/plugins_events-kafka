@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d22c44_3e146a08",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-26T07:14:38Z",
+      "side": 1,
+      "message": "Unrelated to this change, but Gerrit already doing this (java/com/google/gerrit/server/events/EventBroker.java):\n\n  bind(Gson.class).toProvider(EventGsonProvider.class).in(Singleton.class);\n\nand this is bound in:\n\n  java/com/google/gerrit/pgm/Daemon.java:    modules.add(new EventBroker.Module());\n\nUsage example in gerrit core (java/com/google/gerrit/sshd/commands/StreamEvents.java):\n\n  @Inject @EventGson \n  private Gson gson;\n\nCan you try the same, also remove the bind on line 42, and just inject:\n\n  @Inject @EventGson \n  private Gson gson;\n\nI guess it should work because normally, the bindings are copied from gerrit core to plugins.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 77
+      },
+      "revId": "fd95f9709bf56195234575454ee9228f1f558303",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
