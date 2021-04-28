@@ -22,6 +22,30 @@
       },
       "revId": "fd95f9709bf56195234575454ee9228f1f558303",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40bff1e3_4e749e77",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-28T10:05:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4d22c44_3e146a08",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 77
+      },
+      "revId": "fd95f9709bf56195234575454ee9228f1f558303",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
