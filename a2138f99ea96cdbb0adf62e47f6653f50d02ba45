@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a864d96_381332e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-28T04:58:43Z",
+      "side": 1,
+      "message": "Test failure seems to be related:\n\n  1) kafkaEventDeserializerShouldParseAKafkaEvent(com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializerTest)\nexpected      : 9d0a179e-04e7-497c-ac2a-a065003a2ef2\nan instance of: java.util.UUID\nbut was       : (non-equal value with same string representation)\nan instance of: java.lang.String\n\tat com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializerTest.kafkaEventDeserializerShouldParseAKafkaEvent(KafkaEventDeserializerTest.java:52)\n\nFAILURES!!!\nTests run: 13,  Failures: 1",
+      "revId": "a2138f99ea96cdbb0adf62e47f6653f50d02ba45",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
