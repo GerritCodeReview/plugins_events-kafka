@@ -46,6 +46,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd30d84a_373d389d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-29T07:51:44Z",
+      "side": 1,
+      "message": "Would something like this work?\n    \n    Object genericEvent \u003d gson.fromJson(json, Object.class);\n    if (genericEvent.getClass() \u003d\u003d EventMessage.class) {\n        EventMessage em \u003d (EventMessage) genericEvent;\n    } else {\n        Event em \u003d (Evente) genericEvent;\n    }",
+      "parentUuid": "241af299_374b950d",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
