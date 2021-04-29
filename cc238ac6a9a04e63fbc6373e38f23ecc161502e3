@@ -22,6 +22,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "241af299_374b950d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-04-29T05:21:34Z",
+      "side": 1,
+      "message": "I agree it\u0027s kind of a code smell. \nI\u0027m catching NPE because this is what is thrown from result.validate()\n\nPlease have in mind that for most of the time we will get EventMessage. Only time when we will receive Event is during the rolling upgrade.\n\nI was thinking of checking the string but I thought that it could be even more error prone. Another option was to parse json string to JsonObject and then check but I didn\u0027t want to parse string twice knowing that in 99% it will be EventMessage.\n\nWDYT?",
+      "parentUuid": "1952cb90_382ff705",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
