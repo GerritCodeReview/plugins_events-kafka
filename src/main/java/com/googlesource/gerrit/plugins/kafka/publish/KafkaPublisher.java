@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.kafka.publish;
 
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
@@ -53,7 +54,7 @@ public class KafkaPublisher implements EventListener {
     }
   }
 
-  public boolean publish(String topic, EventMessage event) {
+  public ListenableFuture <Boolean> publish(String topic, EventMessage event) {
     return session.publish(topic, getPayload(event));
   }
 

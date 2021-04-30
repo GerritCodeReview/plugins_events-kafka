@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.kafka.session;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.SettableFuture;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
@@ -80,34 +82,36 @@ public final class KafkaSession {
     producer = null;
   }
 
-  public void publish(String messageBody) {
-    publish(properties.getTopic(), messageBody);
+  public ListenableFuture <Boolean> publish(String messageBody) {
+    return publish(properties.getTopic(), messageBody);
   }
 
-  public boolean publish(String topic, String messageBody) {
+  public ListenableFuture <Boolean> publish(String topic, String messageBody) {
     if (properties.isSendAsync()) {
       return publishAsync(topic, messageBody);
     }
     return publishSync(topic, messageBody);
   }
 
-  private boolean publishSync(String topic, String messageBody) {
-
+  private ListenableFuture <Boolean> publishSync(String topic, String messageBody) {
+    SettableFuture<Boolean> resultF = SettableFuture.create();
     try {
       Future<RecordMetadata> future =
           producer.send(new ProducerRecord<>(topic, "" + System.nanoTime(), messageBody));
       RecordMetadata metadata = future.get();
       LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
       publisherMetrics.incrementBrokerPublishedMessage();
-      return true;
+      resultF.set(true);
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();
-      return false;
+      resultF.set(false);
     }
+    return resultF;
   }
 
-  private boolean publishAsync(String topic, String messageBody) {
+  private ListenableFuture <Boolean> publishAsync(String topic, String messageBody) {
+    SettableFuture<Boolean> resultF = SettableFuture.create();
     try {
       Future<RecordMetadata> future =
           producer.send(
@@ -121,11 +125,12 @@ public final class KafkaSession {
                   publisherMetrics.incrementBrokerFailedToPublishMessage();
                 }
               });
-      return future != null;
+      resultF.set(future != null);
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();
-      return false;
+      resultF.set(false);
     }
+    return resultF;
   }
 }
