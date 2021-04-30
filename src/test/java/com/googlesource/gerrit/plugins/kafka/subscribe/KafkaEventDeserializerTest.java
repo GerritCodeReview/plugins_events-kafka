@@ -37,7 +37,7 @@ public class KafkaEventDeserializerTest {
   public void kafkaEventDeserializerShouldParseAKafkaEvent() {
     final UUID eventId = UUID.randomUUID();
     final String eventType = "event-type";
-    final UUID sourceInstanceId = UUID.randomUUID();
+    final String sourceInstanceId = UUID.randomUUID().toString();
     final long eventCreatedOn = 10L;
     final String eventJson =
         String.format(

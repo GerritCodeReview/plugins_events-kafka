@@ -14,6 +14,11 @@
 
 package com.googlesource.gerrit.plugins.kafka.session;
 
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.JdkFutureAdapters;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.SettableFuture;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
@@ -80,34 +85,35 @@ public final class KafkaSession {
     producer = null;
   }
 
-  public void publish(String messageBody) {
-    publish(properties.getTopic(), messageBody);
+  public ListenableFuture<Boolean> publish(String messageBody) {
+    return publish(properties.getTopic(), messageBody);
   }
 
-  public boolean publish(String topic, String messageBody) {
+  public ListenableFuture<Boolean> publish(String topic, String messageBody) {
     if (properties.isSendAsync()) {
       return publishAsync(topic, messageBody);
     }
     return publishSync(topic, messageBody);
   }
 
-  private boolean publishSync(String topic, String messageBody) {
-
+  private ListenableFuture<Boolean> publishSync(String topic, String messageBody) {
+    SettableFuture<Boolean> resultF = SettableFuture.create();
     try {
       Future<RecordMetadata> future =
           producer.send(new ProducerRecord<>(topic, "" + System.nanoTime(), messageBody));
       RecordMetadata metadata = future.get();
       LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
       publisherMetrics.incrementBrokerPublishedMessage();
-      return true;
+      resultF.set(true);
+      return resultF;
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();
-      return false;
+      return Futures.immediateFailedFuture(e);
     }
   }
 
-  private boolean publishAsync(String topic, String messageBody) {
+  private ListenableFuture<Boolean> publishAsync(String topic, String messageBody) {
     try {
       Future<RecordMetadata> future =
           producer.send(
@@ -121,11 +127,15 @@ public final class KafkaSession {
                   publisherMetrics.incrementBrokerFailedToPublishMessage();
                 }
               });
-      return future != null;
+
+      return Futures.transform(
+          JdkFutureAdapters.listenInPoolThread(future),
+          res -> true,
+          MoreExecutors.directExecutor());
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();
-      return false;
+      return Futures.immediateFailedFuture(e);
     }
   }
 }
