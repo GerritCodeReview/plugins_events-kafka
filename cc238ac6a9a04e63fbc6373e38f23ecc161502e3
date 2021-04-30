@@ -94,6 +94,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82af5bd1_3039e0e1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-04-30T05:13:58Z",
+      "side": 1,
+      "message": "\u003e    Object genericEvent \u003d gson.fromJson(json, Object.class);\n\u003e    if (genericEvent.getClass() \u003d\u003d EventMessage.class) {\n\u003e        EventMessage em \u003d (EventMessage) genericEvent;\n\u003e    } else {\n\u003e        Event em \u003d (Evente) genericEvent;\n\u003e    }\n\nThat would be the best but I don\u0027t see how this would work. Json doesn\u0027t contains object type so when we parse to Object.class GSon will use reflection to find Object fields and populate them. Rest of the fields will be dropped. So in our case GSon will return instance of Object not an instance of EventMessage casted to Object.\n\nOk, if NPE is a not go I will implement checking the sting content",
+      "parentUuid": "7e49d5a7_58f1a69a",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
