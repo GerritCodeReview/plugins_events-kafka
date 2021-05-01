@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e9a9438_99d83125",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-05-01T02:13:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we map the future instead?\nThe message is sent when \u0027future\u0027 completes, isn\u0027t it?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 21
+      },
+      "revId": "5afb0ae23b434b2432ad9b1830b12afd642459ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
