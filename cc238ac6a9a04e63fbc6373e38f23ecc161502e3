@@ -118,6 +118,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d752a2fb_f1380fa8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-05-01T01:25:42Z",
+      "side": 1,
+      "message": "\u003e Ok, if NPE is a not go I will implement checking the sting content\n\nWhy not just checking that the Json object contains a \"header\" and \"body\"? If yes, then it is an EventMessage, otherwise is an Event: would that work?",
+      "parentUuid": "82af5bd1_3039e0e1",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
