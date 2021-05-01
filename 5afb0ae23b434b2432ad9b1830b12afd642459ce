@@ -6,9 +6,9 @@
       "updated": "2021-05-01T02:10:44Z"
     },
     "gerritforge:plugins-events-kafka-code-style": {
-      "state": "NOT_STARTED",
+      "state": "SCHEDULED",
       "created": "2021-04-30T09:38:18Z",
-      "updated": "2021-05-01T02:10:45Z"
+      "updated": "2021-05-01T02:20:20Z"
     }
   }
 }
