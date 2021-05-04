@@ -142,6 +142,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f19602b7_a8217f64",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-05-04T06:41:20Z",
+      "side": 1,
+      "message": "This would be perfectly fine if we have Json object but I want to avoid parsing json string twice. Checking json string could be tricky, what if someone will name project: header_body_bla_bla? 😜\n\nNow I also see @Ponch suggestion, this is actually how it should be done. We should register new EventMessageDeserializer/Serializer in EventGSonProvider, similar to EventDeserializer. But the problem with this approach is that we want to reuse EventGSonProvider from Gerrit core so it will cause issue with that change.\n\nI think I\u0027ve found a middle ground. I\u0027m checking if body and header is not null if it is I\u0027m trying with Event and at the end I\u0027m doing the validation.",
+      "parentUuid": "d752a2fb_f1380fa8",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
