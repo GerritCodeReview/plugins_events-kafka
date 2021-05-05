@@ -166,6 +166,30 @@
       },
       "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15f6ee6_6d8baa06",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventDeserializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-05-05T05:38:11Z",
+      "side": 1,
+      "message": "@Luca @Ponch ping",
+      "parentUuid": "f19602b7_a8217f64",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "cc238ac6a9a04e63fbc6373e38f23ecc161502e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
