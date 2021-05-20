@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "937ae1a6_52a0c957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-05-20T00:42:13Z",
+      "side": 1,
+      "message": "Looks like a flaky test:\nshouldReplayAllEvents(com.googlesource.gerrit.plugins.kafka.EventConsumerIT)",
+      "revId": "69c6837324ddadef6aeb5aca7196e6c74a28c14f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
