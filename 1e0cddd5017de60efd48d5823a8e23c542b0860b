@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "680fde44_a72286f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-05-24T07:17:55Z",
+      "side": 1,
+      "message": "I\u0027m waiting for events-broker library to be published to maven central",
+      "revId": "1e0cddd5017de60efd48d5823a8e23c542b0860b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
