@@ -14,16 +14,11 @@
 
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
-import static java.util.Objects.requireNonNull;
-
+import com.gerritforge.gerrit.eventbroker.EventDeserializer;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
-import com.gerritforge.gerrit.eventbroker.EventMessage.Header;
-import com.google.gerrit.server.events.Event;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Map;
-import java.util.UUID;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -31,15 +26,15 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 public class KafkaEventDeserializer implements Deserializer<EventMessage> {
 
   private final StringDeserializer stringDeserializer = new StringDeserializer();
-  private Gson gson;
+  private EventDeserializer eventDeserializer;
 
   // To be used when providing this deserializer with class name (then need to add a configuration
   // entry to set the gson.provider
   public KafkaEventDeserializer() {}
 
   @Inject
-  public KafkaEventDeserializer(Gson gson) {
-    this.gson = gson;
+  public KafkaEventDeserializer(EventDeserializer eventDeserializer) {
+    this.eventDeserializer = eventDeserializer;
   }
 
   @Override
@@ -48,20 +43,7 @@ public class KafkaEventDeserializer implements Deserializer<EventMessage> {
   @Override
   public EventMessage deserialize(String topic, byte[] data) {
     String json = stringDeserializer.deserialize(topic, data);
-    EventMessage result = gson.fromJson(json, EventMessage.class);
-    if (result.getEvent() == null && result.getHeader() == null) {
-      Event event = deserialiseEvent(json);
-      result = new EventMessage(new Header(UUID.randomUUID(), event.instanceId), event);
-    }
-    result.validate();
-    return result;
-  }
-
-  private Event deserialiseEvent(String json) {
-    Event event = gson.fromJson(json, Event.class);
-    requireNonNull(event.type, "Event type cannot be null");
-    requireNonNull(event.instanceId, "Event instance id cannot be null");
-    return event;
+    return eventDeserializer.deserialize(json);
   }
 
   @Override
