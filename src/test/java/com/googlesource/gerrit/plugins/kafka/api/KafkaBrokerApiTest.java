@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.EventMessage.Header;
 import com.google.gerrit.metrics.MetricMaker;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gerrit.server.git.WorkQueue;
@@ -62,7 +63,7 @@ public class KafkaBrokerApiTest {
   private static final String TEST_GROUP_ID = KafkaBrokerApiTest.class.getName();
   private static final int TEST_POLLING_INTERVAL_MSEC = 100;
   private static final int TEST_THREAD_POOL_SIZE = 10;
-  private static final UUID TEST_INSTANCE_ID = UUID.randomUUID();
+  private static final String TEST_INSTANCE_ID = UUID.randomUUID().toString();
   private static final TimeUnit TEST_TIMOUT_UNIT = TimeUnit.SECONDS;
   private static final int TEST_TIMEOUT = 30;
 
@@ -105,8 +106,8 @@ public class KafkaBrokerApiTest {
     }
   }
 
-  public static class TestConsumer implements Consumer<EventMessage> {
-    public final List<EventMessage> messages = new ArrayList<>();
+  public static class TestConsumer implements Consumer<Event> {
+    public final List<Event> messages = new ArrayList<>();
     private final CountDownLatch lock;
 
     public TestConsumer(int numMessagesExpected) {
@@ -114,7 +115,7 @@ public class KafkaBrokerApiTest {
     }
 
     @Override
-    public void accept(EventMessage message) {
+    public void accept(Event message) {
       messages.add(message);
       lock.countDown();
     }
@@ -128,12 +129,6 @@ public class KafkaBrokerApiTest {
     }
   }
 
-  public static class TestHeader extends Header {
-
-    public TestHeader() {
-      super(UUID.randomUUID(), TEST_INSTANCE_ID);
-    }
-  }
 
   @BeforeClass
   public static void beforeClass() throws Exception {
@@ -176,7 +171,8 @@ public class KafkaBrokerApiTest {
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
     TestConsumer testConsumer = new TestConsumer(1);
-    EventMessage testEventMessage = new EventMessage(new TestHeader(), new ProjectCreatedEvent());
+    Event testEventMessage =  new ProjectCreatedEvent();
+    testEventMessage.instanceId = TEST_INSTANCE_ID;
 
     kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
     kafkaBrokerApi.send(testTopic, testEventMessage);
@@ -192,7 +188,8 @@ public class KafkaBrokerApiTest {
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_async";
     TestConsumer testConsumer = new TestConsumer(1);
-    EventMessage testEventMessage = new EventMessage(new TestHeader(), new ProjectCreatedEvent());
+    Event testEventMessage = new ProjectCreatedEvent();
+    testEventMessage.instanceId = TEST_INSTANCE_ID;
 
     kafkaBrokerApi.send(testTopic, testEventMessage);
     kafkaBrokerApi.receiveAsync(testTopic, testConsumer);

@@ -18,6 +18,7 @@ import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
@@ -43,12 +44,12 @@ public class KafkaBrokerApi implements BrokerApi {
   }
 
   @Override
-  public ListenableFuture<Boolean> send(String topic, EventMessage event) {
+  public ListenableFuture<Boolean> send(String topic, Event event) {
     return publisher.publish(topic, event);
   }
 
   @Override
-  public void receiveAsync(String topic, Consumer<EventMessage> eventConsumer) {
+  public void receiveAsync(String topic, Consumer<Event> eventConsumer) {
     KafkaEventSubscriber subscriber = subscriberProvider.get();
     synchronized (subscribers) {
       subscribers.add(subscriber);

@@ -17,6 +17,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
@@ -39,14 +40,14 @@ public class KafkaEventSubscriber {
   private final OneOffRequestContext oneOffCtx;
   private final AtomicBoolean closed = new AtomicBoolean(false);
 
-  private final Deserializer<EventMessage> valueDeserializer;
+  private final Deserializer<Event> valueDeserializer;
   private final KafkaSubscriberProperties configuration;
   private final ExecutorService executor;
   private final KafkaEventSubscriberMetrics subscriberMetrics;
   private final KafkaConsumerFactory consumerFactory;
   private final Deserializer<byte[]> keyDeserializer;
 
-  private java.util.function.Consumer<EventMessage> messageProcessor;
+  private java.util.function.Consumer<Event> messageProcessor;
   private String topic;
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
@@ -57,7 +58,7 @@ public class KafkaEventSubscriber {
       KafkaSubscriberProperties configuration,
       KafkaConsumerFactory consumerFactory,
       Deserializer<byte[]> keyDeserializer,
-      Deserializer<EventMessage> valueDeserializer,
+      Deserializer<Event> valueDeserializer,
       OneOffRequestContext oneOffCtx,
       @ConsumerExecutor ExecutorService executor,
       KafkaEventSubscriberMetrics subscriberMetrics) {
@@ -71,7 +72,7 @@ public class KafkaEventSubscriber {
     this.valueDeserializer = valueDeserializer;
   }
 
-  public void subscribe(String topic, java.util.function.Consumer<EventMessage> messageProcessor) {
+  public void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor) {
     this.topic = topic;
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
@@ -97,7 +98,7 @@ public class KafkaEventSubscriber {
     receiver.wakeup();
   }
 
-  public java.util.function.Consumer<EventMessage> getMessageProcessor() {
+  public java.util.function.Consumer<Event> getMessageProcessor() {
     return messageProcessor;
   }
 
@@ -146,7 +147,7 @@ public class KafkaEventSubscriber {
           consumerRecords.forEach(
               consumerRecord -> {
                 try (ManualRequestContext ctx = oneOffCtx.open()) {
-                  EventMessage event =
+                  Event event =
                       valueDeserializer.deserialize(consumerRecord.topic(), consumerRecord.value());
                   messageProcessor.accept(event);
                 } catch (Exception e) {

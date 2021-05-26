@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import com.gerritforge.gerrit.eventbroker.EventDeserializer;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Map;
@@ -23,7 +24,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 @Singleton
-public class KafkaEventDeserializer implements Deserializer<EventMessage> {
+public class KafkaEventDeserializer implements Deserializer<Event> {
 
   private final StringDeserializer stringDeserializer = new StringDeserializer();
   private EventDeserializer eventDeserializer;
@@ -41,7 +42,7 @@ public class KafkaEventDeserializer implements Deserializer<EventMessage> {
   public void configure(Map<String, ?> configs, boolean isKey) {}
 
   @Override
-  public EventMessage deserialize(String topic, byte[] data) {
+  public Event deserialize(String topic, byte[] data) {
     String json = stringDeserializer.deserialize(topic, data);
     return eventDeserializer.deserialize(json);
   }

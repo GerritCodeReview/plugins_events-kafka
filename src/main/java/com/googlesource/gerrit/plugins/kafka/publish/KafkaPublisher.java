@@ -54,11 +54,11 @@ public class KafkaPublisher implements EventListener {
     }
   }
 
-  public ListenableFuture<Boolean> publish(String topic, EventMessage event) {
+  public ListenableFuture<Boolean> publish(String topic, Event event) {
     return session.publish(topic, getPayload(event));
   }
 
-  private String getPayload(EventMessage event) {
+  private String getPayload(Event event) {
     return gson.toJson(event);
   }
 
