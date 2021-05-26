@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.EventMessage.Header;
 import com.google.gerrit.metrics.MetricMaker;
+import com.google.gerrit.server.events.EventGson;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gerrit.server.git.WorkQueue;
@@ -87,7 +88,10 @@ public class KafkaBrokerApiTest {
 
     @Override
     protected void configure() {
-      bind(Gson.class).toProvider(EventGsonProvider.class).in(Singleton.class);
+      bind(Gson.class)
+          .annotatedWith(EventGson.class)
+          .toProvider(EventGsonProvider.class)
+          .in(Singleton.class);
       bind(MetricMaker.class).toInstance(mock(MetricMaker.class, Answers.RETURNS_DEEP_STUBS));
       bind(OneOffRequestContext.class)
           .toInstance(mock(OneOffRequestContext.class, Answers.RETURNS_DEEP_STUBS));
