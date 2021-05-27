@@ -1,5 +1,10 @@
 {
   "checks": {
+    "gerritforge:plugins-events-kafka-build-test": {
+      "state": "SCHEDULED",
+      "created": "2021-05-27T06:37:52Z",
+      "updated": "2021-05-27T06:37:52Z"
+    },
     "gerritforge:plugins-events-kafka-code-style": {
       "state": "SCHEDULED",
       "created": "2021-05-27T06:37:51Z",
