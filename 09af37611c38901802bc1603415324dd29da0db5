@@ -22,6 +22,76 @@
       },
       "revId": "09af37611c38901802bc1603415324dd29da0db5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a5be73_00998af9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-17T23:59:15Z",
+      "side": 1,
+      "message": "InstanceId is a mandatory field: if we don\u0027t have it, we don\u0027t know where the event was coming from.",
+      "parentUuid": "dc57e8c1_e6ea1157",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 53
+      },
+      "revId": "09af37611c38901802bc1603415324dd29da0db5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcaa31b_f688d794",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-17T23:59:15Z",
+      "side": 1,
+      "message": "Same as above: the instance-id is just a string now, using UUID is misleading.",
+      "range": {
+        "startLine": 144,
+        "startChar": 30,
+        "endLine": 144,
+        "endChar": 58
+      },
+      "revId": "09af37611c38901802bc1603415324dd29da0db5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3329f451_2b7ef28e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-17T23:59:15Z",
+      "side": 1,
+      "message": "Using a UUID.randomUUID() here is misleading: the instance-id is now just a string, why not using a simple static string?",
+      "range": {
+        "startLine": 65,
+        "startChar": 49,
+        "endLine": 65,
+        "endChar": 67
+      },
+      "revId": "09af37611c38901802bc1603415324dd29da0db5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
