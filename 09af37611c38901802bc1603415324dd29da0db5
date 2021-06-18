@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9409dcc7_ff61cda7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T21:39:45Z",
+      "side": 1,
+      "message": "Ack. Can we say then that all the brokers do not care about instance-id at all? They just send whatever is provided to them.\n\nIn this way, there isn\u0027t really any requirement to have instance-id mandatory for them, but the enforcement is done by multi-site plugin only.",
+      "parentUuid": "d2b793f2_bff0eeed",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 53
+      },
+      "revId": "09af37611c38901802bc1603415324dd29da0db5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dcaa31b_f688d794",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
         "patchSetId": 8
