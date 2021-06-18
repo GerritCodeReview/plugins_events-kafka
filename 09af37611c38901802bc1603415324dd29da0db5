@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63e5f77b_62d31389",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-06-18T17:13:55Z",
+      "side": 1,
+      "message": "There is nothing in events-kafka plugin that ensures the field is mandatory though, or is there?\n\ninstanceId will be mandatory in *multi-site*, when [1] gets merged.\n\n[1]https://gerrit-review.googlesource.com/c/plugins/multi-site/+/309002",
+      "parentUuid": "52a5be73_00998af9",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 53
+      },
+      "revId": "09af37611c38901802bc1603415324dd29da0db5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dcaa31b_f688d794",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
         "patchSetId": 8
