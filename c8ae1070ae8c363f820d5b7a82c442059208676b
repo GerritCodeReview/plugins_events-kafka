@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f57fa9_09a57994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-22T23:27:40Z",
+      "side": 1,
+      "message": "Waiting for @Tony feedback on this, and then I\u0027m ready to upgrade my vote.",
+      "revId": "c8ae1070ae8c363f820d5b7a82c442059208676b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
