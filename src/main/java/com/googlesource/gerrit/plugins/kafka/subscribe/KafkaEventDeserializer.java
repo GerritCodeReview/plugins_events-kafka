@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
-import com.gerritforge.gerrit.eventbroker.EventMessage;
-import com.google.gson.Gson;
+import com.gerritforge.gerrit.eventbroker.EventDeserializer;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Map;
@@ -23,30 +23,27 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 @Singleton
-public class KafkaEventDeserializer implements Deserializer<EventMessage> {
+public class KafkaEventDeserializer implements Deserializer<Event> {
 
   private final StringDeserializer stringDeserializer = new StringDeserializer();
-  private Gson gson;
+  private EventDeserializer eventDeserializer;
 
   // To be used when providing this deserializer with class name (then need to add a configuration
   // entry to set the gson.provider
   public KafkaEventDeserializer() {}
 
   @Inject
-  public KafkaEventDeserializer(Gson gson) {
-    this.gson = gson;
+  public KafkaEventDeserializer(EventDeserializer eventDeserializer) {
+    this.eventDeserializer = eventDeserializer;
   }
 
   @Override
   public void configure(Map<String, ?> configs, boolean isKey) {}
 
   @Override
-  public EventMessage deserialize(String topic, byte[] data) {
-    final EventMessage result =
-        gson.fromJson(stringDeserializer.deserialize(topic, data), EventMessage.class);
-    result.validate();
-
-    return result;
+  public Event deserialize(String topic, byte[] data) {
+    String json = stringDeserializer.deserialize(topic, data);
+    return eventDeserializer.deserialize(json);
   }
 
   @Override
