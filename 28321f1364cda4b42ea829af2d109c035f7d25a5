@@ -6,9 +6,11 @@
       "updated": "2021-07-29T09:54:52Z"
     },
     "gerritforge:plugins-events-kafka-code-style": {
-      "state": "SCHEDULED",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-events-kafka-verifier/job/35%252F313035%252F2/1/console",
+      "started": "2021-07-29T09:59:40Z",
       "created": "2021-07-29T09:54:51Z",
-      "updated": "2021-07-29T09:54:51Z"
+      "updated": "2021-07-29T09:57:29Z"
     }
   }
 }
