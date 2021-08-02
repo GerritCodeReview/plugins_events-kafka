@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3be74e08_e1da4f99",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-02T11:06:26Z",
+      "side": 0,
+      "message": "was this not documented anywhere? 😕",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "28321f1364cda4b42ea829af2d109c035f7d25a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
