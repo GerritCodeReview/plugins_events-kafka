@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cec60c02_04eb90a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-02T11:07:14Z",
+      "side": 1,
+      "message": "events-kafka",
+      "range": {
+        "startLine": 12,
+        "startChar": 22,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "99df4cd7bc00a5dd46964a539369e8243e480970",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c5c1fa_951c8d6c",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
         "patchSetId": 2
