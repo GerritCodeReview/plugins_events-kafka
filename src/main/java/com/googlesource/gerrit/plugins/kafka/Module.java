@@ -37,7 +37,6 @@ class Module extends AbstractModule {
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), LifecycleListener.class).to(Manager.class);
-    DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
 
     bind(new TypeLiteral<KafkaProducer<String, String>>() {})
         .toProvider(KafkaProducerProvider.class);

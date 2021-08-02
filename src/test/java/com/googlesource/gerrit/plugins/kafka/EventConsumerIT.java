@@ -100,8 +100,9 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
 
     List<String> events = new ArrayList<>();
     KafkaProperties kafkaProperties = kafkaProperties();
+
     try (Consumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties)) {
-      consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
+      consumer.subscribe(Collections.singleton(TEST_EVENTS_TOPIC));
       ConsumerRecords<String, String> records = consumer.poll(KAFKA_POLL_TIMEOUT);
       for (ConsumerRecord<String, String> record : records) {
         events.add(record.value());
