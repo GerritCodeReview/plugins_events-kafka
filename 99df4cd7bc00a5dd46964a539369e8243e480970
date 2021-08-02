@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df7c4337_7953f6c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-02T13:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cec60c02_04eb90a4",
+      "range": {
+        "startLine": 12,
+        "startChar": 22,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "99df4cd7bc00a5dd46964a539369e8243e480970",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4c5c1fa_951c8d6c",
@@ -47,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5af9cb4_05f2be29",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-02T13:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4c5c1fa_951c8d6c",
+      "range": {
+        "startLine": 58,
+        "startChar": 40,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "99df4cd7bc00a5dd46964a539369e8243e480970",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0776d902_565de86c",
@@ -60,6 +108,24 @@
       "writtenOn": "2021-08-02T11:06:26Z",
       "side": 1,
       "message": "nit: can be static final?",
+      "revId": "99df4cd7bc00a5dd46964a539369e8243e480970",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ba3911_289a82f1",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-02T13:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0776d902_565de86c",
       "revId": "99df4cd7bc00a5dd46964a539369e8243e480970",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
