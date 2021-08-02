@@ -29,11 +29,15 @@ import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.config.GerritConfig;
 import com.google.gerrit.extensions.api.changes.ReviewInput;
 import com.google.gerrit.extensions.common.ChangeMessageInfo;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.events.CommentAddedEvent;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGsonProvider;
+import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gson.Gson;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -49,11 +53,30 @@ import org.junit.Test;
 import org.testcontainers.containers.KafkaContainer;
 
 @NoHttpd
-@TestPlugin(name = "events-kafka", sysModule = "com.googlesource.gerrit.plugins.kafka.Module")
+@TestPlugin(
+    name = "events-kafka",
+    sysModule = "com.googlesource.gerrit.plugins.kafka.EventConsumerIT$TestModule")
 public class EventConsumerIT extends LightweightPluginDaemonTest {
+
   static final long KAFKA_POLL_TIMEOUT = 10000L;
+  static final String TEST_EVENTS_TOPIC = "test-events-topic";
 
   private KafkaContainer kafka;
+
+  public static class TestModule extends AbstractModule {
+    static private Module kafkaModule;
+
+    @Inject
+    TestModule(Module kafkaModule) {
+      this.kafkaModule = kafkaModule;
+    }
+
+    @Override
+    protected void configure() {
+      install(kafkaModule);
+      DynamicSet.bind(binder(), EventListener.class).to(TestKafkaEventListener.class);
+    }
+  }
 
   @Override
   public void setUpTestPlugin() throws Exception {
@@ -100,8 +123,9 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
 
     List<String> events = new ArrayList<>();
     KafkaProperties kafkaProperties = kafkaProperties();
+
     try (Consumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties)) {
-      consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
+      consumer.subscribe(Collections.singleton(TEST_EVENTS_TOPIC));
       ConsumerRecords<String, String> records = consumer.poll(KAFKA_POLL_TIMEOUT);
       for (ConsumerRecord<String, String> record : records) {
         events.add(record.value());
@@ -179,6 +203,20 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
         throw new InterruptedException();
       }
       MILLISECONDS.sleep(50);
+    }
+  }
+
+  public static class TestKafkaEventListener implements EventListener {
+    private final BrokerApi brokerApi;
+
+    @Inject
+    TestKafkaEventListener(BrokerApi brokerApi) {
+      this.brokerApi = brokerApi;
+    }
+
+    @Override
+    public void onEvent(Event event) {
+      brokerApi.send(TEST_EVENTS_TOPIC, event);
     }
   }
 }
