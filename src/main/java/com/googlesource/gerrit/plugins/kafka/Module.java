@@ -16,10 +16,12 @@ package com.googlesource.gerrit.plugins.kafka;
 
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.server.events.EventListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.api.KafkaApiModule;
+import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
@@ -35,6 +37,7 @@ class Module extends AbstractModule {
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), LifecycleListener.class).to(Manager.class);
+    DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
 
     bind(new TypeLiteral<KafkaProducer<String, String>>() {})
         .toProvider(KafkaProducerProvider.class);

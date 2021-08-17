@@ -51,6 +51,7 @@ public class KafkaSessionTest {
   @Before
   public void setUp() {
     when(producerProvider.get()).thenReturn(kafkaProducer);
+    when(properties.getTopic()).thenReturn(topic);
 
     recordMetadata = new RecordMetadata(new TopicPartition(topic, 0), 0L, 0L, 0L, 0L, 0, 0);
 
@@ -62,7 +63,7 @@ public class KafkaSessionTest {
   public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFuture(recordMetadata));
-    objectUnderTest.publish("anyTopic", message);
+    objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
   }
 
@@ -70,7 +71,7 @@ public class KafkaSessionTest {
   public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFailedFuture(new Exception()));
-    objectUnderTest.publish("anyTopic", message);
+    objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
   }
 
@@ -79,7 +80,7 @@ public class KafkaSessionTest {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
-      objectUnderTest.publish("anyTopic", message);
+      objectUnderTest.publish(message);
     } catch (RuntimeException e) {
       // expected
     }
@@ -91,7 +92,7 @@ public class KafkaSessionTest {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
 
-    objectUnderTest.publish("anyTopic", message);
+    objectUnderTest.publish(message);
 
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(recordMetadata, null);
@@ -104,7 +105,7 @@ public class KafkaSessionTest {
     when(kafkaProducer.send(any(), any()))
         .thenReturn(Futures.immediateFailedFuture(new Exception()));
 
-    objectUnderTest.publish("anyTopic", message);
+    objectUnderTest.publish(message);
 
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(null, new Exception());
@@ -117,7 +118,7 @@ public class KafkaSessionTest {
     when(kafkaProducer.send(any(), any()))
         .thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
-      objectUnderTest.publish("anyTopic", message);
+      objectUnderTest.publish(message);
     } catch (RuntimeException e) {
       // expected
     }
