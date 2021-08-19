@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c16d9c4_a6c2ae0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-19T15:20:46Z",
+      "side": 1,
+      "message": "@Luca, @Marcin: Once we agree on the right approach for kafka, we can then also fix it for kinesis and gcloud. ",
+      "revId": "58fab16d7de6e9428696abee85ddf6202cfd7966",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
