@@ -6,11 +6,12 @@
       "updated": "2021-08-19T15:24:33Z"
     },
     "gerritforge:plugins-events-kafka-code-style": {
-      "state": "RUNNING",
+      "state": "SUCCESSFUL",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-events-kafka-verifier/job/84%252F315584%252F1/1/console",
       "started": "2021-08-19T15:31:49Z",
+      "finished": "2021-08-19T15:32:00Z",
       "created": "2021-08-19T15:24:32Z",
-      "updated": "2021-08-19T15:29:17Z"
+      "updated": "2021-08-19T15:29:28Z"
     }
   }
 }
