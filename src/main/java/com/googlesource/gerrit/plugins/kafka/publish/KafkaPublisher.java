@@ -18,7 +18,6 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
-import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
@@ -26,7 +25,7 @@ import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
 
 @Singleton
-public class KafkaPublisher implements EventListener {
+public class KafkaPublisher {
 
   private final KafkaSession session;
   private final Gson gson;
@@ -45,13 +44,6 @@ public class KafkaPublisher implements EventListener {
 
   public void stop() {
     session.disconnect();
-  }
-
-  @Override
-  public void onEvent(Event event) {
-    if (session.isOpen()) {
-      session.publish(gson.toJson(event));
-    }
   }
 
   public ListenableFuture<Boolean> publish(String topic, Event event) {

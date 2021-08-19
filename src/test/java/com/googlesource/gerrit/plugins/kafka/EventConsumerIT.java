@@ -86,6 +86,7 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
   @GerritConfig(
       name = "plugin.events-kafka.valueDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.sendStreamEvents", value = "true")
   public void consumeEvents() throws Exception {
     PushOneCommit.Result r = createChange();
 
@@ -125,6 +126,36 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
 
     CommentAddedEvent commentAddedEvent = (CommentAddedEvent) event;
     assertThat(commentAddedEvent.comment).isEqualTo(expectedMessage);
+  }
+
+  @Test
+  @UseLocalDisk
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
+  @GerritConfig(
+      name = "plugin.events-kafka.keyDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(
+      name = "plugin.events-kafka.valueDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.sendStreamEvents", value = "false")
+  public void shouldNotSendStreamEventsWhenDisabled() throws Exception {
+    PushOneCommit.Result r = createChange();
+
+    ReviewInput in = ReviewInput.recommend();
+    in.message = "LGTM";
+    gApi.changes().id(r.getChangeId()).revision("current").review(in);
+
+    List<String> events = new ArrayList<>();
+    KafkaProperties kafkaProperties = kafkaProperties();
+    try (Consumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties)) {
+      consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
+      ConsumerRecords<String, String> records = consumer.poll(KAFKA_POLL_TIMEOUT);
+      for (ConsumerRecord<String, String> record : records) {
+        events.add(record.value());
+      }
+    }
+
+    assertThat(events).hasSize(0);
   }
 
   @Test

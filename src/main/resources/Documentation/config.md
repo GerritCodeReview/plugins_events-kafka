@@ -48,3 +48,12 @@ Additional properties
 :	Send messages to Kafka asynchronously, detaching the calling process from the
 	acknowledge of the message being sent.
 	Default: true
+
+`plugin.@PLUGIN@.topic`
+:   Send all gerrit stream events to this topic (when `sendStreamEvents` is set
+to `true`).
+	Default: gerrit
+
+`plugin.@PLUGIN@.sendStreamEvents`
+:   Whether to send stream events to the `topic` topic.
+	Default: false

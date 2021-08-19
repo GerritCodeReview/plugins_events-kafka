@@ -15,16 +15,20 @@
 package com.googlesource.gerrit.plugins.kafka.api;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.StreamEventPublisher;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.google.common.collect.Sets;
 import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
@@ -65,5 +69,16 @@ public class KafkaApiModule extends LifecycleModule {
     bind(new TypeLiteral<Set<TopicSubscriber>>() {}).toInstance(activeConsumers);
 
     DynamicItem.bind(binder(), BrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);
+
+    if (configuration.isSendStreamEvents()) {
+      DynamicItem.itemOf(binder(), BrokerApi.class);
+      bind(new TypeLiteral<String>() {})
+          .annotatedWith(Names.named(StreamEventPublisher.STREAM_EVENTS_TOPIC))
+          .toInstance(configuration.getTopic());
+
+      DynamicSet.bind(binder(), EventListener.class)
+          .to(StreamEventPublisher.class)
+          .in(Scopes.SINGLETON);
+    }
   }
 }
