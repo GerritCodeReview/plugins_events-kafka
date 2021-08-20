@@ -21,6 +21,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.api.KafkaApiModule;
+import com.googlesource.gerrit.plugins.kafka.config.KafkaPublisherProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -28,16 +29,21 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 class Module extends AbstractModule {
 
   private final KafkaApiModule kafkaBrokerModule;
+  private final KafkaPublisherProperties configuration;
 
   @Inject
-  public Module(KafkaApiModule kafkaBrokerModule) {
+  public Module(KafkaApiModule kafkaBrokerModule, KafkaPublisherProperties configuration) {
     this.kafkaBrokerModule = kafkaBrokerModule;
+    this.configuration = configuration;
   }
 
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), LifecycleListener.class).to(Manager.class);
-    DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
+
+    if (configuration.isSendStreamEvents()) {
+      DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
+    }
 
     bind(new TypeLiteral<KafkaProducer<String, String>>() {})
         .toProvider(KafkaProducerProvider.class);

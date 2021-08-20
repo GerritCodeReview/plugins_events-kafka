@@ -35,6 +35,7 @@ public class KafkaProperties extends java.util.Properties {
 
   private final String topic;
   private final boolean sendAsync;
+  private final boolean sendStreamEvents;
 
   @Inject
   public KafkaProperties(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -43,6 +44,7 @@ public class KafkaProperties extends java.util.Properties {
     PluginConfig fromGerritConfig = configFactory.getFromGerritConfig(pluginName);
     topic = fromGerritConfig.getString("topic", "gerrit");
     sendAsync = fromGerritConfig.getBoolean("sendAsync", true);
+    sendStreamEvents = fromGerritConfig.getBoolean("sendStreamEvents", false);
     applyConfig(fromGerritConfig);
     initDockerizedKafkaServer();
   }
@@ -53,6 +55,7 @@ public class KafkaProperties extends java.util.Properties {
     setDefaults();
     topic = "gerrit";
     this.sendAsync = sendAsync;
+    this.sendStreamEvents = true;
     initDockerizedKafkaServer();
   }
 
@@ -98,5 +101,9 @@ public class KafkaProperties extends java.util.Properties {
 
   public String getBootstrapServers() {
     return getProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG);
+  }
+
+  public boolean isSendStreamEvents() {
+    return sendStreamEvents;
   }
 }

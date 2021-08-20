@@ -86,27 +86,9 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
   @GerritConfig(
       name = "plugin.events-kafka.valueDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.sendStreamEvents", value = "true")
   public void consumeEvents() throws Exception {
-    PushOneCommit.Result r = createChange();
-
-    ReviewInput in = ReviewInput.recommend();
-    in.message = "LGTM";
-    gApi.changes().id(r.getChangeId()).revision("current").review(in);
-    List<ChangeMessageInfo> messages =
-        new ArrayList<>(gApi.changes().id(r.getChangeId()).get().messages);
-    assertThat(messages).hasSize(2);
-    String expectedMessage = "Patch Set 1: Code-Review+1\n\nLGTM";
-    assertThat(messages.get(1).message).isEqualTo(expectedMessage);
-
-    List<String> events = new ArrayList<>();
-    KafkaProperties kafkaProperties = kafkaProperties();
-    try (Consumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties)) {
-      consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
-      ConsumerRecords<String, String> records = consumer.poll(KAFKA_POLL_TIMEOUT);
-      for (ConsumerRecord<String, String> record : records) {
-        events.add(record.value());
-      }
-    }
+    List<String> events = reviewNewChangeAndGetStreamEvents();
 
     // There are 6 events are received in the following order:
     // 1. refUpdate:        ref: refs/sequences/changes
@@ -124,7 +106,23 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
     assertThat(event).isInstanceOf(CommentAddedEvent.class);
 
     CommentAddedEvent commentAddedEvent = (CommentAddedEvent) event;
-    assertThat(commentAddedEvent.comment).isEqualTo(expectedMessage);
+    assertThat(commentAddedEvent.comment).isEqualTo("Patch Set 1: Code-Review+1\n\nLGTM");
+  }
+
+  @Test
+  @UseLocalDisk
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
+  @GerritConfig(
+      name = "plugin.events-kafka.keyDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(
+      name = "plugin.events-kafka.valueDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.sendStreamEvents", value = "false")
+  public void shouldNotSendStreamEventsWhenDisabled() throws Exception {
+    List<String> events = reviewNewChangeAndGetStreamEvents();
+
+    assertThat(events).isEmpty();
   }
 
   @Test
@@ -167,6 +165,30 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
 
   private KafkaProperties kafkaProperties() {
     return plugin.getSysInjector().getInstance(KafkaProperties.class);
+  }
+
+  private List<String> reviewNewChangeAndGetStreamEvents() throws Exception {
+    PushOneCommit.Result r = createChange();
+
+    ReviewInput in = ReviewInput.recommend();
+    in.message = "LGTM";
+    gApi.changes().id(r.getChangeId()).revision("current").review(in);
+    List<ChangeMessageInfo> messages =
+        new ArrayList<>(gApi.changes().id(r.getChangeId()).get().messages);
+    assertThat(messages).hasSize(2);
+    String expectedMessage = "Patch Set 1: Code-Review+1\n\nLGTM";
+    assertThat(messages.get(1).message).isEqualTo(expectedMessage);
+
+    List<String> events = new ArrayList<>();
+    KafkaProperties kafkaProperties = kafkaProperties();
+    try (Consumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties)) {
+      consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
+      ConsumerRecords<String, String> records = consumer.poll(KAFKA_POLL_TIMEOUT);
+      for (ConsumerRecord<String, String> record : records) {
+        events.add(record.value());
+      }
+    }
+    return events;
   }
 
   // XXX: Remove this method when merging into stable-3.3, since waitUntil is
