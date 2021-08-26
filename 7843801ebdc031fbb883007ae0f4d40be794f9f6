@@ -56,6 +56,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59b30a4e_88e8bff7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-08-26T18:06:23Z",
+      "side": 1,
+      "message": "nit: How about having simple boolean here e.g. `isSendStreamEvents`? you can safely ignore it in case you plan to use more properties from the config ;)",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "7843801ebdc031fbb883007ae0f4d40be794f9f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "473b97cf_b9b277f4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
         "patchSetId": 2
