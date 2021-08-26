@@ -23,8 +23,11 @@ import com.google.inject.Singleton;
 @Singleton
 public class KafkaSubscriberProperties extends KafkaProperties {
   private static final long serialVersionUID = 1L;
-  private static final String DEFAULT_POLLING_INTERVAL_MS = "1000";
-  private static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
+  public static final String DEFAULT_POLLING_INTERVAL_MS = "1000";
+  public static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
+
+  public static final String GROUP_ID_FIELD = "groupId";
+  public static final String POLLING_INTERVAL_FIELD = "pollingIntervalMs";
 
   private final Integer pollingInterval;
   private final String groupId;
