@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e37b7b_aaddf82c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-26T16:43:05Z",
+      "side": 1,
+      "message": "\u003e \u003e We should also detect the migration from v3.4 in the init step and automatically set this flag.\n\u003e \n\u003e I am not sure I follow the rationale for it: Mightn\u0027t setting this flag automatically lead to errors?\n\u003e \n\u003e For example, if we were to automatically set this flag in a multi-site environment, then gerrit events would end up being streamed twice, since multi-site is also streaming events to the topic.\n\u003e \n\u003e Also flipping this flag without ensuring the topic has been created beforehand, would potentially lead to errors anyway, so I think it can only be a decision taken by the admin, rather than automatically.\n\u003e \n\u003e WDYT?\n\n@Luca any feedback on this?\n\n\u003e \n\u003e \u003e \n\u003e \u003e Also, when it isn\u0027t a migration but a new setup, we should ask in the init step if stream events should be enabled or not.\n\u003e \n\u003e Yep, I think this makes sense.\n\u003e possibly we\u0027ll do it in a follow up section and leave this change only for the conditional streaming, WDYT?\n\nThis is now done as a follow up change in this chain [1]\n\n\n[1]https://gerrit-review.googlesource.com/c/plugins/events-kafka/+/316522",
+      "parentUuid": "8382858c_21c37d04",
+      "revId": "7843801ebdc031fbb883007ae0f4d40be794f9f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "473b97cf_b9b277f4",
