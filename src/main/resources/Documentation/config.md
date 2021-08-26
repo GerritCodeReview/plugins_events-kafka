@@ -57,3 +57,19 @@ Additional properties
 `plugin.@PLUGIN@.sendStreamEvents`
 :   Whether to send stream events to the `topic` topic.
     Default: false
+
+Gerrit init integration
+-----------------------
+
+The @PLUGIN@ plugin provides an init step that helps to set up the configuration.
+
+```shell
+*** events-kafka plugin
+***
+
+Should send stream events?     [y/N]? y
+stream events topic            [gerrit]: gerrit_stream_events
+Should send messages asynchronously? [Y/n]? y
+Polling interval (ms)          [1000]: 3000
+Consumer group                 [my_group_id]: my_group_id
+```

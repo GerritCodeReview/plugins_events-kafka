@@ -30,6 +30,13 @@ import org.apache.kafka.common.serialization.StringSerializer;
 @Singleton
 public class KafkaProperties extends java.util.Properties {
   private static final long serialVersionUID = 0L;
+  public static final String SEND_STREAM_EVENTS_CONFIG_FIELD = "sendStreamEvents";
+  public static final String STREAM_EVENTS_TOPIC_FIELD = "topic";
+  public static final String SEND_ASYNC_FIELD = "sendAsync";
+
+  public static final Boolean SEND_STREAM_EVENTS_DEFAULT = false;
+  public static final String STREAM_EVENTS_TOPIC_DEFAULT = "gerrit";
+  public static final Boolean SEND_ASYNC_DEFAULT = true;
 
   public static final String KAFKA_STRING_SERIALIZER = StringSerializer.class.getName();
 
@@ -42,9 +49,10 @@ public class KafkaProperties extends java.util.Properties {
     super();
     setDefaults();
     PluginConfig fromGerritConfig = configFactory.getFromGerritConfig(pluginName);
-    topic = fromGerritConfig.getString("topic", "gerrit");
-    sendAsync = fromGerritConfig.getBoolean("sendAsync", true);
-    sendStreamEvents = fromGerritConfig.getBoolean("sendStreamEvents", false);
+    topic = fromGerritConfig.getString(STREAM_EVENTS_TOPIC_FIELD, STREAM_EVENTS_TOPIC_DEFAULT);
+    sendAsync = fromGerritConfig.getBoolean(SEND_ASYNC_FIELD, SEND_ASYNC_DEFAULT);
+    this.sendStreamEvents =
+        fromGerritConfig.getBoolean(SEND_STREAM_EVENTS_CONFIG_FIELD, SEND_STREAM_EVENTS_DEFAULT);
     applyConfig(fromGerritConfig);
     initDockerizedKafkaServer();
   }
