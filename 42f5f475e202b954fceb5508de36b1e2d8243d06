@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "gerritforge:plugins-events-kafka-code-style": {
+      "state": "SCHEDULED",
+      "created": "2021-08-27T08:36:28Z",
+      "updated": "2021-08-27T08:36:28Z"
+    }
+  }
+}
