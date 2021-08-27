@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0845baa4_534022f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:51:19Z",
+      "side": 1,
+      "message": "shall we explain why we are introducing a breaking change here and not just default to \"true\"?",
+      "revId": "7843801ebdc031fbb883007ae0f4d40be794f9f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c7ddfa59_09a50e66",
