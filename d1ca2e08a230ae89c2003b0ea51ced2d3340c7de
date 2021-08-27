@@ -22,6 +22,30 @@
       },
       "revId": "d1ca2e08a230ae89c2003b0ea51ced2d3340c7de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f83dbf61_d2a0e557",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-27T18:23:43Z",
+      "side": 1,
+      "message": "I just thought it represents the name of the field rather than the field itself:\n\nIf it were called SEND_STREAM_EVENTS only, for example, I could mistaken to contain the value of the *actual* value.\n\nCalling it SEND_STREAM_EVENTS_FIELD makes it obvious that is a field name rather than the value itself.",
+      "parentUuid": "c1719b5e_3dc27f80",
+      "range": {
+        "startLine": 33,
+        "startChar": 29,
+        "endLine": 33,
+        "endChar": 53
+      },
+      "revId": "d1ca2e08a230ae89c2003b0ea51ced2d3340c7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
