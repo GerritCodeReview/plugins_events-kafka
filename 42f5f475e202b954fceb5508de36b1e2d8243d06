@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3362a4db_038b2439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-27T16:21:51Z",
+      "side": 1,
+      "message": "@Marcin after the discussion we had are you happy to remove your -1?",
+      "revId": "42f5f475e202b954fceb5508de36b1e2d8243d06",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
