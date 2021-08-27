@@ -44,6 +44,14 @@ Additional properties
 :	Polling interval in msec for receiving messages from Kafka topic subscription.
 	Default: 1000
 
+`plugin.@PLUGIN@.numberOfSubscribers`
+:   The number of consumers that are expected to be executed. This number will
+    be used to allocate a thread pool of a suitable size.
+    Default to `6`. This is to allow enough resources to consume all relevant
+    gerrit topics in a multi-site deployment: `batchIndexEventTopic`
+    `streamEventTopic`, `gerritTopic`, `projectListEventTopic`,
+    `cacheEventTopic`, `indexEventTopic`
+
 `plugin.@PLUGIN@.sendAsync`
 :	Send messages to Kafka asynchronously, detaching the calling process from the
 	acknowledge of the message being sent.
