@@ -52,6 +52,23 @@
       "parentUuid": "f9822ced_c395ffbb",
       "revId": "4a5e286943d99863461a85f8f1648075967c460a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef9f7445_13ccf811",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-08-27T16:21:21Z",
+      "side": 1,
+      "message": "@marcin after the discussion we had are you happy to remove your -1?",
+      "revId": "4a5e286943d99863461a85f8f1648075967c460a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
