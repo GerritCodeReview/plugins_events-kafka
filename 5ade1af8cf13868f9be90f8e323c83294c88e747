@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f73f0874_8e3c72c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/InitConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:30:40Z",
+      "side": 1,
+      "message": "Stream",
+      "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb48893_78d01dde",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:30:40Z",
+      "side": 1,
+      "message": "nit: SEND_STREAM_EVENTS_FIELD for consistency with SEND_STREAM_EVENTS_CONFIG_FIELD and SEND_ASYNC_FIELD",
+      "range": {
+        "startLine": 33,
+        "startChar": 29,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcf68cc7_0b44d0da",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
         "patchSetId": 1
@@ -14,6 +54,52 @@
       "writtenOn": "2021-08-26T18:13:51Z",
       "side": 1,
       "message": "nit: `this.` qualifier is not needed here, we typically use it to distinguish fields from method parameters...",
+      "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "928066e3_b30d5c16",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaSubscriberProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:30:40Z",
+      "side": 1,
+      "message": "is this supposed to be \"group.id\"?",
+      "range": {
+        "startLine": 29,
+        "startChar": 47,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7871e6_6b58eda7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaSubscriberProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:30:40Z",
+      "side": 1,
+      "message": "is this supposed to be \"polling.interval.ms\"? also, should it be used at L42?",
+      "range": {
+        "startLine": 30,
+        "startChar": 55,
+        "endLine": 30,
+        "endChar": 72
+      },
       "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -36,6 +122,29 @@
         "startChar": 0,
         "endLine": 31,
         "endChar": 0
+      },
+      "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "272bf4f1_eb646004",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaSubscriberProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T06:30:40Z",
+      "side": 1,
+      "message": "should we add this as well to the init logic?",
+      "range": {
+        "startLine": 45,
+        "startChar": 38,
+        "endLine": 45,
+        "endChar": 59
       },
       "revId": "5ade1af8cf13868f9be90f8e323c83294c88e747",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
