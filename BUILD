@@ -11,6 +11,7 @@ gerrit_plugin(
     srcs = glob(["src/main/java/**/*.java"]),
     manifest_entries = [
         "Gerrit-PluginName: events-kafka",
+        "Gerrit-InitStep: com.googlesource.gerrit.plugins.kafka.InitConfig",
         "Gerrit-Module: com.googlesource.gerrit.plugins.kafka.Module",
         "Implementation-Title: Gerrit Apache Kafka plugin",
         "Implementation-URL: https://gerrit.googlesource.com/plugins/events-kafka",
