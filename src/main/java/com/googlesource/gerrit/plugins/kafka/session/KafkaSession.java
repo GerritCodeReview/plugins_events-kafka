@@ -57,7 +57,13 @@ public final class KafkaSession {
       return;
     }
 
-    LOGGER.info("Connect to {}...", properties.getProperty("bootstrap.servers"));
+    String bootstrapServers = properties.getProperty("bootstrap.servers");
+    if (bootstrapServers == null) {
+      LOGGER.warn("No Kafka bootstrap.servers property defined: session not started.");
+      return;
+    }
+
+    LOGGER.info("Connect to {}...", bootstrapServers);
     /* Need to make sure that the thread of the running connection uses
      * the correct class loader otherwize you can endup with hard to debug
      * ClassNotFoundExceptions
