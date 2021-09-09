@@ -16,7 +16,7 @@ published by Gerrit.
 Events can be anything, from the traditional stream events
 to the Gerrit metrics.
 
-This plugin requires Gerrit 2.13 or laster.
+This plugin requires Gerrit 2.13 or later.
 
 Environments
 ---------------------
