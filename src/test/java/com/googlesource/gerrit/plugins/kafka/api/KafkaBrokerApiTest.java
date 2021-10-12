@@ -53,9 +53,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.utility.DockerImageName;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KafkaBrokerApiTest {
+  private static final String KAFKA_IMAGE_NAME = "confluentinc/cp-kafka";
+  private static final String KAFKA_IMAGE_TAG = "5.4.3";
+
   private static KafkaContainer kafka;
 
   private static final int TEST_NUM_SUBSCRIBERS = 1;
@@ -137,7 +141,7 @@ public class KafkaBrokerApiTest {
 
   @BeforeClass
   public static void beforeClass() throws Exception {
-    kafka = new KafkaContainer();
+    kafka = new KafkaContainer(DockerImageName.parse(KAFKA_IMAGE_NAME).withTag(KAFKA_IMAGE_TAG));
     kafka.start();
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }
