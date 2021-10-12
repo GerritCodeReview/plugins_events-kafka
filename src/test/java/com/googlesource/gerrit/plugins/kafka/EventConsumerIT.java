@@ -60,7 +60,7 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
   @Override
   public void setUpTestPlugin() throws Exception {
     try {
-      kafka = new KafkaContainer();
+      kafka = KafkaContainerProvider.get();
       kafka.start();
 
       System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());

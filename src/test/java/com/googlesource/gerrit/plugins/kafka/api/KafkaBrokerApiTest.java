@@ -33,6 +33,7 @@ import com.google.inject.Injector;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.googlesource.gerrit.plugins.kafka.KafkaContainerProvider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
@@ -56,6 +57,7 @@ import org.testcontainers.containers.KafkaContainer;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KafkaBrokerApiTest {
+
   private static KafkaContainer kafka;
 
   private static final int TEST_NUM_SUBSCRIBERS = 1;
@@ -137,7 +139,7 @@ public class KafkaBrokerApiTest {
 
   @BeforeClass
   public static void beforeClass() throws Exception {
-    kafka = new KafkaContainer();
+    kafka = KafkaContainerProvider.get();
     kafka.start();
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }
