@@ -34,6 +34,7 @@ import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.KafkaContainerProvider;
+import com.googlesource.gerrit.plugins.kafka.KafkaRestContainer;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
@@ -59,6 +60,7 @@ import org.testcontainers.containers.KafkaContainer;
 public class KafkaBrokerApiTest {
 
   private static KafkaContainer kafka;
+  private static KafkaRestContainer kafkaRest;
 
   private static final int TEST_NUM_SUBSCRIBERS = 1;
   private static final String TEST_GROUP_ID = KafkaBrokerApiTest.class.getName();
@@ -141,6 +143,8 @@ public class KafkaBrokerApiTest {
   public static void beforeClass() throws Exception {
     kafka = KafkaContainerProvider.get();
     kafka.start();
+    kafkaRest = new KafkaRestContainer(kafka);
+    kafkaRest.start();
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }
 
