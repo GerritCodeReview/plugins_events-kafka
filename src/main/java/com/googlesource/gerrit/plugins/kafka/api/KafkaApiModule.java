@@ -28,6 +28,8 @@ import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
+import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventNativeSubscriber;
+import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -54,6 +56,7 @@ public class KafkaApiModule extends LifecycleModule {
 
   @Override
   protected void configure() {
+    bind(KafkaEventSubscriber.class).to(KafkaEventNativeSubscriber.class);
 
     bind(ExecutorService.class)
         .annotatedWith(ConsumerExecutor.class)
