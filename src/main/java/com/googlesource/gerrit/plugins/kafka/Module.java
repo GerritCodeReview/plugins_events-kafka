@@ -26,7 +26,7 @@ import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.api.KafkaApiModule;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 
 class Module extends AbstractModule {
 
@@ -43,8 +43,7 @@ class Module extends AbstractModule {
     DynamicSet.bind(binder(), LifecycleListener.class).to(Manager.class);
     DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
 
-    bind(new TypeLiteral<KafkaProducer<String, String>>() {})
-        .toProvider(KafkaProducerProvider.class);
+    bind(new TypeLiteral<Producer<String, String>>() {}).toProvider(KafkaProducerProvider.class);
 
     install(kafkaBrokerModule);
   }
