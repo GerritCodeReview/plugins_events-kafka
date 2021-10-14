@@ -45,7 +45,7 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -102,8 +102,7 @@ public class KafkaBrokerApiTest {
           new KafkaSubscriberProperties(
               TEST_POLLING_INTERVAL_MSEC, TEST_GROUP_ID, TEST_NUM_SUBSCRIBERS);
       bind(KafkaSubscriberProperties.class).toInstance(kafkaSubscriberProperties);
-      bind(new TypeLiteral<KafkaProducer<String, String>>() {})
-          .toProvider(KafkaProducerProvider.class);
+      bind(new TypeLiteral<Producer<String, String>>() {}).toProvider(KafkaProducerProvider.class);
 
       bind(WorkQueue.class).to(TestWorkQueue.class);
     }
