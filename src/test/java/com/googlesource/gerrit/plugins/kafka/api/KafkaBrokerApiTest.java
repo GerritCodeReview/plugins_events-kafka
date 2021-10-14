@@ -37,6 +37,7 @@ import com.googlesource.gerrit.plugins.kafka.KafkaContainerProvider;
 import com.googlesource.gerrit.plugins.kafka.KafkaRestContainer;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
+import com.googlesource.gerrit.plugins.kafka.session.KafkaNativeSession;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class KafkaBrokerApiTest {
           .toInstance(mock(OneOffRequestContext.class, Answers.RETURNS_DEEP_STUBS));
 
       bind(KafkaProperties.class).toInstance(kafkaProperties);
-      bind(KafkaSession.class).in(Scopes.SINGLETON);
+      bind(KafkaNativeSession.class).in(Scopes.SINGLETON);
       KafkaSubscriberProperties kafkaSubscriberProperties =
           new KafkaSubscriberProperties(
               TEST_POLLING_INTERVAL_MSEC, TEST_GROUP_ID, TEST_NUM_SUBSCRIBERS);
@@ -163,7 +164,7 @@ public class KafkaBrokerApiTest {
     injector =
         baseInjector.createChildInjector(
             new KafkaApiModule(testWorkQueue, kafkaSubscriberProperties));
-    session = injector.getInstance(KafkaSession.class);
+    session = injector.getInstance(KafkaNativeSession.class);
     gson = injector.getInstance(Gson.class);
 
     session.connect();
