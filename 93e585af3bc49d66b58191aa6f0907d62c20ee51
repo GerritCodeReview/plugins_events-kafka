@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b8aba2_27631bab",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-14T21:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9bde18d_e04b84e8",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "93e585af3bc49d66b58191aa6f0907d62c20ee51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deecf4cc_078d98d4",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-14T21:18:04Z",
       "side": 1,
       "message": "Public interfaces should have JavaDoc",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "93e585af3bc49d66b58191aa6f0907d62c20ee51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6af2a3b4_898f7c82",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-14T21:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deecf4cc_078d98d4",
       "range": {
         "startLine": 19,
         "startChar": 0,
