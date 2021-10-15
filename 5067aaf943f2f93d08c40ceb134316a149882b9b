@@ -95,6 +95,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "311d9b5d_1d35d306",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T12:05:14Z",
+      "side": 1,
+      "message": "since apparently the following implementation is a good default:\n\n      public void publish(String messageBody) {\n         publish(properties.getTopic(), messageBody);\n      }\n      \nWhy not adding it as default implementation here?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beb54a87_b6f5dc0a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 2
