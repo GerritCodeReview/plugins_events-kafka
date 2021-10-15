@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "186075c1_df07033f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaRestSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T12:09:53Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "c244c48cc04c9bfd5e476db06804a89a1d4eb59b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a13dfa06_e27c1cc9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaRestSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T12:09:53Z",
+      "side": 1,
+      "message": "nit: lowercase for consistency",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "c244c48cc04c9bfd5e476db06804a89a1d4eb59b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3520ce3b_aeda74e8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaRestSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T12:09:53Z",
+      "side": 1,
+      "message": "why not let publishAsync returning a boolean as in the other implementations?",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 25
+      },
+      "revId": "c244c48cc04c9bfd5e476db06804a89a1d4eb59b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5230b125_2c16bf70",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaRestSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T12:09:53Z",
+      "side": 1,
+      "message": "Seems like this is pretty much repeated in the KafkaSession implementation. Why not adding as a default in the interface?",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "c244c48cc04c9bfd5e476db06804a89a1d4eb59b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
