@@ -1,0 +1,273 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68aa31d0_3e182a19",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e985ae_27d31182",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "nit: lowercase for consistency with the other classes.",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 36
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a7a95f_dea1af5e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 76,
+        "startChar": 39,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b974e53a_65c797c4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "Long.toString(System.nanoTime())",
+      "range": {
+        "startLine": 124,
+        "startChar": 52,
+        "endLine": 124,
+        "endChar": 74
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb54a87_b6f5dc0a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b90376_cf9f99b2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "why alias?",
+      "range": {
+        "startLine": 82,
+        "startChar": 39,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b58e597_0dae0740",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "Is this meant to be the same variable?",
+      "range": {
+        "startLine": 82,
+        "startChar": 79,
+        "endLine": 82,
+        "endChar": 91
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bcb2be_3dd5ee02",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "did\u0027t we check it at L155? Where can it be modified?",
+      "range": {
+        "startLine": 158,
+        "startChar": 51,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac69efe8_b8c64fc7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "Would the following work as well?\n\n    while (consumer.poll(Duration.ofMillis(configuration.getPollingInterval()))\n           \u0026\u0026 !closed.get()) {\n              ... logging ...\n    }\n      \nNot sure if it is clearer or not.",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4bcad7_e9e84597",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "If I understand well, at L158 we poll until we get something, and once we get it, we reset the offset to the beginning?\n\nIf so, can we just blindly call consumer.seekToBeginning() and the poll at L166 will handle the presence/assence of records?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68db63cf_27cd324f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "Do we have any metric to increase here ?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a34c60d_c5a8985d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "do we have a metric for success to increment here?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7a9163c_9f1a9be6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-15T11:35:47Z",
+      "side": 1,
+      "message": "What about an exponential backoff instead?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
