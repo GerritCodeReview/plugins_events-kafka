@@ -110,6 +110,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a4f878_ebdb94cd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "In the last PS, I don\u0027t change KafkaSession at all anymore and it remains an implementation.",
+      "parentUuid": "311d9b5d_1d35d306",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "beb54a87_b6f5dc0a",
@@ -123,6 +141,30 @@
       "writtenOn": "2021-10-15T11:35:47Z",
       "side": 1,
       "message": "2021",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a30c959_eeedca2a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is: that\u0027s why I didn\u0027t change its date.",
+      "parentUuid": "beb54a87_b6f5dc0a",
       "range": {
         "startLine": 1,
         "startChar": 17,
@@ -181,6 +223,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "665f3f33_2e02d56d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "3b58e597_0dae0740",
+      "range": {
+        "startLine": 82,
+        "startChar": 79,
+        "endLine": 82,
+        "endChar": 91
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318ccc93_7d73c925",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "72b90376_cf9f99b2",
+      "range": {
+        "startLine": 82,
+        "startChar": 39,
+        "endLine": 82,
+        "endChar": 50
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90bcb2be_3dd5ee02",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 2
@@ -221,6 +311,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbe7ba37_0d1661b4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "ac69efe8_b8c64fc7",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a112ee_78029bf4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "90bcb2be_3dd5ee02",
+      "range": {
+        "startLine": 158,
+        "startChar": 51,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e4bcad7_e9e84597",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 2
@@ -232,6 +364,24 @@
       "writtenOn": "2021-10-15T11:35:47Z",
       "side": 1,
       "message": "If I understand well, at L158 we poll until we get something, and once we get it, we reset the offset to the beginning?\n\nIf so, can we just blindly call consumer.seekToBeginning() and the poll at L166 will handle the presence/assence of records?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "decda9a5_b572c2b5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "2e4bcad7_e9e84597",
       "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -255,6 +405,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e73a62a7_02512579",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "68db63cf_27cd324f",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a34c60d_c5a8985d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 2
@@ -272,6 +440,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55fa5900_d1b96a5b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "5a34c60d_c5a8985d",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7a9163c_9f1a9be6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 2
@@ -283,6 +469,24 @@
       "writtenOn": "2021-10-15T11:35:47Z",
       "side": 1,
       "message": "What about an exponential backoff instead?",
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da4b3b4_3574a6c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:09:29Z",
+      "side": 1,
+      "message": "This file was just moved as-is, I would prefer to keep the implementation unchanged for avoiding mixing things up.",
+      "parentUuid": "f7a9163c_9f1a9be6",
       "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
