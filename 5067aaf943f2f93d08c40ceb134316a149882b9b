@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e14ebb4_28edcd73",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:10:27Z",
+      "side": 1,
+      "message": "This file has been removed.",
+      "parentUuid": "68aa31d0_3e182a19",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6e985ae_27d31182",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-15T11:35:47Z",
       "side": 1,
       "message": "nit: lowercase for consistency with the other classes.",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 36
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84dc2e30_6e16ff0b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:10:27Z",
+      "side": 1,
+      "message": "This file has been removed.",
+      "parentUuid": "b6e985ae_27d31182",
       "range": {
         "startLine": 31,
         "startChar": 30,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4141b852_fe2fcd33",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:10:27Z",
+      "side": 1,
+      "message": "This file has been removed.",
+      "parentUuid": "56a7a95f_dea1af5e",
+      "range": {
+        "startLine": 76,
+        "startChar": 39,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b974e53a_65c797c4",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-10-15T11:35:47Z",
       "side": 1,
       "message": "Long.toString(System.nanoTime())",
+      "range": {
+        "startLine": 124,
+        "startChar": 52,
+        "endLine": 124,
+        "endChar": 74
+      },
+      "revId": "5067aaf943f2f93d08c40ceb134316a149882b9b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "508bebdd_64f595d1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/session/KafkaNativeSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-18T21:10:27Z",
+      "side": 1,
+      "message": "This file has been removed.",
+      "parentUuid": "b974e53a_65c797c4",
       "range": {
         "startLine": 124,
         "startChar": 52,
