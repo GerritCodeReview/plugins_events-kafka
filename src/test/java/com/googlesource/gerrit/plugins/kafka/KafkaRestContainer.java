@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.kafka;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.junit.Ignore;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
@@ -24,7 +26,7 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
 
   private static final String KAFKA_REST_PROXY_HOSTNAME = "restproxy";
 
-  public static final int KAFKA_REST_PORT = 8086;
+  public static final int KAFKA_REST_PORT = 8082;
 
   public KafkaRestContainer(KafkaContainer kafkaContainer) {
     super(restProxyImageFor(kafkaContainer));
@@ -37,7 +39,7 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
             "PLAINTEXT://%s:%s",
             kafkaContainer.getNetworkAliases().get(0), KafkaContainerProvider.KAFKA_PORT_INTERNAL);
     withEnv("KAFKA_REST_BOOTSTRAP_SERVERS", bootstrapServers);
-    withEnv("KAFKA_REST_LISTENERS", "https://0.0.0.0:" + KAFKA_REST_PORT);
+    withEnv("KAFKA_REST_LISTENERS", "http://0.0.0.0:" + KAFKA_REST_PORT);
     withEnv("KAFKA_REST_CLIENT_SECURITY_PROTOCOL", "PLAINTEXT");
     withEnv("KAFKA_REST_HOST_NAME", KAFKA_REST_PROXY_HOSTNAME);
     withCreateContainerCmdModifier(cmd -> cmd.withHostName(KAFKA_REST_PROXY_HOSTNAME));
@@ -46,5 +48,14 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
   private static DockerImageName restProxyImageFor(KafkaContainer kafkaContainer) {
     String[] kafkaImageNameParts = kafkaContainer.getDockerImageName().split(":");
     return DockerImageName.parse(kafkaImageNameParts[0] + "-rest").withTag(kafkaImageNameParts[1]);
+  }
+
+  public URI getApiURI() {
+    try {
+      return new URI(
+          String.format("http://%s:%d", getContainerIpAddress(), getMappedPort(KAFKA_REST_PORT)));
+    } catch (URISyntaxException e) {
+      throw new IllegalArgumentException("Invalid Kafka API URI", e);
+    }
   }
 }

@@ -36,6 +36,14 @@ Default Values
 Additional properties
 ---------------------
 
+`plugin.@PLUGIN@.clientType`
+:	Client stack for connecting to Kafka broker:
+    - `NATIVE` for using the Kafka client to connect to the broker directory
+    - `REST` for using a simple HTTP client to connect to
+      [Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html).
+      **NOTE**: `plugin.@PLUGIN@.restApiUri` is mandatory when using a `REST` client type.
+	Default: `NATIVE`
+
 `plugin.@PLUGIN@.groupId`
 :	Kafka consumer group for receiving messages.
 	Default: Gerrit instance-id
@@ -43,6 +51,13 @@ Additional properties
 `plugin.@PLUGIN@.pollingIntervalMs`
 :	Polling interval in msec for receiving messages from Kafka topic subscription.
 	Default: 1000
+
+`plugin.@PLUGIN@.restApiUri`
+:	URL of the
+	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+	for sending messages through REST-API instead of using the native Kafka client.
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: unset
 
 `plugin.@PLUGIN@.sendAsync`
 :	Send messages to Kafka asynchronously, detaching the calling process from the
