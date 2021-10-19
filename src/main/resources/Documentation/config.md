@@ -44,6 +44,12 @@ Additional properties
 :	Polling interval in msec for receiving messages from Kafka topic subscription.
 	Default: 1000
 
+`plugin.@PLUGIN@.restApiUri`
+:	URL of the
+    [Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+    for sending messages through REST-API instead of using the native Kafka client.
+    Default: not set
+
 `plugin.@PLUGIN@.sendAsync`
 :	Send messages to Kafka asynchronously, detaching the calling process from the
 	acknowledge of the message being sent.

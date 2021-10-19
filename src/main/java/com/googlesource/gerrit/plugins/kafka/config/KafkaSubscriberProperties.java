@@ -19,6 +19,8 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.net.URI;
+import java.util.Optional;
 
 @Singleton
 public class KafkaSubscriberProperties extends KafkaProperties {
@@ -43,8 +45,13 @@ public class KafkaSubscriberProperties extends KafkaProperties {
   }
 
   @VisibleForTesting
-  public KafkaSubscriberProperties(int pollingInterval, String groupId, int numberOfSubscribers) {
-    super(true);
+  public KafkaSubscriberProperties(
+      int pollingInterval,
+      String groupId,
+      int numberOfSubscribers,
+      ClientType clientType,
+      Optional<URI> restApiURI) {
+    super(true, clientType, restApiURI);
     this.pollingInterval = pollingInterval;
     this.groupId = groupId;
     this.numberOfSubscribers = numberOfSubscribers;
