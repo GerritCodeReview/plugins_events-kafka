@@ -19,6 +19,7 @@ gerrit_plugin(
     deps = [
         "@kafka-client//jar",
         "@events-broker//jar",
+        "//lib/httpcomponents:httpclient",
     ],
 )
 
