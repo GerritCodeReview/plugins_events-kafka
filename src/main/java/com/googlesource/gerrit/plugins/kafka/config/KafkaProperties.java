@@ -22,6 +22,8 @@ import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -33,8 +35,15 @@ public class KafkaProperties extends java.util.Properties {
 
   public static final String KAFKA_STRING_SERIALIZER = StringSerializer.class.getName();
 
+  public enum ClientType {
+    NATIVE,
+    REST;
+  }
+
   private final String topic;
   private final boolean sendAsync;
+  private final ClientType clientType;
+  private final URI restApiUri;
 
   @Inject
   public KafkaProperties(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -43,16 +52,39 @@ public class KafkaProperties extends java.util.Properties {
     PluginConfig fromGerritConfig = configFactory.getFromGerritConfig(pluginName);
     topic = fromGerritConfig.getString("topic", "gerrit");
     sendAsync = fromGerritConfig.getBoolean("sendAsync", true);
+    clientType = fromGerritConfig.getEnum("clientType", ClientType.NATIVE);
+
+    switch (clientType) {
+      case REST:
+        String restApiUriString = fromGerritConfig.getString("restApiUri");
+        if (Strings.isNullOrEmpty(restApiUriString)) {
+          throw new IllegalArgumentException("Missing REST API URI in Kafka properties");
+        }
+
+        try {
+          restApiUri = new URI(restApiUriString);
+        } catch (URISyntaxException e) {
+          throw new IllegalArgumentException("Invalid Kafka REST API URI: " + restApiUriString, e);
+        }
+        break;
+      case NATIVE:
+      default:
+        restApiUri = null;
+        break;
+    }
+
     applyConfig(fromGerritConfig);
     initDockerizedKafkaServer();
   }
 
   @VisibleForTesting
-  public KafkaProperties(boolean sendAsync) {
+  public KafkaProperties(boolean sendAsync, ClientType clientType, URI restApiURI) {
     super();
     setDefaults();
     topic = "gerrit";
     this.sendAsync = sendAsync;
+    this.clientType = clientType;
+    this.restApiUri = restApiURI;
     initDockerizedKafkaServer();
   }
 
@@ -98,5 +130,13 @@ public class KafkaProperties extends java.util.Properties {
 
   public String getBootstrapServers() {
     return getProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG);
+  }
+
+  public ClientType getClientType() {
+    return clientType;
+  }
+
+  public URI getRestApiUri() {
+    return restApiUri;
   }
 }
