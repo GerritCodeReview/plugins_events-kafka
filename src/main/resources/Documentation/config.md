@@ -48,6 +48,12 @@ Additional properties
 :	Kafka consumer group for receiving messages.
 	Default: Gerrit instance-id
 
+`plugin.@PLUGIN@.httpWireLog`
+:	Enable the HTTP wire protocol logging in error_log for all the communication with
+	the [Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html).
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: false
+
 `plugin.@PLUGIN@.pollingIntervalMs`
 :	Polling interval in msec for receiving messages from Kafka topic subscription.
 	Default: 1000
@@ -55,7 +61,7 @@ Additional properties
 `plugin.@PLUGIN@.restApiUri`
 :	URL of the
 	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
-	for sending messages through REST-API instead of using the native Kafka client.
+	for sending/receiving messages through REST-API instead of using the native Kafka client.
 	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
 	Default: unset
 
