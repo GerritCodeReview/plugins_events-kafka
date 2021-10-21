@@ -47,7 +47,7 @@ Additional properties
 `plugin.@PLUGIN@.restApiUri`
 :	URL of the
 	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
-	for sending messages through REST-API instead of using the native Kafka client.
+	for sending/receiving messages through REST-API instead of using the native Kafka client.
 	Default: not set
 
 `plugin.@PLUGIN@.sendAsync`
