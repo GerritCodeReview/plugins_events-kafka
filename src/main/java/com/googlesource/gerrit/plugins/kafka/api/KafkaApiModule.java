@@ -26,9 +26,11 @@ import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
+import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventNativeSubscriber;
+import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventRestSubscriber;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -56,7 +58,17 @@ public class KafkaApiModule extends LifecycleModule {
 
   @Override
   protected void configure() {
-    bind(KafkaEventSubscriber.class).to(KafkaEventNativeSubscriber.class);
+    ClientType clientType = configuration.getClientType();
+    switch (clientType) {
+      case NATIVE:
+        bind(KafkaEventSubscriber.class).to(KafkaEventNativeSubscriber.class);
+        break;
+      case REST:
+        bind(KafkaEventSubscriber.class).to(KafkaEventRestSubscriber.class);
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupport Kafka client type " + clientType);
+    }
 
     bind(ExecutorService.class)
         .annotatedWith(ConsumerExecutor.class)
