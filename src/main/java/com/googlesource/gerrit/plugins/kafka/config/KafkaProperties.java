@@ -34,6 +34,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class KafkaProperties extends java.util.Properties {
   private static final long serialVersionUID = 0L;
 
+  private static final boolean DEFAULT_HTTP_WIRE_LOG = false;
   public static final String KAFKA_STRING_SERIALIZER = StringSerializer.class.getName();
 
   public enum ClientType {
@@ -45,6 +46,7 @@ public class KafkaProperties extends java.util.Properties {
   private final boolean sendAsync;
   private final ClientType clientType;
   private final URI restApiUri;
+  private final boolean httpWireLog;
 
   @Inject
   public KafkaProperties(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -67,10 +69,12 @@ public class KafkaProperties extends java.util.Properties {
         } catch (URISyntaxException e) {
           throw new IllegalArgumentException("Invalid Kafka REST API URI: " + restApiUriString, e);
         }
+        httpWireLog = fromGerritConfig.getBoolean("httpWireLog", DEFAULT_HTTP_WIRE_LOG);
         break;
       case NATIVE:
       default:
         restApiUri = null;
+        httpWireLog = false;
         break;
     }
 
@@ -87,6 +91,7 @@ public class KafkaProperties extends java.util.Properties {
     this.clientType = clientType;
     this.restApiUri = restApiURI;
     initDockerizedKafkaServer();
+    this.httpWireLog = false;
   }
 
   private void setDefaults() {
@@ -139,5 +144,9 @@ public class KafkaProperties extends java.util.Properties {
 
   public URI getRestApiUri() {
     return restApiUri;
+  }
+
+  public boolean isHttpWireLog() {
+    return httpWireLog;
   }
 }
