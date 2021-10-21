@@ -238,6 +238,28 @@ public class KafkaBrokerApiTest {
     assertNoMoreExpectedMessages(testConsumer);
   }
 
+  @Test
+  public void shouldSendToTopicAndResetOffset() {
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_reset";
+    TestConsumer testConsumer = new TestConsumer(1);
+    EventMessage testEventMessage = new EventMessage(new TestHeader(), new ProjectCreatedEvent());
+
+    kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
+    kafkaBrokerApi.send(testTopic, testEventMessage);
+
+    assertThat(testConsumer.await()).isTrue();
+    assertThat(testConsumer.messages).hasSize(1);
+    assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+
+    kafkaBrokerApi.replayAllEvents(testTopic);
+
+    assertThat(testConsumer.await()).isTrue();
+    assertThat(testConsumer.messages).hasSize(1);
+    assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+  }
+
   protected URI getKafkaRestApiURI() {
     return null;
   }
