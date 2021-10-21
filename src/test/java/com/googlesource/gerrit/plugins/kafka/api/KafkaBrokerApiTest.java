@@ -200,7 +200,7 @@ public class KafkaBrokerApiTest {
   }
 
   @Test
-  public void shouldSendSyncAndReceiveToTopic() {
+  public void shouldSendSyncAndReceiveToTopic() throws InterruptedException {
     connectToKafka(new KafkaProperties(false, clientType(), clientApiURI()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
@@ -208,6 +208,7 @@ public class KafkaBrokerApiTest {
     EventMessage testEventMessage = new EventMessage(new TestHeader(), new ProjectCreatedEvent());
 
     kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
+
     kafkaBrokerApi.send(testTopic, testEventMessage);
 
     assertThat(testConsumer.await()).isTrue();
