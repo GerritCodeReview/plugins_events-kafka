@@ -14,15 +14,16 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
-import com.google.gerrit.httpd.ProxyProperties;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
-import com.googlesource.gerrit.plugins.kafka.publish.FutureExecutor;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaRestProducer;
+import com.googlesource.gerrit.plugins.kafka.rest.FutureExecutor;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxy;
+import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.net.URI;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.kafka.clients.producer.Producer;
@@ -59,29 +60,14 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
                 kafkaRest.getApiURI());
         bind(KafkaSubscriberProperties.class).toInstance(kafkaSubscriberProperties);
 
-        bind(ProxyProperties.class)
-            .toInstance(
-                new ProxyProperties() {
+        bind(HttpHostProxy.class).toInstance(new HttpHostProxy(null, null, null));
 
-                  @Override
-                  public URL getProxyUrl() {
-                    return null;
-                  }
-
-                  @Override
-                  public String getUsername() {
-                    return null;
-                  }
-
-                  @Override
-                  public String getPassword() {
-                    return null;
-                  }
-                });
+        install(new FactoryModuleBuilder().build(KafkaRestClient.Factory.class));
       }
     };
   }
 
+  @Override
   protected URI getKafkaRestApiURI() {
     return kafkaRest.getApiURI();
   }
