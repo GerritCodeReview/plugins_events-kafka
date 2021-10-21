@@ -26,10 +26,12 @@ public class KafkaSubscriberProperties extends KafkaProperties {
   private static final long serialVersionUID = 1L;
   private static final String DEFAULT_POLLING_INTERVAL_MS = "1000";
   private static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
+  private static final String DEFAULT_HTTP_WIRE_LOG = Boolean.FALSE.toString();
 
   private final Integer pollingInterval;
   private final String groupId;
   private final Integer numberOfSubscribers;
+  private final boolean httpWireLog;
 
   @Inject
   public KafkaSubscriberProperties(
@@ -41,6 +43,7 @@ public class KafkaSubscriberProperties extends KafkaProperties {
     this.groupId = getProperty("group.id");
     this.numberOfSubscribers =
         Integer.parseInt(getProperty("number.of.subscribers", DEFAULT_NUMBER_OF_SUBSCRIBERS));
+    this.httpWireLog = Boolean.parseBoolean(getProperty("http.wire.log", DEFAULT_HTTP_WIRE_LOG));
   }
 
   @VisibleForTesting
@@ -60,6 +63,7 @@ public class KafkaSubscriberProperties extends KafkaProperties {
     this.pollingInterval = pollingInterval;
     this.groupId = groupId;
     this.numberOfSubscribers = numberOfSubscribers;
+    this.httpWireLog = false;
   }
 
   public Integer getPollingInterval() {
@@ -72,5 +76,9 @@ public class KafkaSubscriberProperties extends KafkaProperties {
 
   public Integer getNumberOfSubscribers() {
     return numberOfSubscribers;
+  }
+
+  public boolean isHttpWireLog() {
+    return httpWireLog;
   }
 }
