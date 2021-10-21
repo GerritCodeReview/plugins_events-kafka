@@ -16,11 +16,13 @@ package com.googlesource.gerrit.plugins.kafka.api;
 
 import com.google.gerrit.httpd.ProxyProperties;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
-import com.googlesource.gerrit.plugins.kafka.publish.FutureExecutor;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaRestProducer;
+import com.googlesource.gerrit.plugins.kafka.rest.FutureExecutor;
+import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -78,10 +80,13 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
                     return null;
                   }
                 });
+
+        install(new FactoryModuleBuilder().build(KafkaRestClient.Factory.class));
       }
     };
   }
 
+  @Override
   protected URI getKafkaRestApiURI() {
     return kafkaRest.getApiURI();
   }

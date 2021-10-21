@@ -24,12 +24,14 @@ import com.google.inject.Inject;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.api.KafkaApiModule;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.RequestConfigProvider;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaRestProducer;
+import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.kafka.clients.producer.Producer;
@@ -60,6 +62,7 @@ class Module extends AbstractModule {
       case REST:
         bind(RequestConfig.class).toProvider(RequestConfigProvider.class).in(Scopes.SINGLETON);
         bind(new TypeLiteral<Producer<String, String>>() {}).to(KafkaRestProducer.class);
+        install(new FactoryModuleBuilder().build(KafkaRestClient.Factory.class));
         break;
       default:
         throw new IllegalArgumentException("Unsupported Kafka client type " + clientType);

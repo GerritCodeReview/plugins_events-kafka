@@ -16,29 +16,19 @@ package com.googlesource.gerrit.plugins.kafka.publish;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.JdkFutureAdapters;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
+import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
@@ -55,20 +45,11 @@ public class KafkaRestProducer implements Producer<String, String> {
       new RecordMetadata(null, 0, 0, 0, null, 0, 0);
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String KAFKA_V2_JSON = "application/vnd.kafka.json.v2+json";
-  private final URI kafkaRestApi;
-  private final ExecutorService futureExecutor;
-  private final CloseableHttpAsyncClient httpclient;
-  private RequestConfig httpRequestConf;
+  private final KafkaRestClient restClient;
 
   @Inject
-  public KafkaRestProducer(
-      KafkaProperties kafkaConf,
-      RequestConfig httpRequestConf,
-      @FutureExecutor ExecutorService futureExecutor) {
-    this.kafkaRestApi = kafkaConf.getRestApiUri();
-    this.futureExecutor = futureExecutor;
-    httpclient = HttpAsyncClients.createDefault();
-    this.httpRequestConf = httpRequestConf;
+  public KafkaRestProducer(KafkaProperties kafkaConf, KafkaRestClient.Factory restClientFactory) {
+    restClient = restClientFactory.create(kafkaConf);
   }
 
   @Override
@@ -105,27 +86,15 @@ public class KafkaRestProducer implements Producer<String, String> {
 
   @Override
   public Future<RecordMetadata> send(ProducerRecord<String, String> record, Callback callback) {
-    httpclient.start();
     HttpPost post =
-        createPostToTopic(
+        restClient.createPostToTopic(
             record.topic(),
             new StringEntity(
                 getRecordAsJson(record),
                 ContentType.create(KAFKA_V2_JSON, StandardCharsets.UTF_8)));
-    return Futures.transformAsync(
-        JdkFutureAdapters.listenInPoolThread(httpclient.execute(post, null), futureExecutor),
-        this::getRecordMetadataResult,
-        futureExecutor);
-  }
-
-  private HttpPost createPostToTopic(String topic, HttpEntity postBodyEntity) {
-    HttpPost post =
-        new HttpPost(
-            kafkaRestApi.resolve("/topics/" + URLEncoder.encode(topic, StandardCharsets.UTF_8)));
-    post.addHeader(HttpHeaders.ACCEPT, "*/*");
-    post.setConfig(httpRequestConf);
-    post.setEntity(postBodyEntity);
-    return post;
+    return restClient.mapAsync(
+        restClient.execute(post, HttpStatus.SC_OK),
+        (res) -> Futures.immediateFuture(ZEROS_RECORD_METADATA));
   }
 
   @Override
@@ -146,7 +115,7 @@ public class KafkaRestProducer implements Producer<String, String> {
   @Override
   public void close() {
     try {
-      httpclient.close();
+      restClient.close();
     } catch (IOException e) {
       logger.atWarning().withCause(e).log("Unable to close httpclient");
     }
@@ -155,21 +124,6 @@ public class KafkaRestProducer implements Producer<String, String> {
   @Override
   public void close(long timeout, TimeUnit unit) {
     close();
-  }
-
-  private ListenableFuture<RecordMetadata> getRecordMetadataResult(HttpResponse response) {
-    switch (response.getStatusLine().getStatusCode()) {
-      case HttpStatus.SC_OK:
-        return Futures.immediateFuture(ZEROS_RECORD_METADATA);
-      default:
-        return Futures.immediateFailedFuture(
-            new IOException(
-                String.format(
-                    "Request failed: HTTP status %d (%s)\n%s",
-                    response.getStatusLine().getStatusCode(),
-                    response.getStatusLine().getReasonPhrase(),
-                    response.getEntity())));
-    }
   }
 
   private String getRecordAsJson(ProducerRecord<String, String> record) {
