@@ -111,9 +111,13 @@ public class KafkaBrokerApiTest {
 
   public static class TestConsumer implements Consumer<EventMessage> {
     public final List<EventMessage> messages = new ArrayList<>();
-    private final CountDownLatch lock;
+    private CountDownLatch lock;
 
     public TestConsumer(int numMessagesExpected) {
+      resetExpectedMessages(numMessagesExpected);
+    }
+
+    public void resetExpectedMessages(int numMessagesExpected) {
       lock = new CountDownLatch(numMessagesExpected);
     }
 
@@ -190,6 +194,8 @@ public class KafkaBrokerApiTest {
     assertThat(testConsumer.await()).isTrue();
     assertThat(testConsumer.messages).hasSize(1);
     assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+
+    assertNoMoreExpectedMessages(testConsumer);
   }
 
   @Test
@@ -206,5 +212,12 @@ public class KafkaBrokerApiTest {
     assertThat(testConsumer.await()).isTrue();
     assertThat(testConsumer.messages).hasSize(1);
     assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+
+    assertNoMoreExpectedMessages(testConsumer);
+  }
+
+  private void assertNoMoreExpectedMessages(TestConsumer testConsumer) {
+    testConsumer.resetExpectedMessages(1);
+    assertThat(testConsumer.await()).isFalse();
   }
 }
