@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0111cf76_5c2f4fbe",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:08Z",
+      "side": 1,
+      "message": "nit: should we assert this for every test?\nimho, having one test (or a dedicated test) to make sure we don\u0027t consume multiple times would be enough.\n\nThis would avoid having to add an additional timeout of 30 seconds, which is quite considerable.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "6347ebe95dfa5c78d406c979d024ea465489b814",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
