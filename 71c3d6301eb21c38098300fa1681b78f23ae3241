@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498141eb_6d37459e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "nit: this looks like a getter of the restApiUri property, but it\u0027s type signature mismatch (Optional\u003cURI\u003e vs URI).\n\nConsider making this a standard getter by returning Optional\u003cURI\u003e and call `get()` on it where it is consumed KafkaRestProducerL183)",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 27
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26a4b317_ff03c092",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "client type REST and no rest API URL provided is an invalid configuration.\nAs such, we should probably fail fast: should we do this at L57?\n\nWe are already throwing an IllegalArgumentException when an invalid URL is provided, we might as well throw also when rest URL is not provided at all.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 92
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36904749_7748dd9f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "Why building this for *every* POST request?\n\nThe proxy configuration is not changing throughout the lifetime of the Gerrit process\n\nConsider building this only once.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "737b6ad7_d58dffd7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "nit: consider making this a constant value with a descriptive name.",
+      "range": {
+        "startLine": 164,
+        "startChar": 39,
+        "endLine": 164,
+        "endChar": 84
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47a6a2e_de4a00ba",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "nit: consider method reference\n\n.map(URL::toString)",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 37
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51325446_c0b228f8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-02T21:03:29Z",
+      "side": 1,
+      "message": "I can\u0027t find any documentation for `clientType`",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
