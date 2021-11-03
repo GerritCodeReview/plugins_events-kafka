@@ -22,6 +22,30 @@
       },
       "revId": "6347ebe95dfa5c78d406c979d024ea465489b814",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01bd721_94df67f4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-03T22:40:34Z",
+      "side": 1,
+      "message": "Actually we want to make sure when we receive sync or async the messages, they are getting acknowledged. I know it adds 30s of time for the tests, should that value be lowered then?\n\nI can address that in a follow-up change, for speeding up the tests execution.",
+      "parentUuid": "0111cf76_5c2f4fbe",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "6347ebe95dfa5c78d406c979d024ea465489b814",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
