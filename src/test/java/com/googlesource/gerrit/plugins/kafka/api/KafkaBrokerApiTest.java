@@ -67,8 +67,9 @@ public class KafkaBrokerApiTest {
   private static final int TEST_POLLING_INTERVAL_MSEC = 100;
   private static final int TEST_THREAD_POOL_SIZE = 10;
   private static final UUID TEST_INSTANCE_ID = UUID.randomUUID();
-  private static final TimeUnit TEST_TIMOUT_UNIT = TimeUnit.SECONDS;
+  private static final TimeUnit TEST_TIMEOUT_UNIT = TimeUnit.SECONDS;
   private static final int TEST_TIMEOUT = 30;
+  private static final int TEST_WAIT_FOR_MORE_MESSAGES_TIMEOUT = 5;
 
   private Injector injector;
   private KafkaSession session;
@@ -128,8 +129,12 @@ public class KafkaBrokerApiTest {
     }
 
     public boolean await() {
+      return await(TEST_TIMEOUT, TEST_TIMEOUT_UNIT);
+    }
+
+    public boolean await(long timeout, TimeUnit unit) {
       try {
-        return lock.await(TEST_TIMEOUT, TEST_TIMOUT_UNIT);
+        return lock.await(timeout, unit);
       } catch (InterruptedException e) {
         return false;
       }
@@ -218,6 +223,7 @@ public class KafkaBrokerApiTest {
 
   private void assertNoMoreExpectedMessages(TestConsumer testConsumer) {
     testConsumer.resetExpectedMessages(1);
-    assertThat(testConsumer.await()).isFalse();
+    assertThat(testConsumer.await(TEST_WAIT_FOR_MORE_MESSAGES_TIMEOUT, TEST_TIMEOUT_UNIT))
+        .isFalse();
   }
 }
