@@ -46,6 +46,30 @@
       },
       "revId": "6347ebe95dfa5c78d406c979d024ea465489b814",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7b0b84c_c9036081",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-03T23:53:50Z",
+      "side": 1,
+      "message": "Done with Change-Id: I3ca33512.",
+      "parentUuid": "f01bd721_94df67f4",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "6347ebe95dfa5c78d406c979d024ea465489b814",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
