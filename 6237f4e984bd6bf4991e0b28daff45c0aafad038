@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3616c4_44ff4aaa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-03T23:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df83329b_0b005687",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 65
+      },
+      "revId": "6237f4e984bd6bf4991e0b28daff45c0aafad038",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eacf62aa_71e01a72",
@@ -61,6 +85,24 @@
       "writtenOn": "2021-11-03T08:25:19Z",
       "side": 1,
       "message": "same as above this is not default topic but the actual topic",
+      "revId": "6237f4e984bd6bf4991e0b28daff45c0aafad038",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f46dcd52_12941bb8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-03T23:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacf62aa_71e01a72",
       "revId": "6237f4e984bd6bf4991e0b28daff45c0aafad038",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
