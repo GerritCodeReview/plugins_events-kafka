@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e6e3bd_4da1791d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-04T09:27:45Z",
+      "side": 1,
+      "message": "nit: TEST_TIMEOUT_UNIT",
+      "range": {
+        "startLine": 226,
+        "startChar": 71,
+        "endLine": 226,
+        "endChar": 87
+      },
+      "revId": "56c72a84cd763b944d19bd948889e485fc74f37a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
