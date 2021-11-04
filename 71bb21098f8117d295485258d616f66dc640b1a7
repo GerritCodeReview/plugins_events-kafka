@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb0a83d_cb9ce2ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T19:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "734fd261_ce13f5b7",
+      "revId": "71bb21098f8117d295485258d616f66dc640b1a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81dfe918_b135e1e6",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-11-04T09:42:29Z",
       "side": 1,
       "message": "nit: Unsupported",
+      "range": {
+        "startLine": 65,
+        "startChar": 44,
+        "endLine": 65,
+        "endChar": 53
+      },
+      "revId": "71bb21098f8117d295485258d616f66dc640b1a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f46e537d_d3ebdd20",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T19:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81dfe918_b135e1e6",
       "range": {
         "startLine": 65,
         "startChar": 44,
