@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1bb681d_f0234d55",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T01:37:13Z",
+      "side": 1,
+      "message": "See my comment above on that.",
+      "parentUuid": "cf96e3dc_31ff9d69",
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "834a44b4_76cf1b41",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
         "patchSetId": 6
@@ -208,6 +226,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d7d6678_c5257710",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T01:37:13Z",
+      "side": 1,
+      "message": "True, possibly just binding it with Guice to a singleton?",
+      "parentUuid": "36904749_7748dd9f",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b623300e_409b5776",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
         "patchSetId": 6
@@ -219,6 +261,30 @@
       "writtenOn": "2021-11-03T08:55:43Z",
       "side": 1,
       "message": "should we honour the timeout? It\u0027s an edge case that http connection will hang but it can happen",
+      "range": {
+        "startLine": 157,
+        "startChar": 14,
+        "endLine": 157,
+        "endChar": 19
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23090e87_23321045",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T01:37:13Z",
+      "side": 1,
+      "message": "The HTTP close doesn\u0027t have timeouts: how would you honour it?",
+      "parentUuid": "b623300e_409b5776",
       "range": {
         "startLine": 157,
         "startChar": 14,
