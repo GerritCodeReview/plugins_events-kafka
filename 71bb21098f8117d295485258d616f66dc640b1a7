@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "734fd261_ce13f5b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-04T15:02:03Z",
+      "side": 1,
+      "message": "Missing `Issue: 15164`",
+      "revId": "71bb21098f8117d295485258d616f66dc640b1a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81dfe918_b135e1e6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
         "patchSetId": 9
