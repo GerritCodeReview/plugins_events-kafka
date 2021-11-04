@@ -54,6 +54,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b4e0635_bf60e0da",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T19:46:13Z",
+      "side": 1,
+      "message": "That is because KafkaRestProducer is a class written by us that has the @Inject annotation on its constructor and therefore can be instantiated automatically.\n\nThe KafkaProducer instead is a class of Kafka and doesn\u0027t contain any @Inject annotation, therefore cannot be instantiated automatically but needs us to write a small provider to tell Guice how to create instances of it.\n\nHope that makes sense.",
+      "parentUuid": "14530404_9d656ff0",
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "834a44b4_76cf1b41",
@@ -479,6 +497,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a6e545_97377b1d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T19:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa58325c_5cec0f79",
+      "range": {
+        "startLine": 167,
+        "startChar": 58,
+        "endLine": 167,
+        "endChar": 71
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4897726e_6527d7d2",
@@ -705,6 +747,30 @@
       "side": 1,
       "message": "But this doesn\u0027t change much. Correct me if I\u0027m wrong but in real life setup when client is native we do not set kafka rest uri but in this test we do that in L206 and L224",
       "parentUuid": "891a56ae_02416974",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 3
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17839d3a_d102492e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T19:46:13Z",
+      "side": 1,
+      "message": "Gotcha, you are right, the URL shouldn\u0027t be set here.\nIt should be done now.",
+      "parentUuid": "40da0d86_050a78e2",
       "range": {
         "startLine": 176,
         "startChar": 0,
