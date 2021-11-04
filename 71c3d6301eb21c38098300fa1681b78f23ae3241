@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e371bd02_fc431607",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "In Gerrit we typically do configuration-based injections in the Module and not in the Provider\u003c\u003e code.",
+      "parentUuid": "834a44b4_76cf1b41",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "498141eb_6d37459e",
@@ -88,6 +112,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b672a0d0_37b8d904",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "I don\u0027t think we need an Optional either, if we do the validation when the configuration is created already consistent.",
+      "parentUuid": "98cc60d1_6d8d5057",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 27
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26a4b317_ff03c092",
@@ -101,6 +149,30 @@
       "writtenOn": "2021-11-02T21:03:29Z",
       "side": 1,
       "message": "client type REST and no rest API URL provided is an invalid configuration.\nAs such, we should probably fail fast: should we do this at L57?\n\nWe are already throwing an IllegalArgumentException when an invalid URL is provided, we might as well throw also when rest URL is not provided at all.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 92
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0d0ed5_4df78155",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "Right, will move to L57.",
+      "parentUuid": "26a4b317_ff03c092",
       "range": {
         "startLine": 133,
         "startChar": 0,
@@ -205,6 +277,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d138c08_95694423",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "You mean the response status body as well?",
+      "parentUuid": "260b3eba_82c157cb",
+      "range": {
+        "startLine": 167,
+        "startChar": 58,
+        "endLine": 167,
+        "endChar": 71
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4897726e_6527d7d2",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
         "patchSetId": 6
@@ -216,6 +312,30 @@
       "writtenOn": "2021-11-03T08:55:43Z",
       "side": 1,
       "message": "Consider using gson parser",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 55
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3ff2e62_a91df3f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "Actually here it would be overkill and potentially dangerous, because the record.value() already contains a JSON fragment in String format.\n\nUsing a Gson parser would escape the record.value() which is something we do not want.",
+      "parentUuid": "4897726e_6527d7d2",
       "range": {
         "startLine": 173,
         "startChar": 8,
@@ -296,6 +416,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d03ddd_ca6054e1",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2479ee9b_6385c26a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9a3e5e5_8e8279f3",
@@ -319,6 +463,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "891a56ae_02416974",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "I\u0027ve remove the method and just used an instance variable, initialised to ClientType.REST in the REST-based test.",
+      "parentUuid": "a9a3e5e5_8e8279f3",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 3
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80f88eed_3ea1ef9d",
@@ -332,6 +500,30 @@
       "writtenOn": "2021-11-03T08:55:43Z",
       "side": 1,
       "message": "Should we extract common part for Native and Rest to a separate class something like KafkaBrokerApiTestBase and the both KafkaBrokerRestApiTest and KafkaBrokerApiTest can extend it. With current implementation we cannot have native specific tests and we are mixing the Rest specific code with native one",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4727821f_025d7882",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerRestApiTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T00:57:18Z",
+      "side": 1,
+      "message": "Yes, I know, but the question is: do we even have native-specific test cases?",
+      "parentUuid": "80f88eed_3ea1ef9d",
       "range": {
         "startLine": 33,
         "startChar": 13,
