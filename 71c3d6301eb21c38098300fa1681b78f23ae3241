@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14530404_9d656ff0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-04T19:17:25Z",
+      "side": 1,
+      "message": "I understand why we have this logic here what I was wondering why native produce is created with provider while the rest one is not:\n`bind(new TypeLiteral\u003cProducer\u003cString, String\u003e\u003e() {}).toProvider(KafkaProducerProvider.class);`\n\n`bind(new TypeLiteral\u003cProducer\u003cString, String\u003e\u003e() {}).to(KafkaRestProducer.class);`",
+      "parentUuid": "a1bb681d_f0234d55",
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "834a44b4_76cf1b41",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
         "patchSetId": 6
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "In Gerrit we typically do configuration-based injections in the Module and not in the Provider\u003c\u003e code.",
       "parentUuid": "834a44b4_76cf1b41",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03af304e_dcc4795a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Module.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-04T19:17:25Z",
+      "side": 1,
+      "message": "Interesting, because this is exactly the purpose of the Provider, to create instance based on the configuration. But ok if this is the pattern we have in Gerrit I\u0027m fine with that",
+      "parentUuid": "e371bd02_fc431607",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -295,6 +337,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e600ea04_85181296",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-04T19:17:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "23090e87_23321045",
+      "range": {
+        "startLine": 157,
+        "startChar": 14,
+        "endLine": 157,
+        "endChar": 19
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "737b6ad7_d58dffd7",
@@ -379,6 +445,30 @@
       "side": 1,
       "message": "You mean the response status body as well?",
       "parentUuid": "260b3eba_82c157cb",
+      "range": {
+        "startLine": 167,
+        "startChar": 58,
+        "endLine": 167,
+        "endChar": 71
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa58325c_5cec0f79",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-04T19:17:25Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "7d138c08_95694423",
       "range": {
         "startLine": 167,
         "startChar": 58,
@@ -591,6 +681,30 @@
       "side": 1,
       "message": "I\u0027ve remove the method and just used an instance variable, initialised to ClientType.REST in the REST-based test.",
       "parentUuid": "a9a3e5e5_8e8279f3",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 3
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40da0d86_050a78e2",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-04T19:17:25Z",
+      "side": 1,
+      "message": "But this doesn\u0027t change much. Correct me if I\u0027m wrong but in real life setup when client is native we do not set kafka rest uri but in this test we do that in L206 and L224",
+      "parentUuid": "891a56ae_02416974",
       "range": {
         "startLine": 176,
         "startChar": 0,
