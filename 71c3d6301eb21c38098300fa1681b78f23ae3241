@@ -318,6 +318,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d439de81_0d7e35e6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T01:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "737b6ad7_d58dffd7",
+      "range": {
+        "startLine": 164,
+        "startChar": 39,
+        "endLine": 164,
+        "endChar": 84
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260b3eba_82c157cb",
@@ -425,6 +449,30 @@
       "writtenOn": "2021-11-02T21:03:29Z",
       "side": 1,
       "message": "nit: consider method reference\n\n.map(URL::toString)",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 37
+      },
+      "revId": "71c3d6301eb21c38098300fa1681b78f23ae3241",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a179531_6009345d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-04T01:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47a6a2e_de4a00ba",
       "range": {
         "startLine": 178,
         "startChar": 0,
