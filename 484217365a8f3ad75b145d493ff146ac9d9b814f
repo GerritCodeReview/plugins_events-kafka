@@ -294,6 +294,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6403283a_4c010697",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-05T01:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0c00f5_8925acaa",
+      "range": {
+        "startLine": 310,
+        "startChar": 6,
+        "endLine": 310,
+        "endChar": 57
+      },
+      "revId": "484217365a8f3ad75b145d493ff146ac9d9b814f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1988626_630ef168",
@@ -307,6 +331,30 @@
       "writtenOn": "2021-11-03T09:05:57Z",
       "side": 1,
       "message": "pass more details than just a status code",
+      "range": {
+        "startLine": 322,
+        "startChar": 30,
+        "endLine": 322,
+        "endChar": 75
+      },
+      "revId": "484217365a8f3ad75b145d493ff146ac9d9b814f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6be864a5_654a45dd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-05T01:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1988626_630ef168",
       "range": {
         "startLine": 322,
         "startChar": 30,
