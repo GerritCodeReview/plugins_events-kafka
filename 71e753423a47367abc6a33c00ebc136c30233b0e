@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ebacdae_def7d147",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "What about passing a Set as input for the OkStatuses? This way we could simply:\n* Merge the default http statuses with the extra one in input:  \n    Set(allHttpStatuses) \u003d Set(inputHttpStatuses) + Set(okHttpStatuses) \n* check if the response status is in the with all the statuses: \n    if(Set(allHttpStatuses).contains(responseHttpStatus)) { ... }",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 5
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b1859d_fd8ca1ef",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "Shall we include the stacktrace in the exception at L181?",
+      "range": {
+        "startLine": 178,
+        "startChar": 6,
+        "endLine": 178,
+        "endChar": 26
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e64cf4_b339ba32",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "nit: IMO start() more suitable since it is just a wrapper for the start() method of the httpClient.",
+      "range": {
+        "startLine": 220,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a369266_c40ff2e0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "Shall we increment incrementSubscriberFailedToPollMessages here as well?",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c91d32_0da7fee9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "do we have success metrics to increment here?",
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c253dc2_4e392ac1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-05T10:38:14Z",
+      "side": 1,
+      "message": "why not going in parallel?",
+      "range": {
+        "startLine": 255,
+        "startChar": 60,
+        "endLine": 255,
+        "endChar": 65
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
