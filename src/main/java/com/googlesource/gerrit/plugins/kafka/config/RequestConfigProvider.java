@@ -14,29 +14,24 @@
 
 package com.googlesource.gerrit.plugins.kafka.config;
 
-import com.google.gerrit.httpd.ProxyProperties;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import java.net.URL;
-import java.util.Optional;
-import org.apache.http.HttpHost;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxy;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.config.RequestConfig.Builder;
 
 public class RequestConfigProvider implements Provider<RequestConfig> {
 
-  private final Optional<HttpHost> proxyHost;
+  private final HttpHostProxy proxyHost;
 
   @Inject
-  public RequestConfigProvider(ProxyProperties proxyConf) {
-    proxyHost =
-        Optional.ofNullable(proxyConf.getProxyUrl()).map(URL::toString).map(HttpHost::create);
+  public RequestConfigProvider(HttpHostProxy proxyHost) {
+    this.proxyHost = proxyHost;
   }
 
   @Override
   public RequestConfig get() {
     Builder configBuilder = RequestConfig.custom();
-    configBuilder = proxyHost.map(configBuilder::setProxy).orElse(configBuilder);
-    return configBuilder.build();
+    return proxyHost.apply(configBuilder).build();
   }
 }

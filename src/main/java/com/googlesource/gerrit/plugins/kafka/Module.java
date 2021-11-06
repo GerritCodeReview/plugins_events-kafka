@@ -31,6 +31,8 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.RequestConfigProvider;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaRestProducer;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxy;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxyProvider;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import org.apache.http.client.config.RequestConfig;
@@ -60,6 +62,7 @@ class Module extends AbstractModule {
             .toProvider(KafkaProducerProvider.class);
         break;
       case REST:
+        bind(HttpHostProxy.class).toProvider(HttpHostProxyProvider.class).in(Scopes.SINGLETON);
         bind(RequestConfig.class).toProvider(RequestConfigProvider.class).in(Scopes.SINGLETON);
         bind(new TypeLiteral<Producer<String, String>>() {}).to(KafkaRestProducer.class);
         install(new FactoryModuleBuilder().build(KafkaRestClient.Factory.class));

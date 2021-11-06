@@ -23,7 +23,6 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.common.Nullable;
-import com.google.gerrit.httpd.ProxyProperties;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
@@ -31,14 +30,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -59,7 +56,7 @@ public class KafkaRestClient {
   private static final String KAFKA_V2_JSON = "application/vnd.kafka.json.v2+json";
   private static final String KAFKA_V2 = "application/vnd.kafka.v2+json";
 
-  private final Optional<HttpHost> proxy;
+  private final HttpHostProxy proxy;
   private final CloseableHttpAsyncClient httpclient;
   private final URI kafkaRestApiUri;
   private final ExecutorService futureExecutor;
@@ -70,11 +67,11 @@ public class KafkaRestClient {
 
   @Inject
   public KafkaRestClient(
-      ProxyProperties proxyConf,
+      HttpHostProxy httpHostProxy,
       @FutureExecutor ExecutorService executor,
       @Assisted KafkaProperties configuration) {
-    proxy = getProxy(proxyConf);
-    httpclient = HttpAsyncClients.createDefault();
+    proxy = httpHostProxy;
+    httpclient = proxy.apply(HttpAsyncClients.custom()).build();
     kafkaRestApiUri = configuration.getRestApiUri();
     if (configuration.isHttpWireLog()) {
       enableHttpWireLog();
@@ -239,15 +236,9 @@ public class KafkaRestClient {
 
   private RequestConfig createRequestConfig() {
     Builder configBuilder = RequestConfig.custom();
-    configBuilder = proxy.map(configBuilder::setProxy).orElse(configBuilder);
+    configBuilder = proxy.apply(configBuilder);
     RequestConfig config = configBuilder.build();
     return config;
-  }
-
-  private static Optional<HttpHost> getProxy(ProxyProperties proxyConf) {
-    return Optional.ofNullable(proxyConf.getProxyUrl())
-        .map((url) -> url.toString())
-        .map(HttpHost::create);
   }
 
   public void close() throws IOException {
