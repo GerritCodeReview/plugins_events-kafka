@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69bb895_dc4a2340",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-08T07:54:53Z",
+      "side": 1,
+      "message": "why we want to support \u003cuser\u003e:\u003cpassword\u003e format as well?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
