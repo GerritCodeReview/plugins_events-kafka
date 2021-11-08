@@ -61,6 +61,7 @@ public class KafkaRestClient {
   private final CloseableHttpAsyncClient httpclient;
   private final URI kafkaRestApiUri;
   private final ExecutorService futureExecutor;
+  private final int kafkaRestApiTimeoutMsec;
 
   public interface Factory {
     KafkaRestClient create(KafkaProperties configuration);
@@ -75,6 +76,7 @@ public class KafkaRestClient {
     httpclient = proxy.apply(HttpAsyncClients.custom()).build();
     httpclient.start();
     kafkaRestApiUri = configuration.getRestApiUri();
+    kafkaRestApiTimeoutMsec = (int) configuration.getRestApiTimeout().toMillis();
     if (configuration.isHttpWireLog()) {
       enableHttpWireLog();
     }
@@ -232,7 +234,11 @@ public class KafkaRestClient {
   }
 
   private RequestConfig createRequestConfig() {
-    Builder configBuilder = RequestConfig.custom();
+    Builder configBuilder =
+        RequestConfig.custom()
+            .setConnectionRequestTimeout(kafkaRestApiTimeoutMsec)
+            .setConnectTimeout(kafkaRestApiTimeoutMsec)
+            .setSocketTimeout(kafkaRestApiTimeoutMsec);
     configBuilder = proxy.apply(configBuilder);
     RequestConfig config = configBuilder.build();
     return config;

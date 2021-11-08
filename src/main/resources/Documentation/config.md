@@ -65,6 +65,26 @@ Additional properties
 	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
 	Default: unset
 
+`plugin.@PLUGIN@.restApiThreads`
+:	Maximum number of concurrent client calls to the
+	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+	for sending/receiving messages.
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: 10
+
+`plugin.@PLUGIN@.restApiTimeout`
+:	Maximum time to wait for a client call to
+	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+	to complete. This setting is also applied as TCP socket connection and read/write timeout
+	for the outgoing HTTP calls.
+	The value is expressed using the `N unit` format of all other Gerrit time expressions, using
+	one of the following units:
+	- s, sec, second, seconds
+	- m, min, minute, minutes
+	- h, hr, hour, hours
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: 60 sec
+
 `plugin.@PLUGIN@.sendAsync`
 :	Send messages to Kafka asynchronously, detaching the calling process from the
 	acknowledge of the message being sent.

@@ -42,8 +42,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.kafka.clients.producer.Producer;
 
 class Module extends AbstractModule {
-
-  private static final int HTTP_THREAD_POOL_SIZE = 10;
   private final KafkaApiModule kafkaBrokerModule;
   private final KafkaProperties kafkaConf;
   private final WorkQueue workQueue;
@@ -71,7 +69,8 @@ class Module extends AbstractModule {
         bind(ExecutorService.class)
             .annotatedWith(FutureExecutor.class)
             .toInstance(
-                workQueue.createQueue(HTTP_THREAD_POOL_SIZE, "KafkaRestClientThreadPool", true));
+                workQueue.createQueue(
+                    kafkaConf.getRestApiThreads(), "KafkaRestClientThreadPool", true));
         bind(HttpHostProxy.class).toProvider(HttpHostProxyProvider.class).in(Scopes.SINGLETON);
         bind(RequestConfig.class).toProvider(RequestConfigProvider.class).in(Scopes.SINGLETON);
         bind(new TypeLiteral<Producer<String, String>>() {}).to(KafkaRestProducer.class);
