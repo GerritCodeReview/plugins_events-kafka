@@ -19,13 +19,16 @@ import com.google.common.base.CaseFormat;
 import com.google.common.base.Strings;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -35,6 +38,10 @@ public class KafkaProperties extends java.util.Properties {
   private static final String PROPERTY_HTTP_WIRE_LOG = "httpWireLog";
   private static final boolean DEFAULT_HTTP_WIRE_LOG = false;
   private static final String PROPERTY_REST_API_URI = "restApiUri";
+  private static final String PROPERTY_REST_API_TIMEOUT = "restApiTimeout";
+  private static final Duration DEFAULT_REST_API_TIMEOUT = Duration.ofSeconds(60);
+  private static final String PROPERTY_REST_API_THREADS = "restApiThreads";
+  private static final int DEFAULT_REST_API_THREADS = 10;
   private static final String PROPERTY_CLIENT_TYPE = "clientType";
   private static final ClientType DEFAULT_CLIENT_TYPE = ClientType.NATIVE;
   private static final String PROPERTY_SEND_ASYNC = "sendAsync";
@@ -56,6 +63,8 @@ public class KafkaProperties extends java.util.Properties {
   private final ClientType clientType;
   private final URI restApiUri;
   private final boolean httpWireLog;
+  private final Duration restApiTimeout;
+  private final int restApiThreads;
 
   @Inject
   public KafkaProperties(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -81,11 +90,21 @@ public class KafkaProperties extends java.util.Properties {
           throw new IllegalArgumentException("Invalid Kafka REST API URI: " + restApiUriString, e);
         }
         httpWireLog = fromGerritConfig.getBoolean(PROPERTY_HTTP_WIRE_LOG, DEFAULT_HTTP_WIRE_LOG);
+        restApiTimeout =
+            Duration.ofMillis(
+                ConfigUtil.getTimeUnit(
+                    fromGerritConfig.getString(PROPERTY_REST_API_TIMEOUT),
+                    DEFAULT_REST_API_TIMEOUT.toMillis(),
+                    TimeUnit.MILLISECONDS));
+        restApiThreads =
+            fromGerritConfig.getInt(PROPERTY_REST_API_THREADS, DEFAULT_REST_API_THREADS);
         break;
       case NATIVE:
       default:
         restApiUri = null;
         httpWireLog = false;
+        restApiTimeout = null;
+        restApiThreads = 0;
         break;
     }
 
@@ -103,6 +122,8 @@ public class KafkaProperties extends java.util.Properties {
     this.restApiUri = restApiURI;
     initDockerizedKafkaServer();
     this.httpWireLog = false;
+    restApiTimeout = DEFAULT_REST_API_TIMEOUT;
+    restApiThreads = DEFAULT_REST_API_THREADS;
   }
 
   private void setDefaults() {
@@ -159,5 +180,13 @@ public class KafkaProperties extends java.util.Properties {
 
   public boolean isHttpWireLog() {
     return httpWireLog;
+  }
+
+  public Duration getRestApiTimeout() {
+    return restApiTimeout;
+  }
+
+  public int getRestApiThreads() {
+    return restApiThreads;
   }
 }
