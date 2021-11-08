@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89900ae7_cdafff50",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "what about proxyUrl instead?",
+      "range": {
+        "startLine": 32,
+        "startChar": 57,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f839ce_53dc3adb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "nit: this feels a bit strange, c \u003e 0 seems better but it is just personal preference",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e69bb895_dc4a2340",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
         "patchSetId": 17
@@ -19,6 +65,76 @@
         "startChar": 2,
         "endLine": 46,
         "endChar": 7
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf80799_4536be87",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e69bb895_dc4a2340",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98caf347_971725da",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "nit: you could use MediaType.ANY_TYPE from com.google.common.net.MediaType",
+      "range": {
+        "startLine": 135,
+        "startChar": 40,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db8b732_139ee94b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "From ?",
+      "range": {
+        "startLine": 173,
+        "startChar": 37,
+        "endLine": 173,
+        "endChar": 39
       },
       "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"

@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab45e10a_59a95fee",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "yep, you are right. I misread the code. However, we could use a set instead of an array. Anyway, no big deal.",
+      "parentUuid": "1b443c50_1fd65148",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 5
+      },
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91b1859d_fd8ca1ef",
@@ -314,6 +338,24 @@
       "side": 1,
       "message": "which one is it? I can only find the the ones below:\n\n  private static final String SUBSCRIBER_POLL_FAILURE_COUNTER \u003d\n      \"subscriber_msg_consumer_poll_failure_counter\";\n  private static final String SUBSCRIBER_FAILURE_COUNTER \u003d\n      \"subscriber_msg_consumer_failure_counter\";",
       "parentUuid": "c5c91d32_0da7fee9",
+      "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3336c3_424a9675",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-11-08T09:15:15Z",
+      "side": 1,
+      "message": "You are right. Only for the publisher we have success metrics.",
+      "parentUuid": "c71293ec_53d9e65c",
       "revId": "71e753423a47367abc6a33c00ebc136c30233b0e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
