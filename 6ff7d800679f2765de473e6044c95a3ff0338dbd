@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "342dac79_c9cb2b58",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-08T19:01:02Z",
+      "side": 1,
+      "message": "The name of the config setting is \u0027proxy\u0027 (see [1]).\n\n[1] https://gerrit-documentation.storage.googleapis.com/Documentation/3.4.1/config-gerrit.html#http",
+      "parentUuid": "89900ae7_cdafff50",
+      "range": {
+        "startLine": 32,
+        "startChar": 57,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20f839ce_53dc3adb",
@@ -182,6 +206,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20dd17b_60bdddec",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-08T19:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98caf347_971725da",
+      "range": {
+        "startLine": 135,
+        "startChar": 40,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4db8b732_139ee94b",
@@ -195,6 +243,30 @@
       "writtenOn": "2021-11-08T09:15:15Z",
       "side": 1,
       "message": "From ?",
+      "range": {
+        "startLine": 173,
+        "startChar": 37,
+        "endLine": 173,
+        "endChar": 39
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f331fbd_b2b23708",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-08T19:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4db8b732_139ee94b",
       "range": {
         "startLine": 173,
         "startChar": 37,
