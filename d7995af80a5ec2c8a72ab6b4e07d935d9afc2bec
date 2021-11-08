@@ -16,6 +16,24 @@
       "message": "Tests are failing because KafkaProperties is mocked [1] in KafkaSessionTest.\nIt now needs a:\n\n```\nwhen(properties.getClientType()).thenReturn(NATIVE)\n```\n\n[1]https://gerrit.googlesource.com/plugins/events-kafka/+/d7995af80a5ec2c8a72ab6b4e07d935d9afc2bec/src/test/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaSessionTest.java#44",
       "revId": "d7995af80a5ec2c8a72ab6b4e07d935d9afc2bec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "841cb2d4_27f6156a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-11-08T16:31:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50b762b_c6962dbd",
+      "revId": "d7995af80a5ec2c8a72ab6b4e07d935d9afc2bec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
