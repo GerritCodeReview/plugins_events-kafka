@@ -42,6 +42,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,6 +75,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   private String topic;
   private final KafkaRestClient restClient;
   private final AtomicBoolean resetOffset;
+  private final long restClientTimeoutMs;
   private volatile ReceiverJob receiver;
 
   @Inject
@@ -93,6 +96,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     gson = new Gson();
     restClient = restClientFactory.create(configuration);
     resetOffset = new AtomicBoolean(false);
+    restClientTimeoutMs = configuration.getRestApiTimeout().toMillis();
   }
 
   /* (non-Javadoc)
@@ -106,12 +110,12 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
         "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
     try {
       runReceiver();
-    } catch (InterruptedException | ExecutionException e) {
+    } catch (InterruptedException | ExecutionException | TimeoutException e) {
       throw new IllegalStateException(e);
     }
   }
 
-  private void runReceiver() throws InterruptedException, ExecutionException {
+  private void runReceiver() throws InterruptedException, ExecutionException, TimeoutException {
     receiver = new ReceiverJob(configuration.getGroupId());
     executor.execute(receiver);
   }
@@ -124,7 +128,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     try {
       closed.set(true);
       receiver.close();
-    } catch (InterruptedException | ExecutionException | IOException e) {
+    } catch (InterruptedException | ExecutionException | IOException | TimeoutException e) {
       logger.atWarning().withCause(e).log("Unable to close receiver for topic=%s", topic);
     }
   }
@@ -157,14 +161,18 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     private final ListenableFuture<URI> kafkaRestConsumerUri;
     private final ListenableFuture<?> kafkaSubscriber;
 
-    public ReceiverJob(String consumerGroup) throws InterruptedException, ExecutionException {
+    public ReceiverJob(String consumerGroup)
+        throws InterruptedException, ExecutionException, TimeoutException {
       kafkaRestConsumerUri = createConsumer(consumerGroup);
       kafkaSubscriber = restClient.mapAsync(kafkaRestConsumerUri, this::subscribeToTopic);
-      kafkaSubscriber.get();
+      kafkaSubscriber.get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
     }
 
-    public void close() throws InterruptedException, ExecutionException, IOException {
-      restClient.mapAsync(kafkaRestConsumerUri, this::deleteConsumer).get();
+    public void close()
+        throws InterruptedException, ExecutionException, IOException, TimeoutException {
+      restClient
+          .mapAsync(kafkaRestConsumerUri, this::deleteConsumer)
+          .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
       restClient.close();
     }
 
@@ -177,15 +185,19 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       }
     }
 
-    private void consume() throws InterruptedException, ExecutionException {
+    private void consume() throws InterruptedException, ExecutionException, TimeoutException {
       try {
         while (!closed.get()) {
           if (resetOffset.getAndSet(false)) {
-            restClient.map(getTopicPartitions(), this::seekToBeginning).get();
+            restClient
+                .map(getTopicPartitions(), this::seekToBeginning)
+                .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
           }
 
           ConsumerRecords<byte[], byte[]> records =
-              restClient.mapAsync(kafkaRestConsumerUri, this::getRecords).get();
+              restClient
+                  .mapAsync(kafkaRestConsumerUri, this::getRecords)
+                  .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
           records.forEach(
               consumerRecord -> {
                 try (ManualRequestContext ctx = oneOffCtx.open()) {
@@ -206,7 +218,9 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
             "Existing consumer loop of topic %s because of a non-recoverable exception", topic);
         reconnectAfterFailure();
       } finally {
-        restClient.mapAsync(kafkaRestConsumerUri, this::deleteConsumer).get();
+        restClient
+            .mapAsync(kafkaRestConsumerUri, this::deleteConsumer)
+            .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
       }
     }
 
@@ -311,7 +325,8 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       return new TopicPartition(topic, consumerRecord.partition());
     }
 
-    private void reconnectAfterFailure() throws InterruptedException, ExecutionException {
+    private void reconnectAfterFailure()
+        throws InterruptedException, ExecutionException, TimeoutException {
       // Random delay with average of DELAY_RECONNECT_AFTER_FAILURE_MSEC
       // for avoiding hammering exactly at the same interval in case of failure
       long reconnectDelay =
