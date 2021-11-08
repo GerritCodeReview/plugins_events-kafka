@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c89f9d26_185ffcbf",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-08T13:58:47Z",
+      "side": 1,
+      "message": "I just copied the existing implementation in com.google.gerrit.httpd.ProxyPropertiesProvider: it would be best to keep it aligned IMHO for clarity.",
+      "parentUuid": "20f839ce_53dc3adb",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e69bb895_dc4a2340",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
         "patchSetId": 17
@@ -101,6 +125,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "e69bb895_dc4a2340",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "6ff7d800679f2765de473e6044c95a3ff0338dbd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50eb030b_5deeaac4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxyProvider.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-08T13:58:47Z",
+      "side": 1,
+      "message": "For compatibility with existing settings. See com.google.gerrit.httpd.ProxyPropertiesProvider",
+      "parentUuid": "0cf80799_4536be87",
       "range": {
         "startLine": 38,
         "startChar": 2,
