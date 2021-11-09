@@ -146,7 +146,7 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
             new EventMessage.Header(UUID.randomUUID(), UUID.randomUUID()),
             new ProjectCreatedEvent());
 
-    Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofMillis(1000);
+    Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofSeconds(30);
 
     List<EventMessage> receivedEvents = new ArrayList<>();
 

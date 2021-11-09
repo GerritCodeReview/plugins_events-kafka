@@ -29,6 +29,7 @@ junit_tests(
     name = "events_kafka_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     tags = ["events-kafka"],
+    timeout = "long",
     deps = [
         ":events-kafka__plugin_test_deps",
         "//lib/testcontainers",
