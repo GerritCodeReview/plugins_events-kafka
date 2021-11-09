@@ -23,9 +23,9 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics;
+import java.net.URI;
 import java.util.Objects;
 import java.util.concurrent.Future;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -36,13 +36,13 @@ public final class KafkaSession {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSession.class);
   private final KafkaProperties properties;
-  private final Provider<KafkaProducer<String, String>> producerProvider;
+  private final Provider<Producer<String, String>> producerProvider;
   private final KafkaEventsPublisherMetrics publisherMetrics;
   private volatile Producer<String, String> producer;
 
   @Inject
   public KafkaSession(
-      Provider<KafkaProducer<String, String>> producerProvider,
+      Provider<Producer<String, String>> producerProvider,
       KafkaProperties properties,
       KafkaEventsPublisherMetrics publisherMetrics) {
     this.producerProvider = producerProvider;
@@ -63,12 +63,37 @@ public final class KafkaSession {
       return;
     }
 
-    LOGGER.info("Connect to {}...", properties.getProperty("bootstrap.servers"));
-    /* Need to make sure that the thread of the running connection uses
-     * the correct class loader otherwize you can endup with hard to debug
-     * ClassNotFoundExceptions
-     */
-    setConnectionClassLoader();
+    switch (properties.getClientType()) {
+      case NATIVE:
+        String bootstrapServers = properties.getProperty("bootstrap.servers");
+        if (bootstrapServers == null) {
+          LOGGER.warn("No Kafka bootstrap.servers property defined: session not started.");
+          return;
+        }
+
+        LOGGER.info("Connect to {}...", bootstrapServers);
+        /* Need to make sure that the thread of the running connection uses
+         * the correct class loader otherwise you can end up with hard to debug
+         * ClassNotFoundExceptions
+         */
+        setConnectionClassLoader();
+        break;
+
+      case REST:
+        URI kafkaProxyUri = properties.getRestApiUri();
+        if (kafkaProxyUri == null) {
+          LOGGER.warn("No Kafka Proxy URL property defined: session not started.");
+          return;
+        }
+
+        LOGGER.info("Connect to {}...", kafkaProxyUri);
+        break;
+
+      default:
+        LOGGER.error("Unsupported Kafka Client Type %s", properties.getClientType());
+        return;
+    }
+
     producer = producerProvider.get();
     LOGGER.info("Connection established.");
   }

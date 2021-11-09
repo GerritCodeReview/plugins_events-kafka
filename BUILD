@@ -17,8 +17,11 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
-        "@kafka-client//jar",
+        "//lib/httpcomponents:httpclient",
         "@events-broker//jar",
+        "@httpasyncclient//jar",
+        "@httpcore-nio//jar",
+        "@kafka-client//jar",
     ],
 )
 
@@ -29,8 +32,8 @@ junit_tests(
     deps = [
         ":events-kafka__plugin_test_deps",
         "//lib/testcontainers",
-        "@kafka-client//jar",
         "@events-broker//jar",
+        "@kafka-client//jar",
         "@testcontainers-kafka//jar",
     ],
 )

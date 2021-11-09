@@ -51,14 +51,14 @@ import org.testcontainers.containers.KafkaContainer;
 @NoHttpd
 @TestPlugin(name = "events-kafka", sysModule = "com.googlesource.gerrit.plugins.kafka.Module")
 public class EventConsumerIT extends LightweightPluginDaemonTest {
-  static final long KAFKA_POLL_TIMEOUT = 10000L;
+  static final Duration KAFKA_POLL_TIMEOUT = Duration.ofSeconds(10);
 
   private KafkaContainer kafka;
 
   @Override
   public void setUpTestPlugin() throws Exception {
     try {
-      kafka = new KafkaContainer();
+      kafka = KafkaContainerProvider.get();
       kafka.start();
 
       System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
