@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a44a07b_2a16feb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-11-17T21:17:50Z",
+      "side": 1,
+      "message": "Should be redone with:\nhttps://gerrit-review.googlesource.com/c/plugins/events-kafka/+/323181",
+      "revId": "d15ff539f055bde8aef2b2bd4301fd0957535218",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
