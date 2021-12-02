@@ -16,6 +16,24 @@
       "message": "waiting for resolution on https://gerrit-review.googlesource.com/c/plugins/events-kafka/+/323156",
       "revId": "2ad6f5c8a2d0a089ad44136e26c0f2d0cf39535c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d47e797_81cda802",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1140106
+      },
+      "writtenOn": "2021-12-02T17:24:26Z",
+      "side": 1,
+      "message": "\u003e waiting for resolution on https://gerrit-review.googlesource.com/c/plugins/events-kafka/+/323156\n\nI\u0027ll go ahead with this for now. It won\u0027t cause a merge conflict for If32a84758cdcbee7594b9a11954643abbc8384eb anyway.",
+      "parentUuid": "3995fccd_93b00171",
+      "revId": "2ad6f5c8a2d0a089ad44136e26c0f2d0cf39535c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
