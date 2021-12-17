@@ -219,7 +219,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
         reconnectAfterFailure();
       } finally {
         restClient
-            .mapAsync(kafkaRestConsumerUri, this::deleteConsumer)
+            .mapAsync(kafkaRestConsumerUri, this::deleteSubscription)
             .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
       }
     }
@@ -252,6 +252,11 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
 
     private ListenableFuture<?> deleteConsumer(URI consumerUri) {
       HttpDelete delete = restClient.createDeleteToConsumer(consumerUri);
+      return restClient.execute(delete);
+    }
+
+    private ListenableFuture<?> deleteSubscription(URI consumerUri) {
+      HttpDelete delete = restClient.createDeleteToConsumerSubscriptions(consumerUri);
       return restClient.execute(delete);
     }
 
