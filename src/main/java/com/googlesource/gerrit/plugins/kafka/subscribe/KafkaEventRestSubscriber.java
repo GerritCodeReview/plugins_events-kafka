@@ -260,8 +260,8 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       return restClient.execute(delete);
     }
 
-    private ListenableFuture<URI> createConsumer(String name) {
-      HttpPost post = restClient.createPostToConsumer(name);
+    private ListenableFuture<URI> createConsumer(String consumerGroup) {
+      HttpPost post = restClient.createPostToConsumer(consumerGroup + "-" + topic);
       return restClient.mapAsync(restClient.execute(post, HttpStatus.SC_OK), this::getConsumerUri);
     }
 
