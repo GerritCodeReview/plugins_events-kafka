@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -49,7 +50,10 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
+import org.apache.log4j.Appender;
+import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class KafkaRestClient {
@@ -62,6 +66,8 @@ public class KafkaRestClient {
   private final URI kafkaRestApiUri;
   private final ExecutorService futureExecutor;
   private final int kafkaRestApiTimeoutMsec;
+
+  private static boolean logConfigured;
 
   public interface Factory {
     KafkaRestClient create(KafkaProperties configuration);
@@ -84,7 +90,22 @@ public class KafkaRestClient {
   }
 
   public static void enableHttpWireLog() {
-    Logger.getLogger("org.apache.http.wire").setLevel(Level.TRACE);
+    if (!logConfigured) {
+      Logger httpWireLoggger = Logger.getLogger("org.apache.http.wire");
+      httpWireLoggger.setLevel(Level.DEBUG);
+
+      @SuppressWarnings("rawtypes")
+      Enumeration rootLoggerAppenders = LogManager.getRootLogger().getAllAppenders();
+      while (rootLoggerAppenders.hasMoreElements()) {
+        Appender logAppender = (Appender) rootLoggerAppenders.nextElement();
+        if (logAppender instanceof AppenderSkeleton) {
+          ((AppenderSkeleton) logAppender).setThreshold(Level.DEBUG);
+        }
+        httpWireLoggger.addAppender(logAppender);
+      }
+
+      logConfigured = true;
+    }
   }
 
   public ListenableFuture<HttpResponse> execute(HttpRequestBase request, int... expectedStatuses) {
