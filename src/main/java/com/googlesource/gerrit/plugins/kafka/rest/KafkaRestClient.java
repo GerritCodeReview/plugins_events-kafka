@@ -137,7 +137,7 @@ public class KafkaRestClient {
 
   public HttpGet createGetTopic(String topic) {
     HttpGet get = new HttpGet(kafkaRestApiUri.resolve("/topics/" + topic));
-    get.addHeader(HttpHeaders.ACCEPT, KAFKA_V2_JSON);
+    get.addHeader(HttpHeaders.ACCEPT, KAFKA_V2);
     get.setConfig(createRequestConfig());
     return get;
   }
