@@ -14,8 +14,11 @@
 
 package com.googlesource.gerrit.plugins.kafka;
 
+import com.github.dockerjava.api.model.ContainerNetwork;
+import com.google.common.base.Strings;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 import org.junit.Ignore;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
@@ -24,12 +27,18 @@ import org.testcontainers.utility.DockerImageName;
 @Ignore
 public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
 
-  private static final String KAFKA_REST_PROXY_HOSTNAME = "restproxy";
-
+  public static final String KAFKA_REST_PROXY_HOSTNAME = "restproxy";
   public static final int KAFKA_REST_PORT = 8082;
+  private final String kafkaRestHostname;
 
   public KafkaRestContainer(KafkaContainer kafkaContainer) {
+    this(kafkaContainer, null);
+  }
+
+  public KafkaRestContainer(KafkaContainer kafkaContainer, String kafkaRestId) {
     super(restProxyImageFor(kafkaContainer));
+
+    kafkaRestHostname = KAFKA_REST_PROXY_HOSTNAME + Strings.nullToEmpty(kafkaRestId);
 
     withNetwork(kafkaContainer.getNetwork());
 
@@ -41,8 +50,11 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
     withEnv("KAFKA_REST_BOOTSTRAP_SERVERS", bootstrapServers);
     withEnv("KAFKA_REST_LISTENERS", "http://0.0.0.0:" + KAFKA_REST_PORT);
     withEnv("KAFKA_REST_CLIENT_SECURITY_PROTOCOL", "PLAINTEXT");
-    withEnv("KAFKA_REST_HOST_NAME", KAFKA_REST_PROXY_HOSTNAME);
-    withCreateContainerCmdModifier(cmd -> cmd.withHostName(KAFKA_REST_PROXY_HOSTNAME));
+    withEnv("KAFKA_REST_HOST_NAME", kafkaRestHostname);
+    if (kafkaRestId != null) {
+      withEnv("KAFKA_REST_ID", kafkaRestId);
+    }
+    withCreateContainerCmdModifier(cmd -> cmd.withHostName(kafkaRestHostname));
   }
 
   private static DockerImageName restProxyImageFor(KafkaContainer kafkaContainer) {
@@ -57,5 +69,10 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
     } catch (URISyntaxException e) {
       throw new IllegalArgumentException("Invalid Kafka API URI", e);
     }
+  }
+
+  public String getKafkaRestContainerIP() {
+    Map<String, ContainerNetwork> networks = getContainerInfo().getNetworkSettings().getNetworks();
+    return networks.values().iterator().next().getIpAddress();
   }
 }
