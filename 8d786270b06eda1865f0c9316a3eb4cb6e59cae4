@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a662a1_259ee38c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-20T21:48:44Z",
+      "side": 1,
+      "message": "LGTM. We don\u0027t have tests in general for the KafkaRestCient and KafkaEventRestSubscriber classes in the plugin. At some point we would have to fill the void I guess.",
+      "revId": "8d786270b06eda1865f0c9316a3eb4cb6e59cae4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
