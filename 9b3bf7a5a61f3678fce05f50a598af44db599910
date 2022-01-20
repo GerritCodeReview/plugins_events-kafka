@@ -70,6 +70,47 @@
       },
       "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca11ebc_7ddf6174",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:25:37Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "b5e9e351_be21b8aa",
+      "range": {
+        "startLine": 15,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f393c89c_7f8e028a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:25:37Z",
+      "side": 1,
+      "message": "Fixed typos in the commit message.",
+      "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
