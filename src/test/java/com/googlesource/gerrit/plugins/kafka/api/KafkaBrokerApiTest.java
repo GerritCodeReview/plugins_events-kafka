@@ -40,7 +40,6 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,6 +56,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -64,10 +64,13 @@ public class KafkaBrokerApiTest {
 
   static KafkaContainer kafka;
   static KafkaRestContainer kafkaRest;
+  static KafkaRestContainer kafkaRestWithId;
+  static GenericContainer<?> nginx;
 
   static final int TEST_NUM_SUBSCRIBERS = 1;
   static final String TEST_GROUP_ID = KafkaBrokerApiTest.class.getName();
   static final int TEST_POLLING_INTERVAL_MSEC = 100;
+  static final String KAFKA_REST_ID = "kafka-rest-instance-0";
   private static final int TEST_THREAD_POOL_SIZE = 10;
   private static final UUID TEST_INSTANCE_ID = UUID.randomUUID();
   private static final TimeUnit TEST_TIMEOUT_UNIT = TimeUnit.SECONDS;
@@ -160,8 +163,11 @@ public class KafkaBrokerApiTest {
   public static void beforeClass() throws Exception {
     kafka = KafkaContainerProvider.get();
     kafka.start();
+    kafkaRestWithId = new KafkaRestContainer(kafka, KAFKA_REST_ID);
+    kafkaRestWithId.start();
     kafkaRest = new KafkaRestContainer(kafka);
     kafkaRest.start();
+
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }
 
@@ -172,8 +178,15 @@ public class KafkaBrokerApiTest {
 
   @AfterClass
   public static void afterClass() {
-    if (kafka != null) {
-      kafka.stop();
+    stopContainer(kafka);
+    stopContainer(kafkaRest);
+    stopContainer(kafkaRestWithId);
+    stopContainer(nginx);
+  }
+
+  private static void stopContainer(GenericContainer<?> container) {
+    if (container != null) {
+      container.stop();
     }
   }
 
@@ -204,7 +217,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendSyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -222,7 +235,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendAsyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiURI()));
+    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_async";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -240,7 +253,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendToTopicAndResetOffset() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_reset";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -260,7 +273,7 @@ public class KafkaBrokerApiTest {
     assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
   }
 
-  protected URI getKafkaRestApiURI() {
+  protected String getKafkaRestApiUriString() {
     return null;
   }
 

@@ -61,6 +61,12 @@ import org.apache.kafka.common.serialization.Deserializer;
 public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final int DELAY_RECONNECT_AFTER_FAILURE_MSEC = 1000;
+  // Prefix is a length of 'rest-consumer-' string
+  private static final int INSTANCE_ID_PREFIX_LEN = 14;
+  /**
+   * Suffix is a length of a unique identifier for example: '-9836fe85-d838-4722-97c9-4a7b-34e834d'
+   */
+  private static final int INSTANCE_ID_SUFFIX_LEN = 37;
 
   private final OneOffRequestContext oneOffCtx;
   private final AtomicBoolean closed = new AtomicBoolean(false);
@@ -281,10 +287,25 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
           new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8)) {
         JsonObject responseJson = gson.fromJson(bodyReader, JsonObject.class);
         URI consumerUri = new URI(responseJson.get("base_uri").getAsString());
-        return Futures.immediateFuture(restClient.resolveURI(consumerUri.getPath()));
+        String instanceId = responseJson.get("instance_id").getAsString();
+
+        String restProxyId = getRestProxyId(instanceId);
+        return Futures.immediateFuture(
+            restClient.resolveKafkaRestApiUri(restProxyId, consumerUri.getPath()));
       } catch (UnsupportedOperationException | IOException | URISyntaxException e) {
         return Futures.immediateFailedFuture(e);
       }
+    }
+
+    private String getRestProxyId(String instanceId) {
+      int instanceIdLen = instanceId.length();
+      if (instanceIdLen <= INSTANCE_ID_SUFFIX_LEN + INSTANCE_ID_PREFIX_LEN) {
+        // Kafka Rest Proxy instance id is not mandatory
+        return "";
+      }
+
+      return instanceId.substring(
+          INSTANCE_ID_PREFIX_LEN, instanceId.length() - INSTANCE_ID_SUFFIX_LEN);
     }
 
     private ListenableFuture<ConsumerRecords<byte[], byte[]>> convertRecords(

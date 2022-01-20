@@ -35,6 +35,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 @Singleton
 public class KafkaProperties extends java.util.Properties {
+  public static final String REST_API_URI_ID_PLACEHOLDER = "${kafka_rest_id}";
+
   private static final String PROPERTY_HTTP_WIRE_LOG = "httpWireLog";
   private static final boolean DEFAULT_HTTP_WIRE_LOG = false;
   private static final String PROPERTY_REST_API_URI = "restApiUri";
@@ -61,7 +63,7 @@ public class KafkaProperties extends java.util.Properties {
   private final String topic;
   private final boolean sendAsync;
   private final ClientType clientType;
-  private final URI restApiUri;
+  private final String restApiUriString;
   private final boolean httpWireLog;
   private final Duration restApiTimeout;
   private final int restApiThreads;
@@ -79,16 +81,11 @@ public class KafkaProperties extends java.util.Properties {
 
     switch (clientType) {
       case REST:
-        String restApiUriString = fromGerritConfig.getString(PROPERTY_REST_API_URI);
+        restApiUriString = fromGerritConfig.getString(PROPERTY_REST_API_URI);
         if (Strings.isNullOrEmpty(restApiUriString)) {
           throw new IllegalArgumentException("Missing REST API URI in Kafka properties");
         }
 
-        try {
-          restApiUri = new URI(restApiUriString);
-        } catch (URISyntaxException e) {
-          throw new IllegalArgumentException("Invalid Kafka REST API URI: " + restApiUriString, e);
-        }
         httpWireLog = fromGerritConfig.getBoolean(PROPERTY_HTTP_WIRE_LOG, DEFAULT_HTTP_WIRE_LOG);
         restApiTimeout =
             Duration.ofMillis(
@@ -101,7 +98,7 @@ public class KafkaProperties extends java.util.Properties {
         break;
       case NATIVE:
       default:
-        restApiUri = null;
+        restApiUriString = null;
         httpWireLog = false;
         restApiTimeout = null;
         restApiThreads = 0;
@@ -113,13 +110,14 @@ public class KafkaProperties extends java.util.Properties {
   }
 
   @VisibleForTesting
-  public KafkaProperties(boolean sendAsync, ClientType clientType, @Nullable URI restApiURI) {
+  public KafkaProperties(
+      boolean sendAsync, ClientType clientType, @Nullable String restApiUriString) {
     super();
     setDefaults();
     topic = DEFAULT_STREAM_EVENTS_TOPIC_NAME;
     this.sendAsync = sendAsync;
     this.clientType = clientType;
-    this.restApiUri = restApiURI;
+    this.restApiUriString = restApiUriString;
     initDockerizedKafkaServer();
     this.httpWireLog = false;
     restApiTimeout = DEFAULT_REST_API_TIMEOUT;
@@ -174,8 +172,12 @@ public class KafkaProperties extends java.util.Properties {
     return clientType;
   }
 
-  public URI getRestApiUri() {
-    return restApiUri;
+  public URI getRestApiUri() throws URISyntaxException {
+    return getRestApiUri("");
+  }
+
+  public URI getRestApiUri(String kafkaRestId) throws URISyntaxException {
+    return new URI(restApiUriString.replace(REST_API_URI_ID_PLACEHOLDER, kafkaRestId));
   }
 
   public boolean isHttpWireLog() {
