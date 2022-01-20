@@ -25,6 +25,7 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
+import java.net.URISyntaxException;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -63,7 +64,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInSyncMode() {
+  public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInSyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFuture(recordMetadata));
     objectUnderTest.connect();
@@ -72,7 +74,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInSyncMode() {
+  public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInSyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFailedFuture(new Exception()));
     objectUnderTest.connect();
@@ -81,7 +84,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInSyncMode() {
+  public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInSyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
@@ -94,7 +98,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInAsyncMode() {
+  public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInAsyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
 
@@ -107,7 +112,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInAsyncMode() {
+  public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInAsyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any()))
         .thenReturn(Futures.immediateFailedFuture(new Exception()));
@@ -121,7 +127,8 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInAsyncMode() {
+  public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInAsyncMode()
+      throws URISyntaxException {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any()))
         .thenThrow(new RuntimeException("Unexpected runtime exception"));
@@ -135,7 +142,7 @@ public class KafkaSessionTest {
   }
 
   @Test
-  public void shouldNotConnectKafkaSessionWhenBoostrapServersAreNotSet() {
+  public void shouldNotConnectKafkaSessionWhenBoostrapServersAreNotSet() throws URISyntaxException {
     when(properties.getProperty("bootstrap.servers")).thenReturn(null);
     objectUnderTest.connect();
     assertThat(objectUnderTest.isOpen()).isFalse();

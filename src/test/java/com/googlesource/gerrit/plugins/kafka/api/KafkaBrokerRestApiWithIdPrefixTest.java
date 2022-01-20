@@ -1,4 +1,4 @@
-// Copyright (C) 2021 The Android Open Source Project
+// Copyright (C) 2022 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
+public class KafkaBrokerRestApiWithIdPrefixTest extends KafkaBrokerApiTest {
 
   @Override
   @Before
@@ -56,7 +56,7 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
                 TEST_GROUP_ID,
                 TEST_NUM_SUBSCRIBERS,
                 ClientType.REST,
-                getKafkaRestApiUriString());
+                getApiUriString());
         bind(KafkaSubscriberProperties.class).toInstance(kafkaSubscriberProperties);
 
         bind(HttpHostProxy.class).toInstance(new HttpHostProxy(null, null, null));
@@ -68,6 +68,14 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
 
   @Override
   protected String getKafkaRestApiUriString() {
-    return kafkaRest.getApiURI().toString();
+    return getApiUriString();
+  }
+
+  private static String getApiUriString() {
+    return String.format(
+        "http://%s:%d/%s",
+        nginx.getHost(),
+        nginx.getLivenessCheckPortNumbers().iterator().next(),
+        KafkaProperties.REST_API_URI_ID_PLACEHOLDER);
   }
 }
