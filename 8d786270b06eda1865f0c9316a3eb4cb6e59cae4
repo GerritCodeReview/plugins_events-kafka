@@ -16,6 +16,41 @@
       "message": "LGTM. We don\u0027t have tests in general for the KafkaRestCient and KafkaEventRestSubscriber classes in the plugin. At some point we would have to fill the void I guess.",
       "revId": "8d786270b06eda1865f0c9316a3eb4cb6e59cae4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba03e984_d7f56dc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:16:23Z",
+      "side": 1,
+      "message": "They are implicitly covered by the existing integration tests though.",
+      "parentUuid": "61a662a1_259ee38c",
+      "revId": "8d786270b06eda1865f0c9316a3eb4cb6e59cae4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "633130aa_8c7f80fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:16:23Z",
+      "side": 1,
+      "message": "Thanks, @Ponch.",
+      "revId": "8d786270b06eda1865f0c9316a3eb4cb6e59cae4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
