@@ -35,6 +35,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -281,10 +282,19 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
           new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8)) {
         JsonObject responseJson = gson.fromJson(bodyReader, JsonObject.class);
         URI consumerUri = new URI(responseJson.get("base_uri").getAsString());
-        return Futures.immediateFuture(restClient.resolveURI(consumerUri.getPath()));
+
+        String restProxyId = getRestProxyId(consumerUri);
+        return Futures.immediateFuture(
+            restClient.resolveURI(String.format("/%s%s", restProxyId, consumerUri.getPath())));
       } catch (UnsupportedOperationException | IOException | URISyntaxException e) {
         return Futures.immediateFailedFuture(e);
       }
+    }
+
+    private String getRestProxyId(URI consumerUri) {
+      String consumerId = Paths.get(consumerUri.getPath()).getFileName().toString();
+      String restProxyId = consumerId.split("-")[2];
+      return restProxyId;
     }
 
     private ListenableFuture<ConsumerRecords<byte[], byte[]>> convertRecords(
