@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
+import java.net.URISyntaxException;
 
 @Singleton
 public class KafkaPublisher implements EventListener {
@@ -36,7 +37,7 @@ public class KafkaPublisher implements EventListener {
     this.gson = gson;
   }
 
-  public void start() {
+  public void start() throws URISyntaxException {
     if (!session.isOpen()) {
       session.connect();
     }

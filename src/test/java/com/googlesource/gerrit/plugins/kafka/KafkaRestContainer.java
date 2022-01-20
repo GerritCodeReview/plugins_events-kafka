@@ -24,11 +24,10 @@ import org.testcontainers.utility.DockerImageName;
 @Ignore
 public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
 
-  private static final String KAFKA_REST_PROXY_HOSTNAME = "restproxy";
-
+  public static final String KAFKA_REST_PROXY_HOSTNAME = "restproxy";
   public static final int KAFKA_REST_PORT = 8082;
 
-  public KafkaRestContainer(KafkaContainer kafkaContainer) {
+  public KafkaRestContainer(KafkaContainer kafkaContainer, String kafkaRestId) {
     super(restProxyImageFor(kafkaContainer));
 
     withNetwork(kafkaContainer.getNetwork());
@@ -42,6 +41,9 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
     withEnv("KAFKA_REST_LISTENERS", "http://0.0.0.0:" + KAFKA_REST_PORT);
     withEnv("KAFKA_REST_CLIENT_SECURITY_PROTOCOL", "PLAINTEXT");
     withEnv("KAFKA_REST_HOST_NAME", KAFKA_REST_PROXY_HOSTNAME);
+    if (kafkaRestId != null) {
+      withEnv("KAFKA_REST_ID", kafkaRestId);
+    }
     withCreateContainerCmdModifier(cmd -> cmd.withHostName(KAFKA_REST_PROXY_HOSTNAME));
   }
 
