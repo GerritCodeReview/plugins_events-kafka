@@ -151,6 +151,14 @@ public class KafkaRestClient {
     return delete;
   }
 
+  public HttpDelete createDeleteToConsumerSubscriptions(URI consumerUri) {
+    URI subscriptionUri = consumerUri.resolve("subscription");
+    HttpDelete delete = new HttpDelete(subscriptionUri);
+    delete.addHeader(HttpHeaders.ACCEPT, "*/*");
+    delete.setConfig(createRequestConfig());
+    return delete;
+  }
+
   public HttpPost createPostToSubscribe(URI consumerUri, String topic) {
     HttpPost post = new HttpPost(consumerUri.resolve(consumerUri.getPath() + "/subscription"));
     post.addHeader(HttpHeaders.ACCEPT, "*/*");
