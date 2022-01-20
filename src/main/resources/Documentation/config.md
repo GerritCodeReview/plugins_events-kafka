@@ -62,6 +62,9 @@ Additional properties
 :	URL of the
 	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
 	for sending/receiving messages through REST-API instead of using the native Kafka client.
+	The value can use the `${kafka_rest_id}` placeholder which will be replaced at runtime using
+	the `KAFKA_REST_ID` associated with the Kafka REST-API Proxy that is answering the call,
+	typically needed when having multiple proxies behind a workload balancer.
 	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
 	Default: unset
 
