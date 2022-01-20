@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83fa0272_3d1508dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-20T22:11:16Z",
+      "side": 1,
+      "message": "I don\u0027t understand why you need a receive timeout to make sure the receiver is kept alive :/",
+      "range": {
+        "startLine": 15,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
