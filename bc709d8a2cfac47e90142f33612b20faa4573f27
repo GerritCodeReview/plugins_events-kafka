@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "572b4ad3_fe1f5323",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:29:15Z",
+      "side": 1,
+      "message": "Let me add more description on the commit message about it.",
+      "parentUuid": "d79c5bed_c3e98315",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "bc709d8a2cfac47e90142f33612b20faa4573f27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e85deb45_e2283289",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-20T22:17:41Z",
       "side": 1,
       "message": "Does this apply to all the APIs? For example createGetRecords is still using KAFKA_V2_JSON",
+      "range": {
+        "startLine": 140,
+        "startChar": 38,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "bc709d8a2cfac47e90142f33612b20faa4573f27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63228aa_cf4e6e81",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:29:15Z",
+      "side": 1,
+      "message": "Nope, I know it is confusing but that\u0027s the way it works.",
+      "parentUuid": "e85deb45_e2283289",
       "range": {
         "startLine": 140,
         "startChar": 38,
