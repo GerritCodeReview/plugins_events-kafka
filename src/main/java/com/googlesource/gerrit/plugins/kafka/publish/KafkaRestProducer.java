@@ -20,7 +20,9 @@ import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -86,12 +88,17 @@ public class KafkaRestProducer implements Producer<String, String> {
 
   @Override
   public Future<RecordMetadata> send(ProducerRecord<String, String> record, Callback callback) {
-    HttpPost post =
-        restClient.createPostToTopic(
-            record.topic(),
-            new StringEntity(
-                getRecordAsJson(record),
-                ContentType.create(KAFKA_V2_JSON, StandardCharsets.UTF_8)));
+    HttpPost post;
+    try {
+      post =
+          restClient.createPostToTopic(
+              record.topic(),
+              new StringEntity(
+                  getRecordAsJson(record),
+                  ContentType.create(KAFKA_V2_JSON, StandardCharsets.UTF_8)));
+    } catch (UnsupportedCharsetException | URISyntaxException e) {
+      return Futures.immediateFailedFuture(e);
+    }
     return restClient.mapAsync(
         restClient.execute(post, HttpStatus.SC_OK),
         (res) -> Futures.immediateFuture(ZEROS_RECORD_METADATA));

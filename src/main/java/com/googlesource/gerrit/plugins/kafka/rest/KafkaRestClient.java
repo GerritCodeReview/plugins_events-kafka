@@ -30,6 +30,7 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Set;
@@ -63,9 +64,9 @@ public class KafkaRestClient {
 
   private final HttpHostProxy proxy;
   private final CloseableHttpAsyncClient httpclient;
-  private final URI kafkaRestApiUri;
   private final ExecutorService futureExecutor;
   private final int kafkaRestApiTimeoutMsec;
+  private final KafkaProperties configuration;
 
   private static boolean logConfigured;
 
@@ -81,7 +82,7 @@ public class KafkaRestClient {
     proxy = httpHostProxy;
     httpclient = proxy.apply(HttpAsyncClients.custom()).build();
     httpclient.start();
-    kafkaRestApiUri = configuration.getRestApiUri();
+    this.configuration = configuration;
     kafkaRestApiTimeoutMsec = (int) configuration.getRestApiTimeout().toMillis();
     if (configuration.isHttpWireLog()) {
       enableHttpWireLog();
@@ -135,8 +136,8 @@ public class KafkaRestClient {
     return Futures.transform(inputFuture, mapFunction, futureExecutor);
   }
 
-  public HttpGet createGetTopic(String topic) {
-    HttpGet get = new HttpGet(kafkaRestApiUri.resolve("/topics/" + topic));
+  public HttpGet createGetTopic(String topic) throws URISyntaxException {
+    HttpGet get = new HttpGet(resolveKafkaRestApiUri("/topics/" + topic));
     get.addHeader(HttpHeaders.ACCEPT, KAFKA_V2);
     get.setConfig(createRequestConfig());
     return get;
@@ -149,13 +150,10 @@ public class KafkaRestClient {
     return get;
   }
 
-  public HttpPost createPostToConsumer(String consumerGroup) {
+  public HttpPost createPostToConsumer(String consumerGroup) throws URISyntaxException {
     HttpPost post =
         new HttpPost(
-            kafkaRestApiUri.resolve(
-                kafkaRestApiUri.getPath()
-                    + "/consumers/"
-                    + URLEncoder.encode(consumerGroup, UTF_8)));
+            resolveKafkaRestApiUri("/consumers/" + URLEncoder.encode(consumerGroup, UTF_8)));
     post.addHeader(HttpHeaders.ACCEPT, MediaType.ANY_TYPE.toString());
     post.setConfig(createRequestConfig());
     post.setEntity(
@@ -190,9 +188,10 @@ public class KafkaRestClient {
     return post;
   }
 
-  public HttpPost createPostToTopic(String topic, HttpEntity postBodyEntity) {
+  public HttpPost createPostToTopic(String topic, HttpEntity postBodyEntity)
+      throws URISyntaxException {
     HttpPost post =
-        new HttpPost(kafkaRestApiUri.resolve("/topics/" + URLEncoder.encode(topic, UTF_8)));
+        new HttpPost(resolveKafkaRestApiUri("/topics/" + URLEncoder.encode(topic, UTF_8)));
     post.addHeader(HttpHeaders.ACCEPT, "*/*");
     post.setConfig(createRequestConfig());
     post.setEntity(postBodyEntity);
@@ -277,7 +276,13 @@ public class KafkaRestClient {
     httpclient.close();
   }
 
-  public URI resolveURI(String path) {
-    return kafkaRestApiUri.resolve(path);
+  public URI resolveKafkaRestApiUri(String path) throws URISyntaxException {
+    URI restApiUri = configuration.getRestApiUri();
+    return restApiUri.resolve(path);
+  }
+
+  public URI resolveKafkaRestApiUri(String kafkaRestId, String path) throws URISyntaxException {
+    URI restApiUri = configuration.getRestApiUri(kafkaRestId);
+    return restApiUri.resolve(restApiUri.getPath() + path);
   }
 }
