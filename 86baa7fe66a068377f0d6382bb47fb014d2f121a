@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cfad4f8_b3e5ea14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "+ add some context: using Confluent\u0027s REST-Proxy in a K8s environment",
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b5916a_b69bf88b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "KAFKA_REST_ID",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf1ba074_8411a58d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "This is actually needed only for the listeners, because they are allocated on one of the pod of the deployment.",
+      "range": {
+        "startLine": 11,
+        "startChar": 54,
+        "endLine": 11,
+        "endChar": 70
+      },
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b337535_64ffcd33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "i.e. K8s service",
+      "range": {
+        "startLine": 12,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d33e1a_a393e094",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "This looks promising: I\u0027d make it optional though, because if you have a sticky load-balancer OR if you have a single instance, the instance_id detection and use isn\u0027t needed.",
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dac8f6f_6b68d3ce",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "best to rely on the instance_id instead",
+      "range": {
+        "startLine": 286,
+        "startChar": 44,
+        "endLine": 286,
+        "endChar": 55
+      },
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06732353_f5ff0772",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T01:03:11Z",
+      "side": 1,
+      "message": "it is more complicated than that: the KAFKA_REST_ID can include also \u0027-\u0027 in the middle, therefore this split isn\u0027t right.\n\nIf you use instead the instance_id, just remove the fixed-size prefix and suffix.",
+      "range": {
+        "startLine": 296,
+        "startChar": 38,
+        "endLine": 296,
+        "endChar": 51
+      },
+      "revId": "86baa7fe66a068377f0d6382bb47fb014d2f121a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
