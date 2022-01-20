@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
+public class KafkaBrokerRestApiWithIdPrefixTest extends KafkaBrokerApiTest {
 
   @Override
   @Before
@@ -56,7 +56,7 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
                 TEST_GROUP_ID,
                 TEST_NUM_SUBSCRIBERS,
                 ClientType.REST,
-                kafkaRest.getApiURI().toString());
+                getApiUriString());
         bind(KafkaSubscriberProperties.class).toInstance(kafkaSubscriberProperties);
 
         bind(HttpHostProxy.class).toInstance(new HttpHostProxy(null, null, null));
@@ -68,6 +68,14 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerApiTest {
 
   @Override
   protected String getKafkaRestApiUriString() {
-    return kafkaRest.getApiURI().toString();
+    return getApiUriString();
+  }
+
+  private static String getApiUriString() {
+    return String.format(
+        "http://%s:%d/%s",
+        nginx.getHost(),
+        nginx.getLivenessCheckPortNumbers().iterator().next(),
+        KafkaProperties.REST_API_URI_ID_PLACEHOLDER);
   }
 }

@@ -19,6 +19,7 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -51,7 +52,7 @@ public final class KafkaSession {
     return false;
   }
 
-  public void connect() {
+  public void connect() throws URISyntaxException {
     if (isOpen()) {
       LOGGER.debug("Already connected.");
       return;
