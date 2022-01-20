@@ -19,6 +19,7 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -74,7 +75,13 @@ public final class KafkaSession {
         break;
 
       case REST:
-        URI kafkaProxyUri = properties.getRestApiUri();
+        URI kafkaProxyUri;
+        try {
+          kafkaProxyUri = properties.getRestApiUri();
+        } catch (URISyntaxException e) {
+          LOGGER.error("Invalid Kafka Proxy URI: session not started", e);
+          return;
+        }
         if (kafkaProxyUri == null) {
           LOGGER.warn("No Kafka Proxy URL property defined: session not started.");
           return;
