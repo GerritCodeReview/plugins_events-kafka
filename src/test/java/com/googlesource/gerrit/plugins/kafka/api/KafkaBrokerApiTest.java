@@ -40,7 +40,10 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
-import java.net.URI;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,13 +60,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.containers.NginxContainer;
+import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KafkaBrokerApiTest {
 
   static KafkaContainer kafka;
   static KafkaRestContainer kafkaRest;
+  static KafkaRestContainer kafkaRestWithId;
+  static NginxContainer<?> nginx;
 
   static final int TEST_NUM_SUBSCRIBERS = 1;
   static final String TEST_GROUP_ID = KafkaBrokerApiTest.class.getName();
@@ -73,6 +81,8 @@ public class KafkaBrokerApiTest {
   private static final TimeUnit TEST_TIMEOUT_UNIT = TimeUnit.SECONDS;
   private static final int TEST_TIMEOUT = 30;
   private static final int TEST_WAIT_FOR_MORE_MESSAGES_TIMEOUT = 5;
+  private static final String KAFKA_REST_ID = "kafka-rest-instance-0";
+  private static final String NGINX_IMAGE = "nginx:1.21.5";
 
   private Injector injector;
   private KafkaSession session;
@@ -156,12 +166,45 @@ public class KafkaBrokerApiTest {
     }
   }
 
+  @SuppressWarnings("resource")
   @BeforeClass
   public static void beforeClass() throws Exception {
     kafka = KafkaContainerProvider.get();
     kafka.start();
+    kafkaRestWithId = new KafkaRestContainer(kafka, KAFKA_REST_ID);
+    kafkaRestWithId.start();
     kafkaRest = new KafkaRestContainer(kafka);
     kafkaRest.start();
+    nginx =
+        new NginxContainer<>(NGINX_IMAGE)
+            .withNetwork(kafkaRest.getNetwork())
+            .waitingFor(new HttpWaitStrategy());
+    File nginxKafkaConf = File.createTempFile("nginx-kafka", ".conf");
+    nginxKafkaConf.deleteOnExit();
+
+    try (PrintStream printStream = new PrintStream(new FileOutputStream(nginxKafkaConf))) {
+      printStream.println(
+          String.format(
+              "server {\n"
+                  + "  listen       80  default_server;\n"
+                  + "  listen  [::]:80  default_server;\n"
+                  + "  location     /%s/ {\n"
+                  + "    proxy_pass http://%s:%d/; \n"
+                  + "  }\n"
+                  + "  location     / {\n"
+                  + "    proxy_pass http://%s:%d; \n"
+                  + "  }\n"
+                  + "}",
+              KAFKA_REST_ID,
+              kafkaRestWithId.getKafkaRestHostname(),
+              KafkaRestContainer.KAFKA_REST_PORT,
+              kafkaRestWithId.getKafkaRestHostname(),
+              KafkaRestContainer.KAFKA_REST_PORT));
+    }
+    nginx.addFileSystemBind(
+        nginxKafkaConf.getAbsolutePath(), "/etc/nginx/conf.d/default.conf", BindMode.READ_ONLY);
+    nginx.start();
+
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
   }
 
@@ -181,7 +224,7 @@ public class KafkaBrokerApiTest {
     return new TestModule(kafkaProperties);
   }
 
-  public void connectToKafka(KafkaProperties kafkaProperties) {
+  public void connectToKafka(KafkaProperties kafkaProperties) throws URISyntaxException {
     Injector baseInjector = Guice.createInjector(newTestModule(kafkaProperties));
     WorkQueue testWorkQueue = baseInjector.getInstance(WorkQueue.class);
     KafkaSubscriberProperties kafkaSubscriberProperties =
@@ -203,8 +246,8 @@ public class KafkaBrokerApiTest {
   }
 
   @Test
-  public void shouldSendSyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
+  public void shouldSendSyncAndReceiveToTopic() throws URISyntaxException {
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -221,8 +264,8 @@ public class KafkaBrokerApiTest {
   }
 
   @Test
-  public void shouldSendAsyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiURI()));
+  public void shouldSendAsyncAndReceiveToTopic() throws URISyntaxException {
+    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_async";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -239,8 +282,8 @@ public class KafkaBrokerApiTest {
   }
 
   @Test
-  public void shouldSendToTopicAndResetOffset() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
+  public void shouldSendToTopicAndResetOffset() throws URISyntaxException {
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_reset";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -260,7 +303,7 @@ public class KafkaBrokerApiTest {
     assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
   }
 
-  protected URI getKafkaRestApiURI() {
+  protected String getKafkaRestApiUriString() {
     return null;
   }
 

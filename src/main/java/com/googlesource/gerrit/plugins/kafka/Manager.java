@@ -20,6 +20,7 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
+import java.net.URISyntaxException;
 import java.util.Set;
 
 @Singleton
@@ -38,7 +39,11 @@ public class Manager implements LifecycleListener {
 
   @Override
   public void start() {
-    publisher.start();
+    try {
+      publisher.start();
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException(e);
+    }
     consumers.forEach(
         topicSubscriber ->
             brokerApi.receiveAsync(topicSubscriber.topic(), topicSubscriber.consumer()));

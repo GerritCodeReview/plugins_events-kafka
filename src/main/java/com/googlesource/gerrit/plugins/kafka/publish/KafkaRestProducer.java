@@ -86,7 +86,8 @@ public class KafkaRestProducer implements Producer<String, String> {
 
   @Override
   public Future<RecordMetadata> send(ProducerRecord<String, String> record, Callback callback) {
-    HttpPost post =
+    HttpPost post;
+    post =
         restClient.createPostToTopic(
             record.topic(),
             new StringEntity(
