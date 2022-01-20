@@ -22,6 +22,30 @@
       },
       "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26b11491_09fe2ff2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-20T22:15:33Z",
+      "side": 1,
+      "message": "Typo: not \u0027receive timeout\u0027 but \u0027consumer.request.timeout.ms\u0027. The receive loops are blocking in the Kafka REST Proxy, therefore if we stay in a receive loop too much, that receiver becomes unresponsive if Gerrit stops or disconnects for whatever reason.",
+      "parentUuid": "83fa0272_3d1508dd",
+      "range": {
+        "startLine": 15,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "9b3bf7a5a61f3678fce05f50a598af44db599910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
