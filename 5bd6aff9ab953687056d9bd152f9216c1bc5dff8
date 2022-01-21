@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0759866_e90dd137",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T01:30:41Z",
+      "side": 1,
+      "message": "Note for the review: the build fails because Gerrit needs  Icef4a845d5 to be merged for making testcontainers work again.",
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
