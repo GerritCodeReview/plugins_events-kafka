@@ -112,6 +112,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "935409a2_0741f02a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de95d19e_883f8172",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dba83917_815ff706",
