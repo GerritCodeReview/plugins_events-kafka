@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de95d19e_883f8172",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:48:33Z",
+      "side": 1,
+      "message": "True, I\u0027ll then avoid this flooding of propagated exceptions.",
+      "parentUuid": "7c927edc_9393069f",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dba83917_815ff706",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
         "patchSetId": 3
@@ -124,6 +148,30 @@
       "writtenOn": "2022-01-21T09:45:31Z",
       "side": 1,
       "message": "What about dealing with the URISyntaxException in the KafkaRestClient and throw a generic KafkaRestClientException? This way the caller will have to deal with a single exception.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 3
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "470c2aaf_498e9ab6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:48:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2470b49c_62a92f03",
       "range": {
         "startLine": 279,
         "startChar": 0,
