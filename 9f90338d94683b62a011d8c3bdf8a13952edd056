@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "758fc073_1b35ccdc",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T22:08:54Z",
+      "side": 1,
+      "message": "I believe we don\u0027t need anymore the testcontainers-nginx dependency then",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "9f90338d94683b62a011d8c3bdf8a13952edd056",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ecb85bc_171fbb54",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
         "patchSetId": 7
