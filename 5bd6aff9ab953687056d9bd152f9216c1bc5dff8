@@ -156,6 +156,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f21b5a_b2db22b1",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/KafkaRestContainer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:15:47Z",
+      "side": 1,
+      "message": "It referenced from KafkaBrokerApiTest.java:197",
+      "parentUuid": "a4cc20ad_15361631",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ff09039_8fb471cb",
@@ -175,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f49a4270_bb0a4fc9",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:15:47Z",
+      "side": 1,
+      "message": "True, even though KAFKA_REST_ID is mandatory when you have more than one Confluent\u0027s REST Proxy deployed.\n\nHowever, I agree we need to keep testing that without it, it still works.",
+      "parentUuid": "6ff09039_8fb471cb",
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ad8ea3c_5c1bc886",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerRestApiWithIdPrefixTest.java",
         "patchSetId": 3
@@ -186,6 +228,30 @@
       "writtenOn": "2022-01-21T09:45:31Z",
       "side": 1,
       "message": "2022",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f1fa4b_00cae4f9",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerRestApiWithIdPrefixTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad8ea3c_5c1bc886",
       "range": {
         "startLine": 1,
         "startChar": 17,
