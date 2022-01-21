@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "697c6cad_a058a87f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "balancer",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c0759866_e90dd137",
@@ -14,6 +37,161 @@
       "writtenOn": "2022-01-21T01:30:41Z",
       "side": 1,
       "message": "Note for the review: the build fails because Gerrit needs  Icef4a845d5 to be merged for making testcontainers work again.",
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c927edc_9393069f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaPublisher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "We should probably do something similar to the Manager:start. i.e.: catch it and re-throw an  IllegalStateException (?)",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dba83917_815ff706",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "I was expecting the URISyntaxException but not this one. Has this exception been introduced with this change?",
+      "range": {
+        "startLine": 99,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 40
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2470b49c_62a92f03",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "What about dealing with the URISyntaxException in the KafkaRestClient and throw a generic KafkaRestClientException? This way the caller will have to deal with a single exception.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 3
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2cdb98_4e552768",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "what is this hard-coded value? Can we just use the `int` directly?",
+      "range": {
+        "startLine": 66,
+        "startChar": 7,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cc20ad_15361631",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/KafkaRestContainer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "I think this can stay private",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff09039_8fb471cb",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "I might be wrong, but it seems like we are not testing anymore the case where we don\u0027t have the KAFKA_REST_ID set. What about running the same tests with and without KAFKA_REST_ID?",
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad8ea3c_5c1bc886",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerRestApiWithIdPrefixTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-01-21T09:45:31Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
       "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
