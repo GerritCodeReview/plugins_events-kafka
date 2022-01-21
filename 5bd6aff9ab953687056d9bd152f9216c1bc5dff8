@@ -159,6 +159,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04605ee_fd94ab70",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/publish/KafkaRestProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dba83917_815ff706",
+      "range": {
+        "startLine": 99,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 40
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2470b49c_62a92f03",
@@ -219,6 +243,30 @@
       "writtenOn": "2022-01-21T09:45:31Z",
       "side": 1,
       "message": "what is this hard-coded value? Can we just use the `int` directly?",
+      "range": {
+        "startLine": 66,
+        "startChar": 7,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "989c0d55_d137f76b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:52:42Z",
+      "side": 1,
+      "message": "True, but then we\u0027ll need to explain why we ended up with that number, using a comment. I prefer to use a sample value and getting his length.\n\nBear in mind that it is static final, so that means the Java compiler will pre-compute and store just a number :-)",
+      "parentUuid": "ba2cdb98_4e552768",
       "range": {
         "startLine": 66,
         "startChar": 7,
@@ -307,6 +355,24 @@
       "side": 1,
       "message": "True, even though KAFKA_REST_ID is mandatory when you have more than one Confluent\u0027s REST Proxy deployed.\n\nHowever, I agree we need to keep testing that without it, it still works.",
       "parentUuid": "6ff09039_8fb471cb",
+      "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d98e9804_8fbe47cf",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f49a4270_bb0a4fc9",
       "revId": "5bd6aff9ab953687056d9bd152f9216c1bc5dff8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
