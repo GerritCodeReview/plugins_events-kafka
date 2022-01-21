@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "501d9135_71eab192",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-21T19:52:59Z",
+      "side": 1,
+      "message": "@Ponch I\u0027ve addressed all comments.",
+      "revId": "3828d6ff7745e77f5caa5cfac6c3c2b27a500fa5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
