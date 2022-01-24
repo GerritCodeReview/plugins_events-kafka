@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f296f3_a8dbde28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T19:47:43Z",
+      "side": 1,
+      "message": "Possibly adding the URL would help?\nhttps://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+      "parentUuid": "c91e8519_efd3b98c",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ab9a28ec_3cdb41dd",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2aac580f_1edfe42b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T19:47:43Z",
+      "side": 1,
+      "message": "Those a sample values, used here to show how the lengths are computed.",
+      "parentUuid": "f228c3eb_4626dff3",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8dfbd183_498cfed7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
         "patchSetId": 13
@@ -94,6 +142,30 @@
       "writtenOn": "2022-01-24T19:09:09Z",
       "side": 1,
       "message": "Is this an exceptional scenario that is not supposed to happen?\nShould we raise an error instead, or at least log it?",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 18
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e11cabf_9786d1e6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T19:47:43Z",
+      "side": 1,
+      "message": "No, that\u0027s a normal situation when the REST_PROXY_ID isn\u0027t defined in the confluent proxy.",
+      "parentUuid": "8dfbd183_498cfed7",
       "range": {
         "startLine": 300,
         "startChar": 0,
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff466170_6efb4af5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T19:47:43Z",
+      "side": 1,
+      "message": "Well, when we don\u0027t have stickiness this is the semi-official way of how it should be done.",
+      "parentUuid": "0473b002_08d45473",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 67,
+        "endChar": 74
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aee420e7_b11521f6",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
         "patchSetId": 13
@@ -140,6 +236,30 @@
       "writtenOn": "2022-01-24T19:02:18Z",
       "side": 1,
       "message": "This should be move to the other class and used only for REST client. But this can be done as a follow up change",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59596631_b3816f60",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T19:47:43Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "aee420e7_b11521f6",
       "range": {
         "startLine": 175,
         "startChar": 4,
