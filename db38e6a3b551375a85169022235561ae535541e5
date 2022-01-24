@@ -33,6 +33,29 @@
       "message": "Also tested E2E with a real K8s with Confluent/REST Proxy with stateful-sets and works like a charm 🎉",
       "revId": "db38e6a3b551375a85169022235561ae535541e5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee420e7_b11521f6",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-01-24T19:02:18Z",
+      "side": 1,
+      "message": "This should be move to the other class and used only for REST client. But this can be done as a follow up change",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
