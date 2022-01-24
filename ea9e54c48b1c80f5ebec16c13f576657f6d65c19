@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94991e5a_5591d893",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-24T20:32:48Z",
+      "side": 1,
+      "message": "I\u0027m good, as long as the tests are passing.",
+      "revId": "ea9e54c48b1c80f5ebec16c13f576657f6d65c19",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
