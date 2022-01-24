@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c91e8519_efd3b98c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-01-24T19:09:09Z",
+      "side": 1,
+      "message": "It\u0027s not 100% clear to me what a \"standard K8s deployment\" is.\nDoes it mean that no load balancer external to k8s is part of the deployment?",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ab9a28ec_3cdb41dd",
@@ -31,6 +54,75 @@
       "writtenOn": "2022-01-22T03:11:07Z",
       "side": 1,
       "message": "Also tested E2E with a real K8s with Confluent/REST Proxy with stateful-sets and works like a charm 🎉",
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f228c3eb_4626dff3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-01-24T19:09:09Z",
+      "side": 1,
+      "message": "I am struggling to understand this bit.\nAre these arbitrary values that we just use to compute the expected length?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dfbd183_498cfed7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-01-24T19:09:09Z",
+      "side": 1,
+      "message": "Is this an exceptional scenario that is not supposed to happen?\nShould we raise an error instead, or at least log it?",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 18
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0473b002_08d45473",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-01-24T19:09:09Z",
+      "side": 1,
+      "message": "I think we should state clearly that this can be used to achieve stickiness?",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 67,
+        "endChar": 74
+      },
       "revId": "db38e6a3b551375a85169022235561ae535541e5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
