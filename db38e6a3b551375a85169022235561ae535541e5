@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b03d9a6b_6a04611f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-01-24T20:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f296f3_a8dbde28",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ab9a28ec_3cdb41dd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -177,6 +201,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52560a82_4f4d06c5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-01-24T20:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53795416_67dc82bd",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dfbd183_498cfed7",
@@ -248,6 +296,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d47def_5a1b0f76",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-01-24T20:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe40be6_e2bb04c6",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 18
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0473b002_08d45473",
@@ -285,6 +357,30 @@
       "side": 1,
       "message": "Well, when we don\u0027t have stickiness this is the semi-official way of how it should be done.",
       "parentUuid": "0473b002_08d45473",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 67,
+        "endChar": 74
+      },
+      "revId": "db38e6a3b551375a85169022235561ae535541e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfda82cc_2c4fcb14",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-01-24T20:23:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff466170_6efb4af5",
       "range": {
         "startLine": 67,
         "startChar": 1,
