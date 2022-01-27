@@ -196,7 +196,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
         while (!closed.get()) {
           if (resetOffset.getAndSet(false)) {
             restClient
-                .map(getTopicPartitions(), this::seekToBeginning)
+                .mapAsync(getTopicPartitions(), this::seekToBeginning)
                 .get(restClientTimeoutMs, TimeUnit.MILLISECONDS);
           }
 
@@ -230,13 +230,12 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       }
     }
 
-    private Void seekToBeginning(Set<Integer> partitions) {
+    private ListenableFuture<HttpResponse> seekToBeginning(Set<Integer> partitions) {
       ListenableFuture<HttpPost> post =
           restClient.map(
               kafkaRestConsumerUri,
               uri -> restClient.createPostSeekTopicFromBeginning(uri, topic, partitions));
-      restClient.map(post, restClient::execute);
-      return null;
+      return restClient.mapAsync(post, p -> restClient.execute(p, HttpStatus.SC_NO_CONTENT));
     }
 
     private ListenableFuture<Set<Integer>> getTopicPartitions() {
