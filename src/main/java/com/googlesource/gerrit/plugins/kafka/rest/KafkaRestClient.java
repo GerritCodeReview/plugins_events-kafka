@@ -200,20 +200,21 @@ public class KafkaRestClient {
   }
 
   public HttpPost createPostSeekTopicFromBeginning(
-      URI consumerInstanceURI, String topic, Set<Integer> partitions) {
-    HttpPost post = new HttpPost(consumerInstanceURI.resolve("/positions/beginning"));
+      URI consumerUri, String topic, Set<Integer> partitions) {
+    HttpPost post =
+        new HttpPost(consumerUri.resolve(consumerUri.getPath() + "/positions/beginning"));
     post.addHeader(HttpHeaders.ACCEPT, "*/*");
     post.setConfig(createRequestConfig());
     post.setEntity(
         new StringEntity(
             String.format(
-                "{\"partitions\",[%s]}",
+                "{\"partitions\":[%s]}",
                 partitions.stream()
                     .map(
                         partition ->
                             String.format("{\"topic\":\"%s\",\"partition\":%d}", topic, partition))
                     .collect(Collectors.joining(","))),
-            UTF_8));
+            ContentType.create(KAFKA_V2, UTF_8)));
     return post;
   }
 
@@ -251,11 +252,14 @@ public class KafkaRestClient {
 
   protected String getStringEntity(HttpResponse response) throws IOException {
     HttpEntity entity = response.getEntity();
-    try (ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
-      entity.writeTo(outStream);
-      outStream.close();
-      return outStream.toString(UTF_8);
+    if (entity != null) {
+      try (ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
+        entity.writeTo(outStream);
+        outStream.close();
+        return outStream.toString(UTF_8);
+      }
     }
+    return "";
   }
 
   private <V> ListenableFuture<V> listenableFutureOf(Future<V> future) {

@@ -120,29 +120,38 @@ public class KafkaBrokerApiTest {
 
   public static class TestConsumer implements Consumer<EventMessage> {
     public final List<EventMessage> messages = new ArrayList<>();
-    private CountDownLatch lock;
+    private CountDownLatch[] locks;
 
     public TestConsumer(int numMessagesExpected) {
       resetExpectedMessages(numMessagesExpected);
     }
 
     public void resetExpectedMessages(int numMessagesExpected) {
-      lock = new CountDownLatch(numMessagesExpected);
+      locks = new CountDownLatch[numMessagesExpected];
+      for (int i = 0; i < numMessagesExpected; i++) {
+        locks[i] = new CountDownLatch(i + 1);
+      }
     }
 
     @Override
     public void accept(EventMessage message) {
       messages.add(message);
-      lock.countDown();
+      for (CountDownLatch countDownLatch : locks) {
+        countDownLatch.countDown();
+      }
     }
 
     public boolean await() {
-      return await(TEST_TIMEOUT, TEST_TIMEOUT_UNIT);
+      return await(locks.length);
     }
 
-    public boolean await(long timeout, TimeUnit unit) {
+    public boolean await(int numItems) {
+      return await(numItems, TEST_TIMEOUT, TEST_TIMEOUT_UNIT);
+    }
+
+    public boolean await(int numItems, long timeout, TimeUnit unit) {
       try {
-        return lock.await(timeout, unit);
+        return locks[numItems - 1].await(timeout, unit);
       } catch (InterruptedException e) {
         return false;
       }
@@ -243,21 +252,20 @@ public class KafkaBrokerApiTest {
     connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiURI()));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_reset";
-    TestConsumer testConsumer = new TestConsumer(1);
     EventMessage testEventMessage = new EventMessage(new TestHeader(), new ProjectCreatedEvent());
 
+    TestConsumer testConsumer = new TestConsumer(2);
     kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
-    kafkaBrokerApi.send(testTopic, testEventMessage);
 
-    assertThat(testConsumer.await()).isTrue();
+    kafkaBrokerApi.send(testTopic, testEventMessage);
+    assertThat(testConsumer.await(1)).isTrue();
     assertThat(testConsumer.messages).hasSize(1);
     assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
 
     kafkaBrokerApi.replayAllEvents(testTopic);
-
-    assertThat(testConsumer.await()).isTrue();
-    assertThat(testConsumer.messages).hasSize(1);
-    assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+    assertThat(testConsumer.await(2)).isTrue();
+    assertThat(testConsumer.messages).hasSize(2);
+    assertThat(gson.toJson(testConsumer.messages.get(1))).isEqualTo(gson.toJson(testEventMessage));
   }
 
   protected URI getKafkaRestApiURI() {
@@ -266,7 +274,7 @@ public class KafkaBrokerApiTest {
 
   private void assertNoMoreExpectedMessages(TestConsumer testConsumer) {
     testConsumer.resetExpectedMessages(1);
-    assertThat(testConsumer.await(TEST_WAIT_FOR_MORE_MESSAGES_TIMEOUT, TEST_TIMEOUT_UNIT))
+    assertThat(testConsumer.await(1, TEST_WAIT_FOR_MORE_MESSAGES_TIMEOUT, TEST_TIMEOUT_UNIT))
         .isFalse();
   }
 }
