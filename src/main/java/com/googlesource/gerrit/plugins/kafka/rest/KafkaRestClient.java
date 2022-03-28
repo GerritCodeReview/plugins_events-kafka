@@ -50,7 +50,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
@@ -78,9 +77,11 @@ public class KafkaRestClient {
   public KafkaRestClient(
       HttpHostProxy httpHostProxy,
       @FutureExecutor ExecutorService executor,
-      @Assisted KafkaProperties configuration) {
+      HttpAsyncClientBuilderFactory credentialsFactory,
+      @Assisted KafkaProperties configuration)
+      throws URISyntaxException {
     proxy = httpHostProxy;
-    httpclient = proxy.apply(HttpAsyncClients.custom()).build();
+    httpclient = proxy.apply(credentialsFactory.create()).build();
     httpclient.start();
     this.configuration = configuration;
     kafkaRestApiTimeoutMsec = (int) configuration.getRestApiTimeout().toMillis();

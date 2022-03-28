@@ -35,9 +35,11 @@ public class KafkaBrokerRestApiTestBase extends KafkaBrokerApiTest {
                 + "  listen  [::]:80  default_server;\\n"
                 + "  location     /%s/ {\\n"
                 + "    proxy_pass http://%s:%d/; \\n"
+                + "	   proxy_set_header Authorization \"Basic Z2Vycml0OnNlY3JldA==\";\\n"
                 + "  }\\n"
                 + "  location     / {\\n"
                 + "    proxy_pass http://%s:%d; \\n"
+                + "	   proxy_set_header Authorization \"Basic Z2Vycml0OnNlY3JldA==\";\\n"
                 + "  }\\n"
                 + "}",
             KAFKA_REST_ID,
