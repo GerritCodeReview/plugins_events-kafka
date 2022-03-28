@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.kafka.api;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 
+import com.google.common.base.Strings;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
@@ -65,6 +66,8 @@ public class KafkaBrokerApiTest {
   static KafkaRestContainer kafkaRest;
   static KafkaRestContainer kafkaRestWithId;
   static GenericContainer<?> nginx;
+  static String restApiUsername;
+  static String restApiPassword;
 
   static final int TEST_NUM_SUBSCRIBERS = 1;
   static final String TEST_GROUP_ID = KafkaBrokerApiTest.class.getName();
@@ -167,9 +170,9 @@ public class KafkaBrokerApiTest {
   public static void beforeClass() throws Exception {
     kafka = KafkaContainerProvider.get();
     kafka.start();
-    kafkaRestWithId = new KafkaRestContainer(kafka, KAFKA_REST_ID);
+    kafkaRestWithId = new KafkaRestContainer(kafka, KAFKA_REST_ID, isAuthenticationProvided());
     kafkaRestWithId.start();
-    kafkaRest = new KafkaRestContainer(kafka);
+    kafkaRest = new KafkaRestContainer(kafka, isAuthenticationProvided());
     kafkaRest.start();
 
     System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
@@ -192,6 +195,10 @@ public class KafkaBrokerApiTest {
     if (container != null) {
       container.stop();
     }
+  }
+
+  private static boolean isAuthenticationProvided() {
+    return !Strings.isNullOrEmpty(restApiUsername) && !Strings.isNullOrEmpty(restApiPassword);
   }
 
   protected TestModule newTestModule(KafkaProperties kafkaProperties) {
@@ -221,7 +228,9 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendSyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -240,7 +249,9 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendAsyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiUriString()));
+    connectToKafka(
+        new KafkaProperties(
+            true, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_async";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -259,7 +270,9 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendToTopicAndResetOffset() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_reset";
     Event testEventMessage = new ProjectCreatedEvent();
