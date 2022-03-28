@@ -69,6 +69,7 @@ public class KafkaRestClient {
   private final KafkaProperties configuration;
 
   private static boolean logConfigured;
+  private SecureCredentialsFactory credentialsFactory;
 
   public interface Factory {
     KafkaRestClient create(KafkaProperties configuration);
@@ -78,9 +79,12 @@ public class KafkaRestClient {
   public KafkaRestClient(
       HttpHostProxy httpHostProxy,
       @FutureExecutor ExecutorService executor,
-      @Assisted KafkaProperties configuration) {
+      SecureCredentialsFactory credentialsFactory,
+      @Assisted KafkaProperties configuration)
+      throws URISyntaxException {
     proxy = httpHostProxy;
-    httpclient = proxy.apply(HttpAsyncClients.custom()).build();
+    this.credentialsFactory = credentialsFactory;
+    httpclient = proxy.apply(credentialsFactory.apply(HttpAsyncClients.custom())).build();
     httpclient.start();
     this.configuration = configuration;
     kafkaRestApiTimeoutMsec = (int) configuration.getRestApiTimeout().toMillis();

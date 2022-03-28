@@ -221,7 +221,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendSyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString(), null, null));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_sync";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -240,7 +240,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendAsyncAndReceiveToTopic() {
-    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiUriString()));
+    connectToKafka(new KafkaProperties(true, clientType, getKafkaRestApiUriString(), null, null));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_async";
     TestConsumer testConsumer = new TestConsumer(1);
@@ -259,7 +259,7 @@ public class KafkaBrokerApiTest {
 
   @Test
   public void shouldSendToTopicAndResetOffset() {
-    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString()));
+    connectToKafka(new KafkaProperties(false, clientType, getKafkaRestApiUriString(), null, null));
     KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
     String testTopic = "test_topic_reset";
     Event testEventMessage = new ProjectCreatedEvent();

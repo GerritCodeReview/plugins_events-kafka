@@ -56,7 +56,9 @@ public class KafkaBrokerRestApiTest extends KafkaBrokerRestApiTestBase {
                 TEST_GROUP_ID,
                 TEST_NUM_SUBSCRIBERS,
                 ClientType.REST,
-                getKafkaRestApiUriString());
+                getKafkaRestApiUriString(),
+                null,
+                null);
         bind(KafkaSubscriberProperties.class).toInstance(kafkaSubscriberProperties);
 
         bind(HttpHostProxy.class).toInstance(new HttpHostProxy(null, null, null));

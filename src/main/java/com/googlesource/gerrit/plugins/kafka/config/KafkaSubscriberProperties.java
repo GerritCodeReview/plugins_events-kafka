@@ -45,7 +45,7 @@ public class KafkaSubscriberProperties extends KafkaProperties {
   @VisibleForTesting
   public KafkaSubscriberProperties(
       int pollingInterval, String groupId, int numberOfSubscribers, ClientType clientType) {
-    this(pollingInterval, groupId, numberOfSubscribers, clientType, null);
+    this(pollingInterval, groupId, numberOfSubscribers, clientType, null, null, null);
   }
 
   @VisibleForTesting
@@ -54,8 +54,10 @@ public class KafkaSubscriberProperties extends KafkaProperties {
       String groupId,
       int numberOfSubscribers,
       ClientType clientType,
-      String restApiUriString) {
-    super(true, clientType, restApiUriString);
+      String restApiUriString,
+      String restApiUsername,
+      String restApiPassword) {
+    super(true, clientType, restApiUriString, restApiUsername, restApiPassword);
     this.pollingInterval = pollingInterval;
     this.groupId = groupId;
     this.numberOfSubscribers = numberOfSubscribers;
