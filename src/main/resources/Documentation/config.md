@@ -93,3 +93,19 @@ Additional properties
 :	Send messages to Kafka asynchronously, detaching the calling process from the
 	acknowledge of the message being sent.
 	Default: true
+
+secure.config
+--------------------
+
+`plugin.@PLUGIN@.restApiUsername`
+:	Username used for the authentication to the
+	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+	for sending/receiving messages through REST-API instead of using the native Kafka client.
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: unset
+
+`plugin.@PLUGIN@.restApiPassword`
+:	Password used for the authentication to the
+	[Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html)
+	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
+	Default: unset

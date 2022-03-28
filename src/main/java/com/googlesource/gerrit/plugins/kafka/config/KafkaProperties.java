@@ -40,6 +40,8 @@ public class KafkaProperties extends java.util.Properties {
   private static final String PROPERTY_HTTP_WIRE_LOG = "httpWireLog";
   private static final boolean DEFAULT_HTTP_WIRE_LOG = false;
   private static final String PROPERTY_REST_API_URI = "restApiUri";
+  private static final String PROPERTY_REST_API_USERNAME = "restApiUsername";
+  private static final String PROPERTY_REST_API_PASSWORD = "restApiPassword";
   private static final String PROPERTY_REST_API_TIMEOUT = "restApiTimeout";
   private static final Duration DEFAULT_REST_API_TIMEOUT = Duration.ofSeconds(60);
   private static final String PROPERTY_REST_API_THREADS = "restApiThreads";
@@ -64,6 +66,8 @@ public class KafkaProperties extends java.util.Properties {
   private final boolean sendAsync;
   private final ClientType clientType;
   private final String restApiUriString;
+  private final String restApiUsername;
+  private final String restApiPassword;
   private final boolean httpWireLog;
   private final Duration restApiTimeout;
   private final int restApiThreads;
@@ -86,6 +90,12 @@ public class KafkaProperties extends java.util.Properties {
           throw new IllegalArgumentException("Missing REST API URI in Kafka properties");
         }
 
+        restApiUsername = fromGerritConfig.getString(PROPERTY_REST_API_USERNAME);
+        restApiPassword = fromGerritConfig.getString(PROPERTY_REST_API_PASSWORD);
+        if (!Strings.isNullOrEmpty(restApiUsername) && Strings.isNullOrEmpty(restApiPassword)) {
+          throw new IllegalArgumentException("Missing REST API password in kafka properties");
+        }
+
         httpWireLog = fromGerritConfig.getBoolean(PROPERTY_HTTP_WIRE_LOG, DEFAULT_HTTP_WIRE_LOG);
         restApiTimeout =
             Duration.ofMillis(
@@ -99,6 +109,8 @@ public class KafkaProperties extends java.util.Properties {
       case NATIVE:
       default:
         restApiUriString = null;
+        restApiUsername = null;
+        restApiPassword = null;
         httpWireLog = false;
         restApiTimeout = null;
         restApiThreads = 0;
@@ -111,7 +123,11 @@ public class KafkaProperties extends java.util.Properties {
 
   @VisibleForTesting
   public KafkaProperties(
-      boolean sendAsync, ClientType clientType, @Nullable String restApiUriString) {
+      boolean sendAsync,
+      ClientType clientType,
+      @Nullable String restApiUriString,
+      @Nullable String restApiUsername,
+      @Nullable String restApiPassword) {
     super();
     setDefaults();
     topic = DEFAULT_STREAM_EVENTS_TOPIC_NAME;
@@ -122,6 +138,8 @@ public class KafkaProperties extends java.util.Properties {
     this.httpWireLog = false;
     restApiTimeout = DEFAULT_REST_API_TIMEOUT;
     restApiThreads = DEFAULT_REST_API_THREADS;
+    this.restApiUsername = restApiUsername;
+    this.restApiPassword = restApiPassword;
   }
 
   private void setDefaults() {
@@ -174,6 +192,14 @@ public class KafkaProperties extends java.util.Properties {
 
   public URI getRestApiUri() throws URISyntaxException {
     return getRestApiUri("");
+  }
+
+  public String getRestApiUsername() {
+    return restApiUsername;
+  }
+
+  public String getRestApiPassword() {
+    return restApiPassword;
   }
 
   public URI getRestApiUri(String kafkaRestId) throws URISyntaxException {

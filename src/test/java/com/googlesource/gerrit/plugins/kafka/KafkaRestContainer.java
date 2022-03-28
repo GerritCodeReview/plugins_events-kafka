@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 import org.junit.Ignore;
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -31,11 +32,12 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
   public static final int KAFKA_REST_PORT = 8082;
   private final String kafkaRestHostname;
 
-  public KafkaRestContainer(KafkaContainer kafkaContainer) {
-    this(kafkaContainer, null);
+  public KafkaRestContainer(KafkaContainer kafkaContainer, Boolean enableAuthentication) {
+    this(kafkaContainer, null, enableAuthentication);
   }
 
-  public KafkaRestContainer(KafkaContainer kafkaContainer, String kafkaRestId) {
+  public KafkaRestContainer(
+      KafkaContainer kafkaContainer, String kafkaRestId, Boolean enableAuthentication) {
     super(restProxyImageFor(kafkaContainer));
 
     kafkaRestHostname = KAFKA_REST_PROXY_HOSTNAME + Strings.nullToEmpty(kafkaRestId);
@@ -53,6 +55,18 @@ public class KafkaRestContainer extends GenericContainer<KafkaRestContainer> {
     withEnv("KAFKA_REST_HOST_NAME", kafkaRestHostname);
     if (kafkaRestId != null) {
       withEnv("KAFKA_REST_ID", kafkaRestId);
+    }
+    if (enableAuthentication) {
+      withEnv("KAFKA_REST_AUTHENTICATION_METHOD", "BASIC");
+      withEnv("KAFKA_REST_AUTHENTICATION_REALM", "KafkaRest");
+      withEnv("KAFKA_REST_AUTHENTICATION_ROLES", "GerritRole");
+      withEnv(
+          "KAFKAREST_OPTS",
+          "-Djava.security.auth.login.config=/etc/kafka-rest/rest-jaas.properties");
+      withClasspathResourceMapping(
+          "rest-jaas.properties", "/etc/kafka-rest/rest-jaas.properties", BindMode.READ_ONLY);
+      withClasspathResourceMapping(
+          "password.properties", "/etc/kafka-rest/password.properties", BindMode.READ_ONLY);
     }
     withCreateContainerCmdModifier(cmd -> cmd.withHostName(kafkaRestHostname));
   }
