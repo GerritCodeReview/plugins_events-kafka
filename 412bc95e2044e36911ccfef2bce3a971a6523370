@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68d1bf7b_e048acef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Nit: empty space",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18204997_b38f697e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Maybe also adding one single test?",
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e31ad654_b569864c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Basic authentication isn\u0027t mandatory on the Kafka REST Proxy, so it shouldn\u0027t be mandatory here either.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca054bde_d8c157af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Do we need to store it in the instance? It isn\u0027t used anymore after L87",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 27
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e137b1_35ec53d7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/SecureCredentialsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "This looks like more a HttpAsyncClientBuilder factory: why not just turning into one? The factory can then be automatically allocated by Guice and we just rely on assisted injections.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cafbb49_e74ed862",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Do we really to repeat this here and L110?",
+      "range": {
+        "startLine": 103,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 90
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50cf0e02_c4c07f4c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 110,
+        "startChar": 1,
+        "endLine": 110,
+        "endChar": 90
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc54135_a67230c6",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-03-29T09:34:32Z",
+      "side": 1,
+      "message": "nit: empty space",
+      "range": {
+        "startLine": 110,
+        "startChar": 90,
+        "endLine": 110,
+        "endChar": 91
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
