@@ -41,6 +41,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a12ca8f_4a16efc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18204997_b38f697e",
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e31ad654_b569864c",
@@ -66,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "005aef04_06ec00a2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/config/KafkaProperties.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "I\u0027m checking here is we have restApiUsername but restApiPassword is not provided.\nIf restApiUsername is not provided we do nothing",
+      "parentUuid": "e31ad654_b569864c",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca054bde_d8c157af",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
         "patchSetId": 1
@@ -77,6 +119,30 @@
       "writtenOn": "2022-03-29T09:34:32Z",
       "side": 1,
       "message": "Do we need to store it in the instance? It isn\u0027t used anymore after L87",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 27
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7683939_05727d81",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca054bde_d8c157af",
       "range": {
         "startLine": 86,
         "startChar": 4,
@@ -112,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d176199d_fd7ef126",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/SecureCredentialsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "It\u0027s more like a decorator, it\u0027s adding credentials to already existing HttpAsyncClientBuilder and return it. I was thinking if we could use Guice factory but to do that HttpAsyncClientBuilder must be managed by Guice but this class is coming from the external library. We have similar approach in the HttpHostProxy:\nhttps://gerrit.googlesource.com/plugins/events-kafka/+/refs/heads/stable-3.4/src/main/java/com/googlesource/gerrit/plugins/kafka/rest/HttpHostProxy.java#27",
+      "parentUuid": "05e137b1_35ec53d7",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6cafbb49_e74ed862",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -123,6 +213,30 @@
       "writtenOn": "2022-03-29T09:34:32Z",
       "side": 1,
       "message": "Do we really to repeat this here and L110?",
+      "range": {
+        "startLine": 103,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 90
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5178af8a_70c404d9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cafbb49_e74ed862",
       "range": {
         "startLine": 103,
         "startChar": 1,
@@ -174,6 +288,54 @@
         "startChar": 90,
         "endLine": 110,
         "endChar": 91
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fd9c2d1_7e352238",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bc54135_a67230c6",
+      "range": {
+        "startLine": 110,
+        "startChar": 90,
+        "endLine": 110,
+        "endChar": 91
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e4421f3_ebd3045b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-03-29T21:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50cf0e02_c4c07f4c",
+      "range": {
+        "startLine": 110,
+        "startChar": 1,
+        "endLine": 110,
+        "endChar": 90
       },
       "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
