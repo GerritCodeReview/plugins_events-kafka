@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "028e5968_6ef20355",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/SecureCredentialsFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2022-03-31T18:56:08Z",
+      "side": 1,
+      "message": "nit: 2011?",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "12cc33886a8de8af0ec926fcad98dce3c85f89f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
