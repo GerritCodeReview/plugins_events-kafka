@@ -248,6 +248,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e263f5_cfecb802",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/SecureCredentialsFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-04-06T09:22:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d176199d_fd7ef126",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "412bc95e2044e36911ccfef2bce3a971a6523370",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cafbb49_e74ed862",
