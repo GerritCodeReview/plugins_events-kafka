@@ -18,8 +18,8 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
-        "@kafka-client//jar",
         "@events-broker//jar",
+        "@kafka-client//jar",
     ],
 )
 
@@ -29,8 +29,8 @@ junit_tests(
     tags = ["events-kafka"],
     deps = [
         ":events-kafka__plugin_test_deps",
-        "@kafka-client//jar",
         "@events-broker//jar",
+        "@kafka-client//jar",
     ],
 )
 
