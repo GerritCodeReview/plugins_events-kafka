@@ -151,8 +151,7 @@ public class KafkaEventSubscriber {
                   messageProcessor.accept(event);
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log(
-                      "Malformed event '%s': [Exception: %s]",
-                      new String(consumerRecord.value(), UTF_8));
+                      "Malformed event '%s'", new String(consumerRecord.value(), UTF_8));
                   subscriberMetrics.incrementSubscriberFailedToConsumeMessage();
                 }
               });
