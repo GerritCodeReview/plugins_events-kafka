@@ -29,10 +29,8 @@ junit_tests(
     tags = ["events-kafka"],
     deps = [
         ":events-kafka__plugin_test_deps",
-        "//lib/testcontainers",
         "@kafka-client//jar",
         "@events-broker//jar",
-        "@testcontainers-kafka//jar",
     ],
 )
 
@@ -43,9 +41,12 @@ java_library(
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":events-kafka__plugin",
         "@testcontainers-kafka//jar",
-        "//lib/jackson:jackson-annotations",
-        "//lib/testcontainers",
-        "//lib/testcontainers:docker-java-api",
-        "//lib/testcontainers:docker-java-transport",
+        "@jackson-annotations//jar",
+        "@testcontainers//jar",
+        "@docker-java-api//jar",
+        "@docker-java-transport//jar",
+        "@duct-tape//jar",
+        "@visible-assertions//jar",
+        "@jna//jar",
     ],
 )
