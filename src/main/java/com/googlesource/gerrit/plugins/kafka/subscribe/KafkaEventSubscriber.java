@@ -149,6 +149,7 @@ public class KafkaEventSubscriber {
                   Event event =
                       valueDeserializer.deserialize(consumerRecord.topic(), consumerRecord.value());
                   messageProcessor.accept(event);
+                  consumer.commitSync();
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log(
                       "Malformed event '%s'", new String(consumerRecord.value(), UTF_8));
