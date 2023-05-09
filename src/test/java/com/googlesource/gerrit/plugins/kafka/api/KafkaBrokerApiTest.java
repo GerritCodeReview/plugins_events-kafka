@@ -17,12 +17,15 @@ package com.googlesource.gerrit.plugins.kafka.api;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gerrit.server.git.WorkQueue;
+import com.google.gerrit.server.plugincontext.PluginContext;
+import com.google.gerrit.server.plugincontext.PluginMapContext;
 import com.google.gerrit.server.util.IdGenerator;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gson.Gson;
@@ -73,7 +76,12 @@ public class KafkaBrokerApiTest {
 
     @Inject
     public TestWorkQueue(IdGenerator idGenerator, MetricMaker metrics) {
-      super(idGenerator, TEST_THREAD_POOL_SIZE, metrics);
+      super(
+          idGenerator,
+          TEST_THREAD_POOL_SIZE,
+          metrics,
+          new PluginMapContext<>(
+              DynamicMap.emptyMap(), PluginContext.PluginMetrics.DISABLED_INSTANCE));
     }
   }
 
