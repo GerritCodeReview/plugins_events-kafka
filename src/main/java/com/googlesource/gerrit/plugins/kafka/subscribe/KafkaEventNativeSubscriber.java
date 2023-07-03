@@ -173,7 +173,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log(
                       "Malformed event '%s': [Exception: %s]",
-                      new String(consumerRecord.value(), UTF_8));
+                      new String(consumerRecord.value(), UTF_8), e.toString());
                   subscriberMetrics.incrementSubscriberFailedToConsumeMessage();
                 }
               });
