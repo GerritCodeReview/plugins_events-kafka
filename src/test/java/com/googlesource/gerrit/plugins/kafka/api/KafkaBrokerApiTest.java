@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
+import static com.gerritforge.gerrit.eventbroker.TopicSubscriber.topicSubscriber;
+import static com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId.topicSubscriberWithGroupId;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -48,11 +50,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -289,6 +287,128 @@ public class KafkaBrokerApiTest {
     assertThat(testConsumer.await(2)).isTrue();
     assertThat(testConsumer.messages).hasSize(2);
     assertThat(gson.toJson(testConsumer.messages.get(1))).isEqualTo(gson.toJson(testEventMessage));
+  }
+
+  @Test
+  public void shouldConsumerWithGroupIdConsumeMessage() {
+    connectToKafka(
+        new KafkaProperties(
+            true, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    TestConsumer testConsumer = new TestConsumer(1);
+    Event testEventMessage = new ProjectCreatedEvent();
+    testEventMessage.instanceId = TEST_INSTANCE_ID;
+
+    kafkaBrokerApi.send(testTopic, testEventMessage);
+    kafkaBrokerApi.receiveAsync(testTopic, "group-id-1", testConsumer);
+
+    assertThat(testConsumer.await()).isTrue();
+    assertThat(testConsumer.messages).hasSize(1);
+    assertThat(gson.toJson(testConsumer.messages.get(0))).isEqualTo(gson.toJson(testEventMessage));
+
+    assertNoMoreExpectedMessages(testConsumer);
+  }
+
+  @Test
+  public void shouldRegisterConsumerWithoutExternalGroupId() {
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    TestConsumer testConsumer = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
+    assertThat(kafkaBrokerApi.topicSubscribers())
+        .containsExactly(topicSubscriber(testTopic, testConsumer));
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+  }
+
+  @Test
+  public void shouldRegisterConsumerWithExternalGroupId() {
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    String groupId = "group_id_1";
+    TestConsumer testConsumer = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer);
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId())
+        .containsExactly(
+            topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer)));
+  }
+
+  @Test
+  public void shouldRegisterDifferentConsumersWithTheSameExternalGroupId() {
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    String groupId = "group_id_1";
+    TestConsumer testConsumer1 = new TestConsumer(1);
+    TestConsumer testConsumer2 = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer1);
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer2);
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId())
+        .containsExactly(
+            topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer1)),
+            topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer2)));
+  }
+
+  @Test
+  public void shouldRegisterConsumerWithConfiguredGroupIdAndConsumerWithExternalGroupId() {
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    String groupId = "group_id_1";
+    TestConsumer testConsumer1 = new TestConsumer(1);
+    TestConsumer testConsumer2 = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, testConsumer1);
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer2);
+    assertThat(kafkaBrokerApi.topicSubscribers())
+        .containsExactly(topicSubscriber(testTopic, testConsumer1));
+
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId())
+        .containsExactly(
+            topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer2)));
+  }
+
+  @Test
+  public void shouldNotRegisterTheSameConsumerWithExternalGroupIdTwicePerTopic() {
+    connectToKafka(
+        new KafkaProperties(
+            false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_with_group_id";
+    String groupId = "group_id_1";
+    TestConsumer testConsumer = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer);
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer);
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId())
+        .containsExactly(
+            topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer)));
   }
 
   protected String getKafkaRestApiUriString() {
