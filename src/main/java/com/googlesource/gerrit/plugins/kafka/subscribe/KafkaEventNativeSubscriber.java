@@ -20,10 +20,12 @@ import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -51,6 +53,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
   private volatile ReceiverJob receiver;
+  private final Optional<String> externalGroupId;
 
   @Inject
   public KafkaEventNativeSubscriber(
@@ -60,15 +63,18 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
       Deserializer<Event> valueDeserializer,
       OneOffRequestContext oneOffCtx,
       @ConsumerExecutor ExecutorService executor,
-      KafkaEventSubscriberMetrics subscriberMetrics) {
+      KafkaEventSubscriberMetrics subscriberMetrics,
+      @Assisted Optional<String> externalGroupId) {
 
-    this.configuration = configuration;
     this.oneOffCtx = oneOffCtx;
     this.executor = executor;
     this.subscriberMetrics = subscriberMetrics;
     this.consumerFactory = consumerFactory;
     this.keyDeserializer = keyDeserializer;
     this.valueDeserializer = valueDeserializer;
+    this.externalGroupId = externalGroupId;
+    this.configuration = (KafkaSubscriberProperties) configuration.clone();
+    externalGroupId.ifPresent(gid -> this.configuration.setProperty("group.id", gid));
   }
 
   /* (non-Javadoc)
@@ -79,16 +85,16 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
     this.topic = topic;
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
-        "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
-    runReceiver();
+        "Kafka consumer subscribing to topic alias [%s] for event topic [%s] with groupId [%s]",
+        topic, topic, configuration.getGroupId());
+    runReceiver(consumerFactory.create(configuration, keyDeserializer));
   }
 
-  private void runReceiver() {
+  private void runReceiver(Consumer<byte[], byte[]> consumer) {
     final ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
     try {
       Thread.currentThread()
           .setContextClassLoader(KafkaEventNativeSubscriber.class.getClassLoader());
-      Consumer<byte[], byte[]> consumer = consumerFactory.create(keyDeserializer);
       consumer.subscribe(Collections.singleton(topic));
       receiver = new ReceiverJob(consumer);
       executor.execute(receiver);
@@ -128,6 +134,11 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
   @Override
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  @Override
+  public Optional<String> getExternalGroupId() {
+    return externalGroupId;
   }
 
   private class ReceiverJob implements Runnable {
@@ -201,7 +212,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
           DELAY_RECONNECT_AFTER_FAILURE_MSEC / 2
               + new Random().nextInt(DELAY_RECONNECT_AFTER_FAILURE_MSEC);
       Thread.sleep(reconnectDelay);
-      runReceiver();
+      runReceiver(consumerFactory.create(configuration, keyDeserializer));
     }
   }
 }
