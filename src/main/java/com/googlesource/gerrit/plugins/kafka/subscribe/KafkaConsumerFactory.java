@@ -32,6 +32,11 @@ class KafkaConsumerFactory {
   }
 
   public Consumer<byte[], byte[]> create(Deserializer<byte[]> keyDeserializer) {
+    return create(config, keyDeserializer);
+  }
+
+  public Consumer<byte[], byte[]> create(
+      KafkaSubscriberProperties config, Deserializer<byte[]> keyDeserializer) {
     return new KafkaConsumer<>(config, keyDeserializer, new ByteArrayDeserializer());
   }
 }
