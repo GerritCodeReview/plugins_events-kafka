@@ -27,6 +27,8 @@ public interface KafkaEventSubscriber {
    */
   void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor);
 
+  void subscribe(String topic, String groupId, java.util.function.Consumer<Event> messageProcessor);
+
   /** Shutdown Kafka consumer. */
   void shutdown();
 

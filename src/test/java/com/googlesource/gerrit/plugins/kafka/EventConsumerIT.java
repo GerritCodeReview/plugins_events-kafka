@@ -19,6 +19,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.fail;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
@@ -45,6 +46,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testcontainers.containers.KafkaContainer;
 
@@ -131,6 +133,42 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
   @UseLocalDisk
   @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
   @GerritConfig(
+          name = "plugin.events-kafka.keyDeserializer",
+          value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(
+          name = "plugin.events-kafka.valueDeserializer",
+          value = "org.apache.kafka.common.serialization.StringDeserializer")
+  public void consumeEventsWithDifferentGroupIds() throws Exception {
+    String topic = "a_topic";
+    String groupId1 = "groupId1";
+    String groupId2 = "groupId2";
+    Event eventMessage1 = new ProjectCreatedEvent();
+    eventMessage1.instanceId = "test-instance-id-1";
+    Event eventMessage2 = new ProjectCreatedEvent();
+    eventMessage2.instanceId = "test-instance-id-2";
+
+    Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofSeconds(30);
+
+    List<Event> receivedEvents1 = new ArrayList<>();
+    List<Event> receivedEvents2 = new ArrayList<>();
+
+    ExtendedBrokerApi kafkaBrokerApi = kafkaBrokerApi();
+    kafkaBrokerApi.send(topic, eventMessage1);
+    kafkaBrokerApi.send(topic, eventMessage2);
+
+    kafkaBrokerApi.receiveAsync(topic, groupId1, receivedEvents1::add);
+    waitUntil(() -> receivedEvents1.size() == 2, WAIT_FOR_POLL_TIMEOUT);
+    assertThat(receivedEvents1.get(0).instanceId).isEqualTo(eventMessage1.instanceId);
+
+    kafkaBrokerApi.receiveAsync(topic, groupId2, receivedEvents2::add);
+    waitUntil(() -> receivedEvents2.size() == 2, WAIT_FOR_POLL_TIMEOUT);
+    assertThat(receivedEvents2.get(0).instanceId).isEqualTo(eventMessage1.instanceId);
+  }
+
+  @Test
+  @UseLocalDisk
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
+  @GerritConfig(
       name = "plugin.events-kafka.keyDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
   @GerritConfig(
@@ -161,8 +199,8 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
     assertThat(receivedEvents.get(1).instanceId).isEqualTo(eventMessage.instanceId);
   }
 
-  private BrokerApi kafkaBrokerApi() {
-    return plugin.getSysInjector().getInstance(BrokerApi.class);
+  private ExtendedBrokerApi kafkaBrokerApi() {
+    return plugin.getSysInjector().getInstance(ExtendedBrokerApi.class);
   }
 
   private KafkaProperties kafkaProperties() {
