@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
@@ -61,10 +62,16 @@ public class KafkaApiModule extends LifecycleModule {
     ClientType clientType = configuration.getClientType();
     switch (clientType) {
       case NATIVE:
-        bind(KafkaEventSubscriber.class).to(KafkaEventNativeSubscriber.class);
+        install(
+            new FactoryModuleBuilder()
+                .implement(KafkaEventSubscriber.class, KafkaEventNativeSubscriber.class)
+                .build(KafkaEventSubscriber.Factory.class));
         break;
       case REST:
-        bind(KafkaEventSubscriber.class).to(KafkaEventRestSubscriber.class);
+        install(
+            new FactoryModuleBuilder()
+                .implement(KafkaEventSubscriber.class, KafkaEventRestSubscriber.class)
+                .build(KafkaEventSubscriber.Factory.class));
         break;
       default:
         throw new IllegalArgumentException("Unsupported Kafka client type " + clientType);
