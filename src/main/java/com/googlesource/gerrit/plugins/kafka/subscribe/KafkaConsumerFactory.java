@@ -34,4 +34,9 @@ class KafkaConsumerFactory {
   public Consumer<byte[], byte[]> create(Deserializer<byte[]> keyDeserializer) {
     return new KafkaConsumer<>(config, keyDeserializer, new ByteArrayDeserializer());
   }
+
+  public Consumer<byte[], byte[]> create(Deserializer<byte[]> keyDeserializer, String topic) {
+    config.setProperty("group.id", topic);
+    return create(keyDeserializer);
+  }
 }

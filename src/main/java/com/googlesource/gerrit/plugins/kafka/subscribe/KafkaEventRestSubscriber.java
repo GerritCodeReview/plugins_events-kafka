@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -119,6 +120,11 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     } catch (InterruptedException | ExecutionException | TimeoutException e) {
       throw new IllegalStateException(e);
     }
+  }
+
+  @Override
+  public void subscribe(String topic, String groupId, Consumer<Event> messageProcessor) {
+    // TODO
   }
 
   private void runReceiver() throws InterruptedException, ExecutionException, TimeoutException {
