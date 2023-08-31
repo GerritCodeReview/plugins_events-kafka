@@ -14,31 +14,33 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
-import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
+import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriberFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class KafkaBrokerApi implements BrokerApi {
+public class KafkaBrokerApi implements ExtendedBrokerApi {
 
   private final KafkaPublisher publisher;
-  private final Provider<KafkaEventSubscriber> subscriberProvider;
+  private final KafkaEventSubscriberFactory kafkaEventSubscriberFactory;
   private List<KafkaEventSubscriber> subscribers;
 
   @Inject
   public KafkaBrokerApi(
-      KafkaPublisher publisher, Provider<KafkaEventSubscriber> subscriberProvider) {
+      KafkaPublisher publisher, KafkaEventSubscriberFactory kafkaEventSubscriberFactory) {
     this.publisher = publisher;
-    this.subscriberProvider = subscriberProvider;
+    this.kafkaEventSubscriberFactory = kafkaEventSubscriberFactory;
     subscribers = new ArrayList<>();
   }
 
@@ -49,11 +51,21 @@ public class KafkaBrokerApi implements BrokerApi {
 
   @Override
   public void receiveAsync(String topic, Consumer<Event> eventConsumer) {
-    KafkaEventSubscriber subscriber = subscriberProvider.get();
+    KafkaEventSubscriber subscriber = kafkaEventSubscriberFactory.create(Optional.empty());
     synchronized (subscribers) {
       subscribers.add(subscriber);
     }
     subscriber.subscribe(topic, eventConsumer);
+  }
+
+  @Override
+  public void receiveAsync(String topic, String groupId, Consumer<Event> eventConsumer) {
+    KafkaEventSubscriber subscriber =
+        kafkaEventSubscriberFactory.create(Optional.ofNullable(groupId));
+    synchronized (subscribers) {
+      subscribers.add(subscriber);
+    }
+    subscriber.subscribe(topic, groupId, eventConsumer);
   }
 
   @Override
@@ -67,7 +79,20 @@ public class KafkaBrokerApi implements BrokerApi {
   @Override
   public Set<TopicSubscriber> topicSubscribers() {
     return subscribers.stream()
+        .filter(s -> !s.getExternalGroupId().isPresent())
         .map(s -> TopicSubscriber.topicSubscriber(s.getTopic(), s.getMessageProcessor()))
+        .collect(Collectors.toSet());
+  }
+
+  @Override
+  public Set<TopicSubscriberWithGroupId> topicSubscribersWithGroupId() {
+    return subscribers.stream()
+        .filter(s -> s.getExternalGroupId().isPresent())
+        .map(
+            s ->
+                TopicSubscriberWithGroupId.topicSubscriberWithGroupId(
+                    s.getExternalGroupId().get(),
+                    TopicSubscriber.topicSubscriber(s.getTopic(), s.getMessageProcessor())))
         .collect(Collectors.toSet());
   }
 

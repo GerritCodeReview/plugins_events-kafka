@@ -26,6 +26,7 @@ public class KafkaSubscriberProperties extends KafkaProperties {
   private static final String DEFAULT_POLLING_INTERVAL_MS = "1000";
   private static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
 
+  public static final String KAFKA_GROUP_ID_PROPERTY = "group.id";
   private final Integer pollingInterval;
   private final String groupId;
   private final Integer numberOfSubscribers;
@@ -37,7 +38,7 @@ public class KafkaSubscriberProperties extends KafkaProperties {
 
     this.pollingInterval =
         Integer.parseInt(getProperty("polling.interval.ms", DEFAULT_POLLING_INTERVAL_MS));
-    this.groupId = getProperty("group.id");
+    this.groupId = getProperty(KAFKA_GROUP_ID_PROPERTY);
     this.numberOfSubscribers =
         Integer.parseInt(getProperty("number.of.subscribers", DEFAULT_NUMBER_OF_SUBSCRIBERS));
   }

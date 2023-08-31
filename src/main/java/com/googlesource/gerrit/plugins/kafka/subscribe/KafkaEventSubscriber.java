@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import com.google.gerrit.server.events.Event;
+import java.util.Optional;
 
 /** Generic interface to a Kafka topic subscriber. */
 public interface KafkaEventSubscriber {
@@ -26,6 +27,15 @@ public interface KafkaEventSubscriber {
    * @param messageProcessor consumer function for processing incoming messages
    */
   void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor);
+
+  /**
+   * Subscribe to a topic and receive messages asynchronously using a consumer's group id.
+   *
+   * @param topic Kafka topic name
+   * @param groupId Kafka groupId
+   * @param messageProcessor consumer function for processing incoming messages
+   */
+  void subscribe(String topic, String groupId, java.util.function.Consumer<Event> messageProcessor);
 
   /** Shutdown Kafka consumer. */
   void shutdown();
@@ -46,4 +56,12 @@ public interface KafkaEventSubscriber {
 
   /** Reset the offset for reading incoming Kafka messages of the topic. */
   void resetOffset();
+
+  /**
+   * Returns the external consumer's group id when it is defined.
+   *
+   * @return Optional instance with external consumer's group id otherwise an empty Optional
+   *     instance
+   */
+  Optional<String> getExternalGroupId();
 }

@@ -25,13 +25,12 @@ import com.google.inject.Inject;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryProvider;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
-import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
-import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventNativeSubscriber;
-import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventRestSubscriber;
-import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
+import com.googlesource.gerrit.plugins.kafka.subscribe.*;
+
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -61,10 +60,12 @@ public class KafkaApiModule extends LifecycleModule {
     ClientType clientType = configuration.getClientType();
     switch (clientType) {
       case NATIVE:
-        bind(KafkaEventSubscriber.class).to(KafkaEventNativeSubscriber.class);
+        bind(KafkaEventSubscriberFactory.class).toProvider(
+                FactoryProvider.newFactory(KafkaEventSubscriberFactory.class, KafkaEventNativeSubscriber.class));
         break;
       case REST:
-        bind(KafkaEventSubscriber.class).to(KafkaEventRestSubscriber.class);
+        bind(KafkaEventSubscriberFactory.class).toProvider(
+                FactoryProvider.newFactory(KafkaEventSubscriberFactory.class, KafkaEventRestSubscriber.class));
         break;
       default:
         throw new IllegalArgumentException("Unsupported Kafka client type " + clientType);

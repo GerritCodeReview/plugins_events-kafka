@@ -26,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
@@ -35,16 +36,13 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -83,6 +81,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   private final AtomicBoolean resetOffset;
   private final long restClientTimeoutMs;
   private volatile ReceiverJob receiver;
+  private final Optional<String> externalGroupId;
 
   @Inject
   public KafkaEventRestSubscriber(
@@ -91,13 +90,15 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       OneOffRequestContext oneOffCtx,
       @ConsumerExecutor ExecutorService executor,
       KafkaEventSubscriberMetrics subscriberMetrics,
-      KafkaRestClient.Factory restClientFactory) {
+      KafkaRestClient.Factory restClientFactory,
+      @Assisted Optional<String> externalGroupId) {
 
     this.configuration = configuration;
     this.oneOffCtx = oneOffCtx;
     this.executor = executor;
     this.subscriberMetrics = subscriberMetrics;
     this.valueDeserializer = valueDeserializer;
+    this.externalGroupId = externalGroupId;
 
     gson = new Gson();
     restClient = restClientFactory.create(configuration);
@@ -121,8 +122,22 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     }
   }
 
+  @Override
+  public void subscribe(String topic, String groupId, Consumer<Event> messageProcessor) {
+    this.topic = topic;
+    this.messageProcessor = messageProcessor;
+    logger.atInfo().log(
+        "Kafka consumer subscribing to topic alias [%s] for event topic [%s] with groupId [%s]",
+        topic, topic, groupId);
+    try {
+      runReceiver();
+    } catch (InterruptedException | ExecutionException | TimeoutException e) {
+      throw new IllegalStateException(e);
+    }
+  }
+
   private void runReceiver() throws InterruptedException, ExecutionException, TimeoutException {
-    receiver = new ReceiverJob(configuration.getGroupId());
+    receiver = new ReceiverJob(externalGroupId.orElse(configuration.getGroupId()));
     executor.execute(receiver);
   }
 
@@ -161,6 +176,11 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   @Override
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  @Override
+  public Optional<String> getExternalGroupId() {
+    return externalGroupId;
   }
 
   private class ReceiverJob implements Runnable {
