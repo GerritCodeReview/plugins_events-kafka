@@ -80,15 +80,25 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
         "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
-    runReceiver();
+    runReceiver(consumerFactory.create(keyDeserializer));
   }
 
-  private void runReceiver() {
+  @Override
+  public void subscribe(
+      String topic, String groupId, java.util.function.Consumer<Event> messageProcessor) {
+    this.topic = topic;
+    this.messageProcessor = messageProcessor;
+    logger.atInfo().log(
+        "Kafka consumer subscribing to topic alias [%s] for event topic [%s] with groupId [%s]",
+        topic, topic, groupId);
+    runReceiver(consumerFactory.create(keyDeserializer, groupId));
+  }
+
+  private void runReceiver(Consumer<byte[], byte[]> consumer) {
     final ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
     try {
       Thread.currentThread()
           .setContextClassLoader(KafkaEventNativeSubscriber.class.getClassLoader());
-      Consumer<byte[], byte[]> consumer = consumerFactory.create(keyDeserializer);
       consumer.subscribe(Collections.singleton(topic));
       receiver = new ReceiverJob(consumer);
       executor.execute(receiver);
@@ -201,7 +211,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
           DELAY_RECONNECT_AFTER_FAILURE_MSEC / 2
               + new Random().nextInt(DELAY_RECONNECT_AFTER_FAILURE_MSEC);
       Thread.sleep(reconnectDelay);
-      runReceiver();
+      runReceiver(consumerFactory.create(keyDeserializer));
     }
   }
 }
