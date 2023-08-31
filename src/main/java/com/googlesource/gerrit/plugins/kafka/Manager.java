@@ -15,7 +15,9 @@
 package com.googlesource.gerrit.plugins.kafka;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -27,13 +29,19 @@ public class Manager implements LifecycleListener {
 
   private final KafkaPublisher publisher;
   private final Set<TopicSubscriber> consumers;
-  private final BrokerApi brokerApi;
+  private final Set<TopicSubscriberWithGroupId> consumersWithGroupId;
+  private final ExtendedBrokerApi brokerApi;
 
   @Inject
-  public Manager(KafkaPublisher publisher, Set<TopicSubscriber> consumers, BrokerApi brokerApi) {
+  public Manager(
+      KafkaPublisher publisher,
+      Set<TopicSubscriber> consumers,
+      Set<TopicSubscriberWithGroupId> consumersWithGroupId,
+      BrokerApi brokerApi) {
     this.publisher = publisher;
     this.consumers = consumers;
-    this.brokerApi = brokerApi;
+    this.brokerApi = (ExtendedBrokerApi) brokerApi;
+    this.consumersWithGroupId = consumersWithGroupId;
   }
 
   @Override
@@ -42,6 +50,13 @@ public class Manager implements LifecycleListener {
     consumers.forEach(
         topicSubscriber ->
             brokerApi.receiveAsync(topicSubscriber.topic(), topicSubscriber.consumer()));
+
+    consumersWithGroupId.forEach(
+        topicSubscriber ->
+            brokerApi.receiveAsync(
+                topicSubscriber.topicSubscriber().topic(),
+                topicSubscriber.groupId(),
+                topicSubscriber.topicSubscriber().consumer()));
   }
 
   @Override
