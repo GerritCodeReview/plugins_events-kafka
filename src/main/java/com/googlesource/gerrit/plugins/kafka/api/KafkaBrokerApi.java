@@ -14,8 +14,9 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
-import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
@@ -28,11 +29,12 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class KafkaBrokerApi implements BrokerApi {
+public class KafkaBrokerApi implements ExtendedBrokerApi {
 
   private final KafkaPublisher publisher;
   private final Provider<KafkaEventSubscriber> subscriberProvider;
   private List<KafkaEventSubscriber> subscribers;
+  private List<KafkaEventSubscriber> subscribersWithGroupId;
 
   @Inject
   public KafkaBrokerApi(
@@ -40,6 +42,7 @@ public class KafkaBrokerApi implements BrokerApi {
     this.publisher = publisher;
     this.subscriberProvider = subscriberProvider;
     subscribers = new ArrayList<>();
+    this.subscribersWithGroupId = new ArrayList<>();
   }
 
   @Override
@@ -57,11 +60,21 @@ public class KafkaBrokerApi implements BrokerApi {
   }
 
   @Override
+  public void receiveAsync(String topic, String groupId, Consumer<Event> eventConsumer) {
+    KafkaEventSubscriber subscriber = subscriberProvider.get();
+    synchronized (subscribersWithGroupId) {
+      subscribersWithGroupId.add(subscriber);
+    }
+    subscriber.subscribe(topic, groupId, eventConsumer);
+  }
+
+  @Override
   public void disconnect() {
-    for (KafkaEventSubscriber subscriber : subscribers) {
+    List<KafkaEventSubscriber> allSubscribers = allSubscribers(subscribers, subscribersWithGroupId);
+    for (KafkaEventSubscriber subscriber : allSubscribers) {
       subscriber.shutdown();
     }
-    subscribers.clear();
+    allSubscribers.clear();
   }
 
   @Override
@@ -72,9 +85,28 @@ public class KafkaBrokerApi implements BrokerApi {
   }
 
   @Override
+  public Set<TopicSubscriberWithGroupId> topicSubscribersWithGroupId() {
+    return subscribersWithGroupId.stream()
+        .map(
+            s ->
+                TopicSubscriberWithGroupId.topicSubscriberWithGroupId(
+                    s.getGroupId(),
+                    TopicSubscriber.topicSubscriber(s.getTopic(), s.getMessageProcessor())))
+        .collect(Collectors.toSet());
+  }
+
+  @Override
   public void replayAllEvents(String topic) {
-    subscribers.stream()
+    allSubscribers(subscribers, subscribersWithGroupId).stream()
         .filter(subscriber -> topic.equals(subscriber.getTopic()))
         .forEach(subscriber -> subscriber.resetOffset());
+  }
+
+  private List<KafkaEventSubscriber> allSubscribers(
+      List<KafkaEventSubscriber> subscribers, List<KafkaEventSubscriber> subscribersWithGroupId) {
+    List<KafkaEventSubscriber> allSubscribers = new ArrayList<>();
+    allSubscribers.addAll(subscribers);
+    allSubscribers.addAll(subscribersWithGroupId);
+    return allSubscribers;
   }
 }
