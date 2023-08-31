@@ -19,6 +19,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.fail;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
@@ -52,7 +53,7 @@ import org.testcontainers.containers.KafkaContainer;
 @TestPlugin(name = "events-kafka", sysModule = "com.googlesource.gerrit.plugins.kafka.Module")
 public class EventConsumerIT extends LightweightPluginDaemonTest {
   static final Duration KAFKA_POLL_TIMEOUT = Duration.ofSeconds(10);
-
+  private static final Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofSeconds(30);
   private KafkaContainer kafka;
 
   @Override
@@ -137,12 +138,35 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
       name = "plugin.events-kafka.valueDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
   @GerritConfig(name = "plugin.events-kafka.pollingIntervalMs", value = "500")
+  public void consumeEventsWithDifferentGroupId() throws Exception {
+    String topic = "a_topic";
+    String consumerGroup1 = "consumer-group-1";
+    Event eventMessage1 = new ProjectCreatedEvent();
+    eventMessage1.instanceId = "test-instance-id-1";
+    List<Event> receivedEventsWithGroupId1 = new ArrayList<>();
+
+    ExtendedBrokerApi kafkaBrokerApi = ((ExtendedBrokerApi) kafkaBrokerApi());
+    kafkaBrokerApi.send(topic, eventMessage1);
+    kafkaBrokerApi.receiveAsync(topic, consumerGroup1, receivedEventsWithGroupId1::add);
+
+    waitUntil(() -> receivedEventsWithGroupId1.size() == 1, WAIT_FOR_POLL_TIMEOUT);
+    assertThat(receivedEventsWithGroupId1.get(0).instanceId).isEqualTo(eventMessage1.instanceId);
+  }
+
+  @Test
+  @UseLocalDisk
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
+  @GerritConfig(
+      name = "plugin.events-kafka.keyDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(
+      name = "plugin.events-kafka.valueDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.pollingIntervalMs", value = "500")
   public void shouldReplayAllEvents() throws InterruptedException {
     String topic = "a_topic";
     Event eventMessage = new ProjectCreatedEvent();
     eventMessage.instanceId = "test-instance-id";
-
-    Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofSeconds(30);
 
     List<Event> receivedEvents = new ArrayList<>();
 
