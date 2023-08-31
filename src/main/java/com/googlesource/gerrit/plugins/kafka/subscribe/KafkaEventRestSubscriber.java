@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -83,6 +84,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   private final AtomicBoolean resetOffset;
   private final long restClientTimeoutMs;
   private volatile ReceiverJob receiver;
+  private String groupId;
 
   @Inject
   public KafkaEventRestSubscriber(
@@ -98,6 +100,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     this.executor = executor;
     this.subscriberMetrics = subscriberMetrics;
     this.valueDeserializer = valueDeserializer;
+    this.groupId = configuration.getGroupId();
 
     gson = new Gson();
     restClient = restClientFactory.create(configuration);
@@ -110,19 +113,26 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
    */
   @Override
   public void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor) {
+    subscribe(topic, configuration.getGroupId(), messageProcessor);
+  }
+
+  @Override
+  public void subscribe(String topic, String groupId, Consumer<Event> messageProcessor) {
     this.topic = topic;
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
         "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
     try {
-      runReceiver();
+      this.groupId = groupId;
+      runReceiver(groupId);
     } catch (InterruptedException | ExecutionException | TimeoutException e) {
       throw new IllegalStateException(e);
     }
   }
 
-  private void runReceiver() throws InterruptedException, ExecutionException, TimeoutException {
-    receiver = new ReceiverJob(configuration.getGroupId());
+  private void runReceiver(String groupId)
+      throws InterruptedException, ExecutionException, TimeoutException {
+    receiver = new ReceiverJob(groupId);
     executor.execute(receiver);
   }
 
@@ -161,6 +171,16 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   @Override
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  @Override
+  public String getGroupId() {
+    return groupId;
+  }
+
+  @Override
+  public boolean isDefaultGroupId() {
+    return groupId.equals(configuration.getGroupId());
   }
 
   private class ReceiverJob implements Runnable {
@@ -358,7 +378,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
           DELAY_RECONNECT_AFTER_FAILURE_MSEC / 2
               + new Random().nextInt(DELAY_RECONNECT_AFTER_FAILURE_MSEC);
       Thread.sleep(reconnectDelay);
-      runReceiver();
+      runReceiver(configuration.getGroupId());
     }
   }
 }
