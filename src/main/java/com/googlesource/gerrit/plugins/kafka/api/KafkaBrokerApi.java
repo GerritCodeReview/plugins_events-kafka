@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
-import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class KafkaBrokerApi implements BrokerApi {
+public class KafkaBrokerApi implements ExtendedBrokerApi {
 
   private final KafkaPublisher publisher;
   private final Provider<KafkaEventSubscriber> subscriberProvider;
@@ -54,6 +54,15 @@ public class KafkaBrokerApi implements BrokerApi {
       subscribers.add(subscriber);
     }
     subscriber.subscribe(topic, eventConsumer);
+  }
+
+  @Override
+  public void receiveAsync(String topic, String groupId, Consumer<Event> eventConsumer) {
+    KafkaEventSubscriber subscriber = subscriberProvider.get();
+    synchronized (subscribers) {
+      subscribers.add(subscriber);
+    }
+    subscriber.subscribe(topic, groupId, eventConsumer);
   }
 
   @Override
