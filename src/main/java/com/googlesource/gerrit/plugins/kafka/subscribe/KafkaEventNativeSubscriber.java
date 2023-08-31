@@ -83,12 +83,37 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
     runReceiver();
   }
 
+  // TODO review this
+  @Override
+  public void subscribe(String topic, String groupId, java.util.function.Consumer<Event> messageProcessor) {
+    this.topic = topic;
+    this.messageProcessor = messageProcessor;
+    logger.atInfo().log(
+            "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
+    runReceiver2(groupId);
+  }
+
   private void runReceiver() {
     final ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
     try {
       Thread.currentThread()
           .setContextClassLoader(KafkaEventNativeSubscriber.class.getClassLoader());
       Consumer<byte[], byte[]> consumer = consumerFactory.create(keyDeserializer);
+      consumer.subscribe(Collections.singleton(topic));
+      receiver = new ReceiverJob(consumer);
+      executor.execute(receiver);
+    } finally {
+      Thread.currentThread().setContextClassLoader(previousClassLoader);
+    }
+  }
+
+  // TODO review this
+  private void runReceiver2(String groupId) {
+    final ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
+    try {
+      Thread.currentThread()
+              .setContextClassLoader(KafkaEventNativeSubscriber.class.getClassLoader());
+      Consumer<byte[], byte[]> consumer = consumerFactory.create2(keyDeserializer, groupId);
       consumer.subscribe(Collections.singleton(topic));
       receiver = new ReceiverJob(consumer);
       executor.execute(receiver);
