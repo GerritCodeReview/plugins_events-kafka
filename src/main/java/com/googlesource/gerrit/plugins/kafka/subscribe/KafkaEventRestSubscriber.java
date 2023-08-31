@@ -13,6 +13,7 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
+import static com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties.KAFKA_GROUP_ID_PROPERTY;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.flogger.FluentLogger;
@@ -26,6 +27,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
@@ -38,6 +40,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -83,6 +86,7 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   private final AtomicBoolean resetOffset;
   private final long restClientTimeoutMs;
   private volatile ReceiverJob receiver;
+  private final Optional<String> externalGroupId;
 
   @Inject
   public KafkaEventRestSubscriber(
@@ -91,13 +95,20 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
       OneOffRequestContext oneOffCtx,
       @ConsumerExecutor ExecutorService executor,
       KafkaEventSubscriberMetrics subscriberMetrics,
-      KafkaRestClient.Factory restClientFactory) {
+      KafkaRestClient.Factory restClientFactory,
+      @Assisted Optional<String> externalGroupId) {
 
-    this.configuration = configuration;
     this.oneOffCtx = oneOffCtx;
     this.executor = executor;
     this.subscriberMetrics = subscriberMetrics;
     this.valueDeserializer = valueDeserializer;
+    this.externalGroupId = externalGroupId;
+    if (externalGroupId.isPresent()) {
+      this.configuration = (KafkaSubscriberProperties) configuration.clone();
+      this.configuration.setProperty(KAFKA_GROUP_ID_PROPERTY, externalGroupId.get());
+    } else {
+      this.configuration = configuration;
+    }
 
     gson = new Gson();
     restClient = restClientFactory.create(configuration);
@@ -113,7 +124,8 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
     this.topic = topic;
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
-        "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
+        "Kafka consumer subscribing to topic alias [%s] for event topic [%s] with groupId [%s]",
+        topic, topic, configuration.getGroupId());
     try {
       runReceiver();
     } catch (InterruptedException | ExecutionException | TimeoutException e) {
@@ -161,6 +173,11 @@ public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
   @Override
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  @Override
+  public Optional<String> getExternalGroupId() {
+    return externalGroupId;
   }
 
   private class ReceiverJob implements Runnable {

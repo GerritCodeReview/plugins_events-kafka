@@ -1,4 +1,4 @@
-load("//tools/bzl:maven_jar.bzl", "maven_jar")
+load("//tools/bzl:maven_jar.bzl", "MAVEN_LOCAL", "maven_jar")
 
 def external_plugin_deps():
     maven_jar(
@@ -12,3 +12,12 @@ def external_plugin_deps():
         artifact = "org.testcontainers:kafka:1.15.0",
         sha1 = "d34760b11ab656e08b72c1e2e9b852f037a89f90",
     )
+<<<<<<< PATCH SET (ce09a3 Make KafkaBrokerApi class implement ExtendedBrokerApi interf)
+
+    maven_jar(
+        name = "events-broker",
+        artifact = "com.gerritforge:events-broker:3.4.8.1",
+        repository = MAVEN_LOCAL,
+    )
+=======
+>>>>>>> BASE      (f49e71 Consume events-broker from source)
