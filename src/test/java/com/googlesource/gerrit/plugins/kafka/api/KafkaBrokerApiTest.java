@@ -14,9 +14,13 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
+import static com.gerritforge.gerrit.eventbroker.TopicSubscriber.topicSubscriber;
+import static com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId.topicSubscriberWithGroupId;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 
+import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.base.Strings;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.server.events.Event;
@@ -43,6 +47,7 @@ import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -289,6 +294,39 @@ public class KafkaBrokerApiTest {
     assertThat(testConsumer.await(2)).isTrue();
     assertThat(testConsumer.messages).hasSize(2);
     assertThat(gson.toJson(testConsumer.messages.get(1))).isEqualTo(gson.toJson(testEventMessage));
+  }
+
+  @Test
+  public void shouldReturnSubscribersWithDefaultGroupId() {
+    connectToKafka(
+            new KafkaProperties(
+                    false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_sync";
+    TestConsumer testConsumer = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, testConsumer);
+    assertThat(kafkaBrokerApi.topicSubscribers()).containsExactly(topicSubscriber(testTopic, testConsumer));
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+  }
+
+  @Test
+  public void shouldReturnSubscribersWithNoDefaultGroupId() {
+    connectToKafka(
+            new KafkaProperties(
+                    false, clientType, getKafkaRestApiUriString(), restApiUsername, restApiPassword));
+    KafkaBrokerApi kafkaBrokerApi = injector.getInstance(KafkaBrokerApi.class);
+    String testTopic = "test_topic_sync";
+    String groupId = "group_id_1";
+    TestConsumer testConsumer = new TestConsumer(1);
+
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).isEmpty();
+    kafkaBrokerApi.receiveAsync(testTopic, groupId, testConsumer);
+    assertThat(kafkaBrokerApi.topicSubscribers()).isEmpty();
+    assertThat(kafkaBrokerApi.topicSubscribersWithGroupId()).containsExactly(topicSubscriberWithGroupId(groupId, topicSubscriber(testTopic, testConsumer)));
   }
 
   protected String getKafkaRestApiUriString() {

@@ -13,6 +13,7 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.kafka.subscribe;
 
+import static com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties.KAFKA_GROUP_ID_PROPERTY;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.flogger.FluentLogger;
@@ -51,6 +52,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
   private volatile ReceiverJob receiver;
+  private String groupId;
 
   @Inject
   public KafkaEventNativeSubscriber(
@@ -69,6 +71,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
     this.consumerFactory = consumerFactory;
     this.keyDeserializer = keyDeserializer;
     this.valueDeserializer = valueDeserializer;
+    this.groupId = configuration.getGroupId();
   }
 
   /* (non-Javadoc)
@@ -80,15 +83,30 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
     this.messageProcessor = messageProcessor;
     logger.atInfo().log(
         "Kafka consumer subscribing to topic alias [%s] for event topic [%s]", topic, topic);
-    runReceiver();
+    runReceiver(consumerFactory.create(keyDeserializer));
   }
 
-  private void runReceiver() {
+  @Override
+  public void subscribe(
+      String topic, String groupId, java.util.function.Consumer<Event> messageProcessor) {
+    this.topic = topic;
+    this.messageProcessor = messageProcessor;
+    logger.atInfo().log(
+        "Kafka consumer subscribing to topic alias [%s] for event topic [%s] with groupId [%s]",
+        topic, topic, groupId);
+
+    KafkaSubscriberProperties configurationWithGroupIdUpdated =
+        (KafkaSubscriberProperties) configuration.clone();
+    configurationWithGroupIdUpdated.setProperty(KAFKA_GROUP_ID_PROPERTY, groupId);
+    this.groupId = groupId;
+    runReceiver(consumerFactory.create(configurationWithGroupIdUpdated, keyDeserializer));
+  }
+
+  private void runReceiver(Consumer<byte[], byte[]> consumer) {
     final ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
     try {
       Thread.currentThread()
           .setContextClassLoader(KafkaEventNativeSubscriber.class.getClassLoader());
-      Consumer<byte[], byte[]> consumer = consumerFactory.create(keyDeserializer);
       consumer.subscribe(Collections.singleton(topic));
       receiver = new ReceiverJob(consumer);
       executor.execute(receiver);
@@ -128,6 +146,16 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
   @Override
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  @Override
+  public String getGroupId() {
+    return groupId;
+  }
+
+  @Override
+  public boolean isDefaultGroupId() {
+    return groupId.equals(configuration.getGroupId());
   }
 
   private class ReceiverJob implements Runnable {
@@ -201,7 +229,7 @@ public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
           DELAY_RECONNECT_AFTER_FAILURE_MSEC / 2
               + new Random().nextInt(DELAY_RECONNECT_AFTER_FAILURE_MSEC);
       Thread.sleep(reconnectDelay);
-      runReceiver();
+      runReceiver(consumerFactory.create(keyDeserializer));
     }
   }
 }
