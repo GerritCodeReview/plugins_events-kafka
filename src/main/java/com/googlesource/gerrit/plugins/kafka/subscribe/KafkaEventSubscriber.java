@@ -27,6 +27,15 @@ public interface KafkaEventSubscriber {
    */
   void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor);
 
+  /**
+   * Subscribe to a topic and receive messages asynchronously using a consumer's group id.
+   *
+   * @param topic Kafka topic name
+   * @param groupId Kafka groupId
+   * @param messageProcessor consumer function for processing incoming messages
+   */
+  void subscribe(String topic, String groupId, java.util.function.Consumer<Event> messageProcessor);
+
   /** Shutdown Kafka consumer. */
   void shutdown();
 
@@ -46,4 +55,11 @@ public interface KafkaEventSubscriber {
 
   /** Reset the offset for reading incoming Kafka messages of the topic. */
   void resetOffset();
+
+  /**
+   * Returns the current consumer's group id.
+   *
+   * @return Kafka consumer's group id.
+   */
+  String getGroupId();
 }
