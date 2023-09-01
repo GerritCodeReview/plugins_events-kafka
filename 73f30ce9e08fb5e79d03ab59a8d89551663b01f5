@@ -16,6 +16,29 @@
       "message": "I believe we should keep the existing binding to provide backward compatibility",
       "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad59cbb5_911a7ea6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaConsumerFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-01T08:31:37Z",
+      "side": 1,
+      "message": "This is a singleton so you will change group id to all subsucribers not just to that one",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
