@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76c599c_3a3ac96d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-01T07:58:08Z",
+      "side": 1,
+      "message": "I believe we should keep the existing binding to provide backward compatibility",
+      "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
