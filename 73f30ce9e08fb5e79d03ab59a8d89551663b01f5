@@ -39,6 +39,30 @@
       },
       "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87465729_3fe8b40c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaConsumerFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-01T08:33:15Z",
+      "side": 1,
+      "message": "So we should make a copy of configuration, update group id and than use it just for that consumer",
+      "parentUuid": "ad59cbb5_911a7ea6",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
