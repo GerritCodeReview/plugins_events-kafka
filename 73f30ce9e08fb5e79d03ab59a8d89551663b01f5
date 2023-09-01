@@ -129,6 +129,30 @@
       },
       "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4936c20_f1ff6298",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaConsumerFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-01T12:25:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ff59a2d8_733a2cc1",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
