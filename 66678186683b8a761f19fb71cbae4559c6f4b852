@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae9589a_9876c1e3",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T20:30:04Z",
+      "side": 1,
+      "message": "Released as `3.4.8`",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 18,
+        "endChar": 57
+      },
+      "revId": "66678186683b8a761f19fb71cbae4559c6f4b852",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3be1805_c26cd3a8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T20:30:04Z",
+      "side": 1,
+      "message": "Unrelated: we could get rid of all these `synchronized` statements and use instead a `CopyOnWriteArrayList`. Follow-up change maybe?\n\n[1] https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 30
+      },
+      "revId": "66678186683b8a761f19fb71cbae4559c6f4b852",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949587a5_8127eff7",
+        "filename": "src/main/main.iml",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T20:30:04Z",
+      "side": 1,
+      "message": "Checked-in by mistake?",
+      "revId": "66678186683b8a761f19fb71cbae4559c6f4b852",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271e8a13_a278987d",
+        "filename": "src/test/test.iml",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T20:30:04Z",
+      "side": 1,
+      "message": "Checked-in by mistake?",
+      "revId": "66678186683b8a761f19fb71cbae4559c6f4b852",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
