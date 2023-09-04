@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96d91f55_e26c7ec9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-04T07:57:44Z",
+      "side": 1,
+      "message": "Actually that is what happened when i did a E2E test with pull replication using events-kafka.",
+      "parentUuid": "cde18cd0_b4b244b7",
+      "revId": "73f30ce9e08fb5e79d03ab59a8d89551663b01f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad59cbb5_911a7ea6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaConsumerFactory.java",
         "patchSetId": 7
