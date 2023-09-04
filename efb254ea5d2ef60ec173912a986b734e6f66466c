@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08cd9855_2070cdad",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-04T14:45:57Z",
+      "side": 1,
+      "message": "@luca.milanesio@gmail.com and @maczech@gmail.com, I need some help with this test. For some reason now, the Gerrit server is not stopped and the test timeout failing.",
+      "revId": "efb254ea5d2ef60ec173912a986b734e6f66466c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

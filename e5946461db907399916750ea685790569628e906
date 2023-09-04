@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57c93911_005bf7ed",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Manager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-04T14:45:57Z",
+      "side": 1,
+      "message": "I made the change, please, let me know if it is ok.",
+      "parentUuid": "091e8c11_fd97d864",
+      "range": {
+        "startLine": 34,
+        "startChar": 64,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46244a9d_a73cb1af",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
         "patchSetId": 9
@@ -61,6 +85,30 @@
       "writtenOn": "2023-09-04T07:38:11Z",
       "side": 1,
       "message": "using a subscriber group-id",
+      "range": {
+        "startLine": 31,
+        "startChar": 47,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64cb118_6ec0a88a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-04T14:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46244a9d_a73cb1af",
       "range": {
         "startLine": 31,
         "startChar": 47,
@@ -84,6 +132,30 @@
       "writtenOn": "2023-09-04T07:38:11Z",
       "side": 1,
       "message": "We should also test that `plugin.getSysInjector().getInstance(BrokerApi.class)` would still work.",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbfa91e7_cef8bd56",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-04T14:45:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f398aa2_44ff5078",
       "range": {
         "startLine": 194,
         "startChar": 0,
