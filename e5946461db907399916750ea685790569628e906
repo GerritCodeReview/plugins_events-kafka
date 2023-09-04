@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46244a9d_a73cb1af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T07:38:11Z",
+      "side": 1,
+      "message": "using a subscriber group-id",
+      "range": {
+        "startLine": 31,
+        "startChar": 47,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f398aa2_44ff5078",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/EventConsumerIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T07:38:11Z",
+      "side": 1,
+      "message": "We should also test that `plugin.getSysInjector().getInstance(BrokerApi.class)` would still work.",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
