@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "091e8c11_fd97d864",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Manager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-04T07:41:16Z",
+      "side": 1,
+      "message": "Correct, we should inject `ExtendedBrokerApi` only where we need it.",
+      "parentUuid": "ffde5a25_340efad9",
+      "range": {
+        "startLine": 34,
+        "startChar": 64,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "e5946461db907399916750ea685790569628e906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46244a9d_a73cb1af",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriber.java",
         "patchSetId": 9
