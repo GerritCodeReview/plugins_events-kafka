@@ -71,6 +71,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b88c79f7_02efcb16",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-07T12:59:45Z",
+      "side": 1,
+      "message": "Weird, it tells me that the method was renamed from `setPreviousBrokerApi` to `setBrokerApi`, so it makes sense for the arg to also be renamed to something meaningful.",
+      "parentUuid": "f74056cd_d6777831",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a486e5f_8aa627e0",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Actually if you read in one of the comments below, I mentioned something like that as an alternative.\n\nI am happy to go to that approach but please, can you explain that statement:\n\n\u003e I think the implementation is prone to bugs or misuse and over complicates things",
       "parentUuid": "0a486e5f_8aa627e0",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9471ada6_1e52c398",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-07T12:59:45Z",
+      "side": 1,
+      "message": "I simply mean that by maintaining two lists of essentially the same thing, you are now forced to keep track of both, on every possible operation (eg. replays, disconnects/teardowns etc), and it becomes very easy to forget to \"apply\" that operation to both. In addition, because they both contain the same type of element, it is not clear why we need both, hence when opening the class for further changes, the semantics can be confusing for other contributors.",
+      "parentUuid": "28e67885_1c00671d",
       "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
