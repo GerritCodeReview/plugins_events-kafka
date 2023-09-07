@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3bcabe1_00c22376",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-07T10:52:29Z",
+      "side": 1,
+      "message": "I check: \n```\nIn Java, the `addAll` method in a `List` does not make a copy of the elements\nthemselves. Instead, it adds references to the elements from one list into another\nlist. In other words, both lists will refer to the same objects in memory after\nusing `addAll`. This means that if you modify an object that was added to one list,\nthat change will also be reflected when you access the same object through the\nother list.\n```\nTherefore we are ok.",
+      "parentUuid": "93c033ac_db430374",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "41587f88a742c4076b67ef2fc254977a6dc38f36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6878a74_e40e99c1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
         "patchSetId": 18
