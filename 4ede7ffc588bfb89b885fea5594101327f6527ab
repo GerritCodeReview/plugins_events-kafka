@@ -176,6 +176,24 @@
       "parentUuid": "9471ada6_1e52c398",
       "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4378c2f3_60006d8e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-07T14:23:09Z",
+      "side": 1,
+      "message": "I have done a first approach. \n\nI have to say that everything is a bit misleading. All Kafka Consumers have consumer\u0027s group id. Here the difference is if the group id is loaded from configuration file or set explicitly. Maybe some refactoring in the way we construct `KafkaEventNativeSubscriber` and `KafkaEventRestSubscriber` would improve things a lot.",
+      "parentUuid": "9ed223b6_1489b1ed",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
