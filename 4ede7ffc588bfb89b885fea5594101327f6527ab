@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5012ba7b_a15450b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-07T12:32:15Z",
+      "side": 1,
+      "message": "Is there an issue number?",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "586939c9_074ee026",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
         "patchSetId": 20
