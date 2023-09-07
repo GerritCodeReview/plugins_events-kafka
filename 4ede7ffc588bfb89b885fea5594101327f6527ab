@@ -89,6 +89,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5288ee5c_c73b9217",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-07T13:12:14Z",
+      "side": 1,
+      "message": "Apologies, you are right. I will change it.",
+      "parentUuid": "b88c79f7_02efcb16",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a486e5f_8aa627e0",
