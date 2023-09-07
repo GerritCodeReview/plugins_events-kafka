@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "586939c9_074ee026",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-07T12:31:33Z",
+      "side": 1,
+      "message": "```suggestion\n  void setBrokerApi(DynamicItem\u003cBrokerApi\u003e brokerApi) {\n```",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a486e5f_8aa627e0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-07T12:31:33Z",
+      "side": 1,
+      "message": "I think the implementation is prone to bugs or misuse and over complicates things. That said, I am not familiar with this code at all, so maybe there\u0027s no better way to do this.\n\nIf I may suggest, wouldn\u0027t it possible to simply make the groupId in the 2 `KafkaEventSubscriber` implementations an optional string? In addition, if you change the sig of the `KafkaEventSubscriber.getGroupId` to return `Optional\u003cString\u003e` then I think you can keep just one `subscribers` list, because you can then filter on that optional group id to get the subscribers with/without a group id. WDYT?",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
