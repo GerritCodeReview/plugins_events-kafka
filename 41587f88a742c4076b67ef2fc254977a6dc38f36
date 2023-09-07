@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b15bf099_3df6c7d4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-07T07:50:46Z",
+      "side": 1,
+      "message": "I just realised that we have potential issue here. We do not have consistent behaviour with `InProcessBrokerAPI` if you call `InProcessBrokerAPI.topicSubscribersWithGroupId` it will return only subscribers which used `receiveAsync` with group id. In this class if you call `KafkaBrokerApi.topicSubscribersWithGroupId` it will return all subscribers. This can cause situation that some other code will call both `topicSubscribersWithGroupId` and `topicSubscribers` and will register some subscribers twice",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "41587f88a742c4076b67ef2fc254977a6dc38f36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6878a74_e40e99c1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-07T07:50:46Z",
+      "side": 1,
+      "message": "we should return group id",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 3
+      },
+      "revId": "41587f88a742c4076b67ef2fc254977a6dc38f36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
