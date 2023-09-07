@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1f01ee2_d7373f40",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-07T09:51:14Z",
+      "side": 1,
+      "message": "I have created another list exclusively for subscribers with GroupId. It is a conservative way of maintaining mutual exclusivity. \n\nThe other alternative was to keep the same list `subscribers` for both types of subscribers (with and without groupId) and do a filtering in the `receiveAsync` methods based on if `KafkaEventSubscriber` has different groupId than the one in the configuration. Personally I like this but because `KafkaEventSubscriber` is mutable I dont feel safe. If you prefer this approach because you know more the code, i will change it.",
+      "parentUuid": "05964e50_1c7b50db",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "41587f88a742c4076b67ef2fc254977a6dc38f36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6878a74_e40e99c1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
         "patchSetId": 18
