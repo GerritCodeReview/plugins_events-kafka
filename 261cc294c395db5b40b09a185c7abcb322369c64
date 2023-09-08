@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02344d0f_a6dde7e6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-08T07:49:21Z",
+      "side": 1,
+      "message": "probably we did it by mistake?.",
+      "parentUuid": "e3b7e54a_abc53378",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 19
+      },
+      "revId": "261cc294c395db5b40b09a185c7abcb322369c64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa361f6b_046c6a5e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaApiModule.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-08T07:49:21Z",
+      "side": 1,
+      "message": "probably we did it by mistake?.",
+      "parentUuid": "28dc9b40_f5ac6655",
+      "range": {
+        "startLine": 56,
+        "startChar": 43,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "261cc294c395db5b40b09a185c7abcb322369c64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adbef16d_77e08d42",
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d9b1772_ffbe5974",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-08T07:49:21Z",
+      "side": 1,
+      "message": "good to know it. Scala is different as you know.",
+      "parentUuid": "adbef16d_77e08d42",
+      "range": {
+        "startLine": 158,
+        "startChar": 11,
+        "endLine": 158,
+        "endChar": 48
+      },
+      "revId": "261cc294c395db5b40b09a185c7abcb322369c64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d8c4440_0c48c419",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-08T07:26:46Z",
       "side": 1,
       "message": "same, use equals method",
+      "range": {
+        "startLine": 183,
+        "startChar": 11,
+        "endLine": 183,
+        "endChar": 49
+      },
+      "revId": "261cc294c395db5b40b09a185c7abcb322369c64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d10d3a_4b6225b0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventRestSubscriber.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-08T07:49:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d8c4440_0c48c419",
       "range": {
         "startLine": 183,
         "startChar": 11,
