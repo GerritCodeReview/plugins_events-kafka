@@ -194,6 +194,24 @@
       "parentUuid": "9ed223b6_1489b1ed",
       "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d304e0_46c3e62b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-08T09:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4378c2f3_60006d8e",
+      "revId": "4ede7ffc588bfb89b885fea5594101327f6527ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
