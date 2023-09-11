@@ -52,6 +52,24 @@
       "parentUuid": "d59c1b13_7874f90e",
       "revId": "2e33b00a3c528ebc2685becd7197097e93155e2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84aac8ca_e51c191c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-11T21:13:24Z",
+      "side": 1,
+      "message": "@christoforos.miliotis.dev@gmail.com I have made `KafkaEventNativeSubsciber` and `KafkaEventRestSubsciber` immutable regarding the groupId.",
+      "parentUuid": "5b262528_bab35bd3",
+      "revId": "2e33b00a3c528ebc2685becd7197097e93155e2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
