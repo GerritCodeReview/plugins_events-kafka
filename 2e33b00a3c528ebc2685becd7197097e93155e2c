@@ -16,6 +16,24 @@
       "message": "It looks the groupId is mutable? Assuming the client can call interchangeably the `subscribe(topic, groupId, messageProcessor)` and `subscribe(topic, messageProcessor)` methods, it can create problems:\n- It makes the code non-deterministic. The result of the `isConfiguredGroupId()` can be different in T1 vs T2.\n- Is (or should) the code be thread safe?\n\nTbh I dont understand the use case here, so I can\u0027t follow what we are trying to achieve. Would it be possible to make the groupId part of the constructor, so the subscriber is created with an immutable group id? \nSomething like\n```\npublic KafkaEventNativeSubscriber(\n      KafkaSubscriberProperties configuration,\n      KafkaConsumerFactory consumerFactory,\n      Deserializer\u003cbyte[]\u003e keyDeserializer,\n      Deserializer\u003cEvent\u003e valueDeserializer,\n      OneOffRequestContext oneOffCtx,\n      @ConsumerExecutor ExecutorService executor,\n      KafkaEventSubscriberMetrics subscriberMetrics,\n      Optional\u003cString\u003e maybeGroupId) {\n\n  ...\n  this.groupId \u003d maybeGroupId.orElse(configuration.getGroupId());\n}\n```\n\nWe may end up with a few more subscriber classes around, but that\u0027s a small price to pay considering the code will be much more robust due to its immutability.",
       "revId": "2e33b00a3c528ebc2685becd7197097e93155e2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d59c1b13_7874f90e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-11T17:17:46Z",
+      "side": 1,
+      "message": "You are right in everything:\n\n- KafkaEventSubscriber is `mutable object` because when you instantiate it, it has a `groupId` set from the configuration and if the logic runs `void subscribe(String topic, String groupId, java.util.function.Consumer\u003cEvent\u003e messageProcessor);` then the `groupId` is updated to the one provided by the method.\n\nBy the book you are right, no deterministic 100%, but if you look at the code in `KafkaBrokerApi` , we have \n```\n  @Override\n  public void receiveAsync(String topic, Consumer\u003cEvent\u003e eventConsumer) {\n    KafkaEventSubscriber subscriber \u003d subscriberProvider.get();\n    synchronized (subscribers) {\n      subscribers.add(subscriber);\n    }\n    subscriber.subscribe(topic, eventConsumer);\n  }\n\n  @Override\n  public void receiveAsync(String topic, String groupId, Consumer\u003cEvent\u003e eventConsumer) {\n    KafkaEventSubscriber subscriber \u003d subscriberProvider.get();\n    synchronized (subscribers) {\n      subscribers.add(subscriber);\n    }\n    subscriber.subscribe(topic, groupId, eventConsumer);\n  }\n```\n\nThe subscribers are created and immediately executes `subscribe` only ONCE so in `theory` we should not end up in a no-deterministic situation.\n\nRegarding your approach of updating the constructor of `KafkaEventNativeSubscriber` it something that I thought about but I came to the question if this is something that we want to achieve this in this change, do we want to do a refactoring? ... maybe yes.\n\nAt the same time for me `KafkaEventNativeSubscriber` represents somehow a kafka consumer and all the kafka consumers have a consumer group id. so this `Optional\u003cString\u003e maybeGroupId` makes no sense to me. For me the solution would be to create immutable object with whatever group id is needed and provided. Can we do this with the current binding strategy? ..... I dont know how easy.\n\nI think is worth to go through to your concerns.\n@luca.milanesio@gmail.com  @maczech@gmail.com",
+      "parentUuid": "4df368ab_ed49771a",
+      "revId": "2e33b00a3c528ebc2685becd7197097e93155e2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
