@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a83b4eb_626e3dc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-09-11T07:57:48Z",
+      "side": 1,
+      "message": "LGTM but I was involved in the implementation so I would like someone else to have a look",
+      "revId": "57a1c67c0b1104aa1d370aa1fbd996950e4b5305",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
