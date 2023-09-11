@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df368ab_ed49771a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-09-11T16:56:01Z",
+      "side": 1,
+      "message": "It looks the groupId is mutable? Assuming the client can call interchangeably the `subscribe(topic, groupId, messageProcessor)` and `subscribe(topic, messageProcessor)` methods, it can create problems:\n- It makes the code non-deterministic. The result of the `isConfiguredGroupId()` can be different in T1 vs T2.\n- Is (or should) the code be thread safe?\n\nTbh I dont understand the use case here, so I can\u0027t follow what we are trying to achieve. Would it be possible to make the groupId part of the constructor, so the subscriber is created with an immutable group id? \nSomething like\n```\npublic KafkaEventNativeSubscriber(\n      KafkaSubscriberProperties configuration,\n      KafkaConsumerFactory consumerFactory,\n      Deserializer\u003cbyte[]\u003e keyDeserializer,\n      Deserializer\u003cEvent\u003e valueDeserializer,\n      OneOffRequestContext oneOffCtx,\n      @ConsumerExecutor ExecutorService executor,\n      KafkaEventSubscriberMetrics subscriberMetrics,\n      Optional\u003cString\u003e maybeGroupId) {\n\n  ...\n  this.groupId \u003d maybeGroupId.orElse(configuration.getGroupId());\n}\n```\n\nWe may end up with a few more subscriber classes around, but that\u0027s a small price to pay considering the code will be much more robust due to its immutability.",
+      "revId": "2e33b00a3c528ebc2685becd7197097e93155e2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
