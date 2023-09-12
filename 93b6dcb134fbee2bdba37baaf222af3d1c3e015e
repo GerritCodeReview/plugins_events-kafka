@@ -16,6 +16,47 @@
       "message": "please, feedback in the commit description.",
       "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b659d7e_81d0e3be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2023-09-12T06:00:41Z",
+      "side": 1,
+      "message": "I guess that you could get inspiration from the issue description",
+      "parentUuid": "560a93c7_fd58556f",
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bae5b2c_eec3accc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Manager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2023-09-12T06:00:41Z",
+      "side": 1,
+      "message": "nit: maybe you could use `ExtendedBrokerApi` here so that casting is no longer needed in `#43`?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
