@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40852a37_a79bc83a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-12T15:06:53Z",
+      "side": 1,
+      "message": "I believe that my explanation is more detail than the high level explain in the issue. Let\u0027s see what the rest say about this description.",
+      "parentUuid": "6b659d7e_81d0e3be",
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bae5b2c_eec3accc",
