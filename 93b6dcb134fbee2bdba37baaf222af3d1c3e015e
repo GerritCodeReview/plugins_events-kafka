@@ -57,6 +57,30 @@
       },
       "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e23dc71_53ced580",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/Manager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-12T13:48:37Z",
+      "side": 1,
+      "message": "That would raise a runtime exception in the binding phase because the current binding (L91 KafkaApiModule.java) is:\n```\n DynamicItem.bind(binder(), BrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);\n```\nWhy do we keep that binding instead of:\n\n```\n DynamicItem.bind(binder(), ExtendedBrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);\n```\n\nis to keep backward compatibility with other plugins that are currently using the binding to `BrokerApi`.\n\nI hope it makes sense. Let me know if you want to talk about that.",
+      "parentUuid": "2bae5b2c_eec3accc",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
