@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382459f6_c0ed048e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T23:24:31Z",
+      "side": 1,
+      "message": "Tests are flaky, due to the choice of the same topic name across tests.",
+      "revId": "a9a39cb3e25b35a56517c7c451e1d3eaacd0f047",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbbf853c_3f7768d5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApiTest.java",
+        "patchSetId": 47
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T23:24:31Z",
+      "side": 1,
+      "message": "It is a bad idea to reuse the same topic across all tests: bear in mind that even if the test executions are isolated, the Kafka broker is the same and also the topics are the same.\n\nUsing the same topic in all tests would create an _indirect dependency_ of the data put from one test to the other subscribers in the following tests and would make the whole suite very flaky.\n\nI\u0027ll introduce a topic name that uses the test method as suffix, so that every test runs with its own individual topic name.",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 50
+      },
+      "revId": "a9a39cb3e25b35a56517c7c451e1d3eaacd0f047",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
