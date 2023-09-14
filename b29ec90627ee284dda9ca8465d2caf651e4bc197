@@ -1,11 +1,12 @@
 {
   "checks": {
     "gerritforge:plugins-events-kafka-build-test": {
-      "state": "RUNNING",
+      "state": "FAILED",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-events-kafka-verifier/job/98%252F385898%252F8/1/console",
       "started": "2023-09-14T20:32:51Z",
+      "finished": "2023-09-14T20:41:36Z",
       "created": "2023-09-14T20:32:52Z",
-      "updated": "2023-09-14T20:32:52Z"
+      "updated": "2023-09-14T20:41:37Z"
     },
     "gerritforge:plugins-events-kafka-code-style": {
       "state": "SUCCESSFUL",
