@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d8c77b3_c719a6f1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventSubscriberFactory.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T22:50:17Z",
+      "side": 1,
+      "message": "We typically include this as static inner class called `Factory` inside `KafkaEventSubscriber`",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "8948cb074e1a9dc1ee17eb9866576861d78fb90d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
