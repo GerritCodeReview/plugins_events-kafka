@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "982b9394_ffb44e29",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T23:03:12Z",
+      "side": 1,
+      "message": "Now it is consumed from source.",
+      "parentUuid": "3d52e483_8eda0ca1",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 18,
+        "endChar": 57
+      },
+      "revId": "66678186683b8a761f19fb71cbae4559c6f4b852",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c3be1805_c26cd3a8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
         "patchSetId": 12
