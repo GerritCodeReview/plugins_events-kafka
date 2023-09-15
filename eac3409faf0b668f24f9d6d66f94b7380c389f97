@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93efdf0b_cf127e09",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2023-09-15T00:03:52Z",
+      "side": 1,
+      "message": "This is now only returning subscribers with a specific group id right? Does it warrant a method rename?",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "eac3409faf0b668f24f9d6d66f94b7380c389f97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d175b8a6_9e8695c8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/api/KafkaBrokerApi.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2023-09-15T00:03:52Z",
+      "side": 1,
+      "message": "This only seems used in test scope? Can it be moved into test code itself?",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 68
+      },
+      "revId": "eac3409faf0b668f24f9d6d66f94b7380c389f97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b40aec39_8f11727b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/subscribe/KafkaEventNativeSubscriber.java",
         "patchSetId": 49
