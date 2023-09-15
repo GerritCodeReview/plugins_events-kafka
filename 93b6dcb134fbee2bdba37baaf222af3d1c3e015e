@@ -77,6 +77,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fb47c37_34a47ac2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-15T00:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f11a6959_de497c05",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "341066a1_eb348cc8",
@@ -90,6 +114,30 @@
       "writtenOn": "2023-09-15T00:09:11Z",
       "side": 1,
       "message": "_\"all existing subscribers, including the ones with a custom consumer group-id, are detached from the previous broker and associated with a Kafka subscriber\"_",
+      "range": {
+        "startLine": 11,
+        "startChar": 35,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "93b6dcb134fbee2bdba37baaf222af3d1c3e015e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6aee60_fcfcdb53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-15T00:13:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "341066a1_eb348cc8",
       "range": {
         "startLine": 11,
         "startChar": 35,
