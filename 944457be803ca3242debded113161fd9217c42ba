@@ -16,6 +16,24 @@
       "message": "How can we test this?",
       "revId": "944457be803ca3242debded113161fd9217c42ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5492f32_c2717df3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-15T00:15:45Z",
+      "side": 1,
+      "message": "I believe we can then rely on the test harness for a full coverage.",
+      "parentUuid": "2d504e0e_713a60c6",
+      "revId": "944457be803ca3242debded113161fd9217c42ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
