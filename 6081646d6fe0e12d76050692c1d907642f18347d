@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f2dd25_28431297",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-19T20:07:35Z",
+      "side": 1,
+      "message": "I don\u0027t have enough context for a proper code review. Can only tell, that project is building locally and tests are also passing, Verified: +1.",
+      "revId": "6081646d6fe0e12d76050692c1d907642f18347d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
