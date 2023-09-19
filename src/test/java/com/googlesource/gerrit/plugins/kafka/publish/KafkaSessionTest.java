@@ -18,7 +18,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import com.google.common.util.concurrent.Futures;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
@@ -34,7 +33,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 @RunWith(MockitoJUnitRunner.class)
 public class KafkaSessionTest {
   KafkaSession objectUnderTest;
@@ -43,22 +41,17 @@ public class KafkaSessionTest {
   @Mock KafkaProperties properties;
   @Mock KafkaEventsPublisherMetrics publisherMetrics;
   @Captor ArgumentCaptor<Callback> callbackCaptor;
-
   RecordMetadata recordMetadata;
   String message = "sample_message";
   private String topic = "index";
-
   @Before
   public void setUp() {
     when(producerProvider.get()).thenReturn(kafkaProducer);
     when(properties.getTopic()).thenReturn(topic);
-
     recordMetadata = new RecordMetadata(new TopicPartition(topic, 0), 0L, 0L, 0L, 0L, 0, 0);
-
     objectUnderTest = new KafkaSession(producerProvider, properties, publisherMetrics);
     objectUnderTest.connect();
   }
-
   @Test
   public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
@@ -66,7 +59,6 @@ public class KafkaSessionTest {
     objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
   }
-
   @Test
   public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
@@ -74,7 +66,6 @@ public class KafkaSessionTest {
     objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
   }
-
   @Test
   public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
@@ -86,37 +77,30 @@ public class KafkaSessionTest {
     }
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
   }
-
   @Test
   public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInAsyncMode() {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
-
     objectUnderTest.publish(message);
-
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(recordMetadata, null);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
   }
-
   @Test
   public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInAsyncMode() {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any()))
-        .thenReturn(Futures.immediateFailedFuture(new Exception()));
-
+            .thenReturn(Futures.immediateFailedFuture(new Exception()));
     objectUnderTest.publish(message);
-
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(null, new Exception());
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
   }
-
   @Test
   public void shouldIncrementBrokerFailedMetricCounterWhenUnexpectedExceptionInAsyncMode() {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any()))
-        .thenThrow(new RuntimeException("Unexpected runtime exception"));
+            .thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
       objectUnderTest.publish(message);
     } catch (RuntimeException e) {

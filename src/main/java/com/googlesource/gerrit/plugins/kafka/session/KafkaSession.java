@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kafka.session;
 
+
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -31,38 +32,32 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 public final class KafkaSession {
-
   private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSession.class);
   private final KafkaProperties properties;
   private final Provider<KafkaProducer<String, String>> producerProvider;
   private final KafkaEventsPublisherMetrics publisherMetrics;
   private volatile Producer<String, String> producer;
-
   @Inject
   public KafkaSession(
-      Provider<KafkaProducer<String, String>> producerProvider,
-      KafkaProperties properties,
-      KafkaEventsPublisherMetrics publisherMetrics) {
+          Provider<KafkaProducer<String, String>> producerProvider,
+          KafkaProperties properties,
+          KafkaEventsPublisherMetrics publisherMetrics) {
     this.producerProvider = producerProvider;
     this.properties = properties;
     this.publisherMetrics = publisherMetrics;
   }
-
   public boolean isOpen() {
     if (producer != null) {
       return true;
     }
     return false;
   }
-
   public void connect() {
     if (isOpen()) {
       LOGGER.debug("Already connected.");
       return;
     }
-
     LOGGER.info("Connect to {}...", properties.getProperty("bootstrap.servers"));
     /* Need to make sure that the thread of the running connection uses
      * the correct class loader otherwize you can endup with hard to debug
@@ -72,11 +67,9 @@ public final class KafkaSession {
     producer = producerProvider.get();
     LOGGER.info("Connection established.");
   }
-
   private void setConnectionClassLoader() {
     Thread.currentThread().setContextClassLoader(KafkaSession.class.getClassLoader());
   }
-
   public void disconnect() {
     LOGGER.info("Disconnecting...");
     if (producer != null) {
@@ -85,23 +78,20 @@ public final class KafkaSession {
     }
     producer = null;
   }
-
   public ListenableFuture<Boolean> publish(String messageBody) {
     return publish(properties.getTopic(), messageBody);
   }
-
   public ListenableFuture<Boolean> publish(String topic, String messageBody) {
     if (properties.isSendAsync()) {
       return publishAsync(topic, messageBody);
     }
     return publishSync(topic, messageBody);
   }
-
   private ListenableFuture<Boolean> publishSync(String topic, String messageBody) {
     SettableFuture<Boolean> resultF = SettableFuture.create();
     try {
       Future<RecordMetadata> future =
-          producer.send(new ProducerRecord<>(topic, "" + System.nanoTime(), messageBody));
+              producer.send(new ProducerRecord<>(topic, "" + System.nanoTime(), messageBody));
       RecordMetadata metadata = future.get();
       LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
       publisherMetrics.incrementBrokerPublishedMessage();
@@ -113,27 +103,25 @@ public final class KafkaSession {
       return Futures.immediateFailedFuture(e);
     }
   }
-
   private ListenableFuture<Boolean> publishAsync(String topic, String messageBody) {
     try {
       Future<RecordMetadata> future =
-          producer.send(
-              new ProducerRecord<>(topic, Long.toString(System.nanoTime()), messageBody),
-              (metadata, e) -> {
-                if (metadata != null && e == null) {
-                  LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
-                  publisherMetrics.incrementBrokerPublishedMessage();
-                } else {
-                  LOGGER.error("Cannot send the message", e);
-                  publisherMetrics.incrementBrokerFailedToPublishMessage();
-                }
-              });
-
+              producer.send(
+                      new ProducerRecord<>(topic, Long.toString(System.nanoTime()), messageBody),
+                      (metadata, e) -> {
+                        if (metadata != null && e == null) {
+                          LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
+                          publisherMetrics.incrementBrokerPublishedMessage();
+                        } else {
+                          LOGGER.error("Cannot send the message", e);
+                          publisherMetrics.incrementBrokerFailedToPublishMessage();
+                        }
+                      });
       // The transformation is lightweight, so we can afford using a directExecutor
       return Futures.transform(
-          JdkFutureAdapters.listenInPoolThread(future),
-          Objects::nonNull,
-          MoreExecutors.directExecutor());
+              JdkFutureAdapters.listenInPoolThread(future),
+              Objects::nonNull,
+              MoreExecutors.directExecutor());
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();

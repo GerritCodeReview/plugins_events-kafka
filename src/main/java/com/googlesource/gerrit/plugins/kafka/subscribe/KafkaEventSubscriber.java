@@ -20,10 +20,12 @@ import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -33,6 +35,9 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.Deserializer;
 
 public class KafkaEventSubscriber {
+  public interface Factory {
+    KafkaEventSubscriber create(Optional<String> externalGroupId);
+  }
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final int DELAY_RECONNECT_AFTER_FAILURE_MSEC = 1000;
 
@@ -51,6 +56,7 @@ public class KafkaEventSubscriber {
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
   private volatile ReceiverJob receiver;
+  private final Optional<String> externalGroupId;
 
   @Inject
   public KafkaEventSubscriber(
@@ -60,15 +66,18 @@ public class KafkaEventSubscriber {
       Deserializer<Event> valueDeserializer,
       OneOffRequestContext oneOffCtx,
       @ConsumerExecutor ExecutorService executor,
-      KafkaEventSubscriberMetrics subscriberMetrics) {
+      KafkaEventSubscriberMetrics subscriberMetrics,
+      @Assisted Optional<String> externalGroupId) {
 
-    this.configuration = configuration;
     this.oneOffCtx = oneOffCtx;
     this.executor = executor;
     this.subscriberMetrics = subscriberMetrics;
     this.consumerFactory = consumerFactory;
     this.keyDeserializer = keyDeserializer;
     this.valueDeserializer = valueDeserializer;
+    this.externalGroupId = externalGroupId;
+    this.configuration = (KafkaSubscriberProperties) configuration.clone();
+    externalGroupId.ifPresent(gid -> this.configuration.setProperty("group.id", gid));
   }
 
   public void subscribe(String topic, java.util.function.Consumer<Event> messageProcessor) {
@@ -107,6 +116,16 @@ public class KafkaEventSubscriber {
 
   public void resetOffset() {
     resetOffset.set(true);
+  }
+
+  /**
+   * Returns the external consumer's group id when it is defined.
+   *
+   * @return Optional instance with external consumer's group id otherwise an empty Optional
+   *     instance
+   */
+  public Optional<String> getExternalGroupId() {
+    return externalGroupId;
   }
 
   private class ReceiverJob implements Runnable {

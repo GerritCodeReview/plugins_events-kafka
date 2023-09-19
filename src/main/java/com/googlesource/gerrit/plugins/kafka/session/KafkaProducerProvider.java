@@ -14,19 +14,17 @@
 
 package com.googlesource.gerrit.plugins.kafka.session;
 
+
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
-
 public class KafkaProducerProvider implements Provider<KafkaProducer<String, String>> {
   private final KafkaProperties properties;
-
   @Inject
   public KafkaProducerProvider(KafkaProperties properties) {
     this.properties = properties;
   }
-
   @Override
   public KafkaProducer<String, String> get() {
     return new KafkaProducer<>(properties);

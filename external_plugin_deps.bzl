@@ -58,9 +58,3 @@ def external_plugin_deps():
         artifact = "com.fasterxml.jackson.core:jackson-annotations:2.10.3",
         sha1 = "0f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7",
     )
-
-    maven_jar(
-        name = "events-broker",
-        artifact = "com.gerritforge:events-broker:3.6.0-rc3",
-        sha1 = "cb398afa4f76367be5c62b99a7ffce74ae1d3d8b",
-    )
