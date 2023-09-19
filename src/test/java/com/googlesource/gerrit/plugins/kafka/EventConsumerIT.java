@@ -19,6 +19,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.fail;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
@@ -51,14 +52,15 @@ import org.testcontainers.containers.KafkaContainer;
 @NoHttpd
 @TestPlugin(name = "events-kafka", sysModule = "com.googlesource.gerrit.plugins.kafka.Module")
 public class EventConsumerIT extends LightweightPluginDaemonTest {
-  static final long KAFKA_POLL_TIMEOUT = 10000L;
-
+  static final Duration KAFKA_POLL_TIMEOUT = Duration.ofSeconds(10);
+  private static final Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofSeconds(30);
   private KafkaContainer kafka;
+  private final Gson gson = new EventGsonProvider().get();
 
   @Override
   public void setUpTestPlugin() throws Exception {
     try {
-      kafka = new KafkaContainer();
+      kafka = KafkaContainerProvider.get();
       kafka.start();
 
       System.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
@@ -101,7 +103,6 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
     assertThat(events).hasSize(6);
     String commentAddedEventJson = Iterables.getLast(events);
 
-    Gson gson = new EventGsonProvider().get();
     Event event = gson.fromJson(commentAddedEventJson, Event.class);
     assertThat(event).isInstanceOf(CommentAddedEvent.class);
 
@@ -135,12 +136,35 @@ public class EventConsumerIT extends LightweightPluginDaemonTest {
       name = "plugin.events-kafka.valueDeserializer",
       value = "org.apache.kafka.common.serialization.StringDeserializer")
   @GerritConfig(name = "plugin.events-kafka.pollingIntervalMs", value = "500")
+  public void consumeEventsWithExternalGroupId() throws Exception {
+    String topic = "a_topic";
+    String consumerGroup1 = "consumer-group-1";
+    Event eventMessage = new ProjectCreatedEvent();
+    eventMessage.instanceId = "test-instance-id-1";
+    List<Event> receivedEventsWithGroupId1 = new ArrayList<>();
+
+    ExtendedBrokerApi kafkaBrokerApi = ((ExtendedBrokerApi) kafkaBrokerApi());
+    kafkaBrokerApi.send(topic, eventMessage);
+    kafkaBrokerApi.receiveAsync(topic, consumerGroup1, receivedEventsWithGroupId1::add);
+
+    waitUntil(() -> receivedEventsWithGroupId1.size() == 1, WAIT_FOR_POLL_TIMEOUT);
+    assertThat(gson.toJson(receivedEventsWithGroupId1.get(0))).isEqualTo(gson.toJson(eventMessage));
+  }
+
+  @Test
+  @UseLocalDisk
+  @GerritConfig(name = "plugin.events-kafka.groupId", value = "test-consumer-group")
+  @GerritConfig(
+      name = "plugin.events-kafka.keyDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(
+      name = "plugin.events-kafka.valueDeserializer",
+      value = "org.apache.kafka.common.serialization.StringDeserializer")
+  @GerritConfig(name = "plugin.events-kafka.pollingIntervalMs", value = "500")
   public void shouldReplayAllEvents() throws InterruptedException {
     String topic = "a_topic";
     Event eventMessage = new ProjectCreatedEvent();
     eventMessage.instanceId = "test-instance-id";
-
-    Duration WAIT_FOR_POLL_TIMEOUT = Duration.ofMillis(1000);
 
     List<Event> receivedEvents = new ArrayList<>();
 
