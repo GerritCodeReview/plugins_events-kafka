@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kafka.publish;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
@@ -21,10 +22,11 @@ import static org.mockito.Mockito.when;
 
 import com.google.common.util.concurrent.Futures;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
+import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
 import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.junit.Before;
@@ -38,7 +40,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class KafkaSessionTest {
   KafkaSession objectUnderTest;
-  @Mock KafkaProducer<String, String> kafkaProducer;
+  @Mock Producer<String, String> kafkaProducer;
   @Mock KafkaProducerProvider producerProvider;
   @Mock KafkaProperties properties;
   @Mock KafkaEventsPublisherMetrics publisherMetrics;
@@ -52,17 +54,19 @@ public class KafkaSessionTest {
   public void setUp() {
     when(producerProvider.get()).thenReturn(kafkaProducer);
     when(properties.getTopic()).thenReturn(topic);
+    when(properties.getProperty("bootstrap.servers")).thenReturn("localhost:9092");
+    when(properties.getClientType()).thenReturn(ClientType.NATIVE);
 
     recordMetadata = new RecordMetadata(new TopicPartition(topic, 0), 0L, 0L, 0L, 0L, 0, 0);
 
     objectUnderTest = new KafkaSession(producerProvider, properties, publisherMetrics);
-    objectUnderTest.connect();
   }
 
   @Test
   public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFuture(recordMetadata));
+    objectUnderTest.connect();
     objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
   }
@@ -71,6 +75,7 @@ public class KafkaSessionTest {
   public void shouldIncrementBrokerFailedMetricCounterWhenMessagePublishingFailedInSyncMode() {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenReturn(Futures.immediateFailedFuture(new Exception()));
+    objectUnderTest.connect();
     objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
   }
@@ -80,6 +85,7 @@ public class KafkaSessionTest {
     when(properties.isSendAsync()).thenReturn(false);
     when(kafkaProducer.send(any())).thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
+      objectUnderTest.connect();
       objectUnderTest.publish(message);
     } catch (RuntimeException e) {
       // expected
@@ -92,6 +98,7 @@ public class KafkaSessionTest {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
 
+    objectUnderTest.connect();
     objectUnderTest.publish(message);
 
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
@@ -105,6 +112,7 @@ public class KafkaSessionTest {
     when(kafkaProducer.send(any(), any()))
         .thenReturn(Futures.immediateFailedFuture(new Exception()));
 
+    objectUnderTest.connect();
     objectUnderTest.publish(message);
 
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
@@ -118,10 +126,18 @@ public class KafkaSessionTest {
     when(kafkaProducer.send(any(), any()))
         .thenThrow(new RuntimeException("Unexpected runtime exception"));
     try {
+      objectUnderTest.connect();
       objectUnderTest.publish(message);
     } catch (RuntimeException e) {
       // expected
     }
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();
+  }
+
+  @Test
+  public void shouldNotConnectKafkaSessionWhenBoostrapServersAreNotSet() {
+    when(properties.getProperty("bootstrap.servers")).thenReturn(null);
+    objectUnderTest.connect();
+    assertThat(objectUnderTest.isOpen()).isFalse();
   }
 }
