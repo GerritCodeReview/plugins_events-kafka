@@ -18,8 +18,9 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 
-public class KafkaProducerProvider implements Provider<KafkaProducer<String, String>> {
+public class KafkaProducerProvider implements Provider<Producer<String, String>> {
   private final KafkaProperties properties;
 
   @Inject
@@ -28,7 +29,7 @@ public class KafkaProducerProvider implements Provider<KafkaProducer<String, Str
   }
 
   @Override
-  public KafkaProducer<String, String> get() {
+  public Producer<String, String> get() {
     return new KafkaProducer<>(properties);
   }
 }
