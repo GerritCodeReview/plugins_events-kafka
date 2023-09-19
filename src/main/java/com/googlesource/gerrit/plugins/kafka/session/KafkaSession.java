@@ -33,7 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class KafkaSession {
-
   private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSession.class);
   private final KafkaProperties properties;
   private final Provider<KafkaProducer<String, String>> producerProvider;
@@ -62,7 +61,6 @@ public final class KafkaSession {
       LOGGER.debug("Already connected.");
       return;
     }
-
     LOGGER.info("Connect to {}...", properties.getProperty("bootstrap.servers"));
     /* Need to make sure that the thread of the running connection uses
      * the correct class loader otherwize you can endup with hard to debug
@@ -128,7 +126,6 @@ public final class KafkaSession {
                   publisherMetrics.incrementBrokerFailedToPublishMessage();
                 }
               });
-
       // The transformation is lightweight, so we can afford using a directExecutor
       return Futures.transform(
           JdkFutureAdapters.listenInPoolThread(future),

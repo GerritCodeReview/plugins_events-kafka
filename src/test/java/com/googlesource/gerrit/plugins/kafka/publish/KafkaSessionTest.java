@@ -43,7 +43,6 @@ public class KafkaSessionTest {
   @Mock KafkaProperties properties;
   @Mock KafkaEventsPublisherMetrics publisherMetrics;
   @Captor ArgumentCaptor<Callback> callbackCaptor;
-
   RecordMetadata recordMetadata;
   String message = "sample_message";
   private String topic = "index";
@@ -52,9 +51,7 @@ public class KafkaSessionTest {
   public void setUp() {
     when(producerProvider.get()).thenReturn(kafkaProducer);
     when(properties.getTopic()).thenReturn(topic);
-
     recordMetadata = new RecordMetadata(new TopicPartition(topic, 0), 0L, 0L, 0L, 0L, 0, 0);
-
     objectUnderTest = new KafkaSession(producerProvider, properties, publisherMetrics);
     objectUnderTest.connect();
   }
@@ -91,9 +88,7 @@ public class KafkaSessionTest {
   public void shouldIncrementBrokerMetricCounterWhenMessagePublishedInAsyncMode() {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
-
     objectUnderTest.publish(message);
-
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(recordMetadata, null);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
@@ -104,9 +99,7 @@ public class KafkaSessionTest {
     when(properties.isSendAsync()).thenReturn(true);
     when(kafkaProducer.send(any(), any()))
         .thenReturn(Futures.immediateFailedFuture(new Exception()));
-
     objectUnderTest.publish(message);
-
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(null, new Exception());
     verify(publisherMetrics, only()).incrementBrokerFailedToPublishMessage();

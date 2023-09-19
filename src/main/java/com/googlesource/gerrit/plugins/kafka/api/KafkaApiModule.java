@@ -15,7 +15,9 @@
 package com.googlesource.gerrit.plugins.kafka.api;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
+import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.collect.Sets;
 import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.lifecycle.LifecycleModule;
@@ -28,6 +30,7 @@ import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
+import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -36,6 +39,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 @Singleton
 public class KafkaApiModule extends LifecycleModule {
   private Set<TopicSubscriber> activeConsumers = Sets.newHashSet();
+  private Set<TopicSubscriberWithGroupId> activeConsumersWithGroupId = Sets.newHashSet();
   private WorkQueue workQueue;
   private KafkaSubscriberProperties configuration;
 
@@ -48,22 +52,26 @@ public class KafkaApiModule extends LifecycleModule {
   @Inject(optional = true)
   public void setPreviousBrokerApi(DynamicItem<BrokerApi> previousBrokerApi) {
     if (previousBrokerApi != null && previousBrokerApi.get() != null) {
-      this.activeConsumers = previousBrokerApi.get().topicSubscribers();
+      BrokerApi api = previousBrokerApi.get();
+      if (api instanceof ExtendedBrokerApi) {
+        this.activeConsumersWithGroupId = ((ExtendedBrokerApi) api).topicSubscribersWithGroupId();
+      }
+      this.activeConsumers = api.topicSubscribers();
     }
   }
 
   @Override
   protected void configure() {
-
+    factory(KafkaEventSubscriber.Factory.class);
     bind(ExecutorService.class)
         .annotatedWith(ConsumerExecutor.class)
         .toInstance(
             workQueue.createQueue(configuration.getNumberOfSubscribers(), "kafka-subscriber"));
-
     bind(new TypeLiteral<Deserializer<byte[]>>() {}).toInstance(new ByteArrayDeserializer());
     bind(new TypeLiteral<Deserializer<Event>>() {}).to(KafkaEventDeserializer.class);
     bind(new TypeLiteral<Set<TopicSubscriber>>() {}).toInstance(activeConsumers);
-
+    bind(new TypeLiteral<Set<TopicSubscriberWithGroupId>>() {})
+        .toInstance(activeConsumersWithGroupId);
     DynamicItem.bind(binder(), BrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);
   }
 }
