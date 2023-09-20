@@ -7,6 +7,18 @@ def external_plugin_deps():
         sha1 = "a7b72831768ccfd69128385130409ae1a0e52f5f",
     )
 
+    maven_jar(
+        name = "httpcore-nio",
+        artifact = "org.apache.httpcomponents:httpcore-nio:4.4.12",
+        sha1 = "84cd29eca842f31db02987cfedea245af020198b",
+    )
+
+    maven_jar(
+        name = "httpasyncclient",
+        artifact = "org.apache.httpcomponents:httpasyncclient:4.1.4",
+        sha1 = "f3a3240681faae3fa46b573a4c7e50cec9db0d86",
+    )
+
     TESTCONTAINERS_VERSION = "1.15.3"
 
     maven_jar(
@@ -57,10 +69,4 @@ def external_plugin_deps():
         name = "jackson-annotations",
         artifact = "com.fasterxml.jackson.core:jackson-annotations:2.10.3",
         sha1 = "0f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7",
-    )
-
-    maven_jar(
-        name = "events-broker",
-        artifact = "com.gerritforge:events-broker:3.7.2",
-        sha1 = "3b387b3bd134bed3e4bbd743a69411b05c86461a",
     )

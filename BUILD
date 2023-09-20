@@ -18,19 +18,26 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
-        "@events-broker//jar",
+        ":events-broker-neverlink",
+        "//lib/httpcomponents:httpclient",
+        "@httpasyncclient//jar",
+        "@httpcore-nio//jar",
         "@kafka-client//jar",
     ],
 )
 
 junit_tests(
     name = "events_kafka_tests",
+    timeout = "long",
     srcs = glob(["src/test/java/**/*.java"]),
+    resources = glob(["src/test/resources/**/*"]),
     tags = ["events-kafka"],
     deps = [
         ":events-kafka__plugin_test_deps",
-        "@events-broker//jar",
+        "//plugins/events-broker",
         "@kafka-client//jar",
+        "@testcontainers-kafka//jar",
+        "@testcontainers//jar",
     ],
 )
 
@@ -49,4 +56,10 @@ java_library(
         "@visible-assertions//jar",
         "@jna//jar",
     ],
+)
+
+java_library(
+    name = "events-broker-neverlink",
+    neverlink = 1,
+    exports = ["//plugins/events-broker"],
 )

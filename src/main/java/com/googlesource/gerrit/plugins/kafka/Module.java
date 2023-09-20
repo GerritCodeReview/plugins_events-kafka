@@ -17,24 +17,42 @@ package com.googlesource.gerrit.plugins.kafka;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.events.EventListener;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.api.KafkaApiModule;
+import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
+import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaPublisherProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
+import com.googlesource.gerrit.plugins.kafka.publish.KafkaRestProducer;
+import com.googlesource.gerrit.plugins.kafka.rest.FutureExecutor;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxy;
+import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxyProvider;
+import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import java.util.concurrent.ExecutorService;
+import org.apache.kafka.clients.producer.Producer;
 
 class Module extends AbstractModule {
-
   private final KafkaApiModule kafkaBrokerModule;
+  private final KafkaProperties kafkaConf;
+  private final WorkQueue workQueue;
   private final KafkaPublisherProperties configuration;
 
   @Inject
-  public Module(KafkaApiModule kafkaBrokerModule, KafkaPublisherProperties configuration) {
+  public Module(
+      KafkaApiModule kafkaBrokerModule,
+      KafkaPublisherProperties configuration,
+      KafkaProperties kafkaConf,
+      WorkQueue workQueue) {
     this.kafkaBrokerModule = kafkaBrokerModule;
     this.configuration = configuration;
+    this.kafkaConf = kafkaConf;
+    this.workQueue = workQueue;
   }
 
   @Override
@@ -45,8 +63,25 @@ class Module extends AbstractModule {
       DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);
     }
 
-    bind(new TypeLiteral<KafkaProducer<String, String>>() {})
-        .toProvider(KafkaProducerProvider.class);
+    ClientType clientType = kafkaConf.getClientType();
+    switch (clientType) {
+      case NATIVE:
+        bind(new TypeLiteral<Producer<String, String>>() {})
+            .toProvider(KafkaProducerProvider.class);
+        break;
+      case REST:
+        bind(ExecutorService.class)
+            .annotatedWith(FutureExecutor.class)
+            .toInstance(
+                workQueue.createQueue(
+                    kafkaConf.getRestApiThreads(), "KafkaRestClientThreadPool", true));
+        bind(HttpHostProxy.class).toProvider(HttpHostProxyProvider.class).in(Scopes.SINGLETON);
+        bind(new TypeLiteral<Producer<String, String>>() {}).to(KafkaRestProducer.class);
+        install(new FactoryModuleBuilder().build(KafkaRestClient.Factory.class));
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported Kafka client type " + clientType);
+    }
 
     install(kafkaBrokerModule);
   }
