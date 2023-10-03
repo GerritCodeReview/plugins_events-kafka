@@ -34,7 +34,7 @@ junit_tests(
     deps = [
         ":events-kafka__plugin_test_deps",
         "//lib/testcontainers",
-        "//plugins/events-broker",
+        "//modules/events-broker",
         "@kafka-client//jar",
         "@testcontainers-kafka//jar",
     ],
@@ -57,5 +57,5 @@ java_library(
 java_library(
     name = "events-broker-neverlink",
     neverlink = 1,
-    exports = ["//plugins/events-broker"],
+    exports = ["//modules/events-broker"],
 )

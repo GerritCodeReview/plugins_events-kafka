@@ -30,14 +30,14 @@ Build
 Kafka plugin can be build as a regular 'in-tree' plugin. That means that is required to
 clone a Gerrit source tree first and then to have the Kafka plugin source directory into
 the /plugins path. The plugin depends on [events-broker](https://gerrit.googlesource.com/modules/events-broker)
-which is linked directly from source with the same 'in-tree' plugin structure.
+which is linked directly into the `modules` folder.
 
 Additionally, the plugins/external_plugin_deps.bzl file needs to be
 updated to match the Kafka plugin one.
 
     git clone --recursive https://gerrit.googlesource.com/gerrit
     git clone https://gerrit.googlesource.com/plugins/events-kafka gerrit/plugins/events-kafka
-    git clone https://gerrit.googlesource.com/modules/events-broker gerrit/plugins/events-broker
+    git clone https://gerrit.googlesource.com/modules/events-broker gerrit/modules/events-broker
     cd gerrit
     rm plugins/external_plugin_deps.bzl
     ln -s ./events-kafka/external_plugin_deps.bzl plugins/.
