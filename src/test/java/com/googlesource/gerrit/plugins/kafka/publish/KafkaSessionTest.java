@@ -20,6 +20,7 @@ import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gerritforge.gerrit.eventbroker.log.MessageLogger;
 import com.google.common.util.concurrent.Futures;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
@@ -44,6 +45,7 @@ public class KafkaSessionTest {
   @Mock KafkaProducerProvider producerProvider;
   @Mock KafkaProperties properties;
   @Mock KafkaEventsPublisherMetrics publisherMetrics;
+  @Mock MessageLogger messageLogger;
   @Captor ArgumentCaptor<Callback> callbackCaptor;
 
   RecordMetadata recordMetadata;
@@ -59,7 +61,8 @@ public class KafkaSessionTest {
 
     recordMetadata = new RecordMetadata(new TopicPartition(topic, 0), 0L, 0L, 0L, 0L, 0, 0);
 
-    objectUnderTest = new KafkaSession(producerProvider, properties, publisherMetrics);
+    objectUnderTest =
+        new KafkaSession(producerProvider, properties, publisherMetrics, messageLogger);
   }
 
   @Test
@@ -69,6 +72,15 @@ public class KafkaSessionTest {
     objectUnderTest.connect();
     objectUnderTest.publish(message);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
+  }
+
+  @Test
+  public void shouldUpdateMessageLogWhenMessagePublishedInSyncMode() {
+    when(properties.isSendAsync()).thenReturn(false);
+    when(kafkaProducer.send(any())).thenReturn(Futures.immediateFuture(recordMetadata));
+    objectUnderTest.connect();
+    objectUnderTest.publish(message);
+    verify(messageLogger).log(MessageLogger.Direction.PUBLISH, topic, message);
   }
 
   @Test
@@ -104,6 +116,19 @@ public class KafkaSessionTest {
     verify(kafkaProducer).send(any(), callbackCaptor.capture());
     callbackCaptor.getValue().onCompletion(recordMetadata, null);
     verify(publisherMetrics, only()).incrementBrokerPublishedMessage();
+  }
+
+  @Test
+  public void shouldUpdateMessageLogWhenMessagePublishedInAsyncMode() {
+    when(properties.isSendAsync()).thenReturn(true);
+    when(kafkaProducer.send(any(), any())).thenReturn(Futures.immediateFuture(recordMetadata));
+
+    objectUnderTest.connect();
+    objectUnderTest.publish(message);
+
+    verify(kafkaProducer).send(any(), callbackCaptor.capture());
+    callbackCaptor.getValue().onCompletion(recordMetadata, null);
+    verify(messageLogger).log(MessageLogger.Direction.PUBLISH, topic, message);
   }
 
   @Test

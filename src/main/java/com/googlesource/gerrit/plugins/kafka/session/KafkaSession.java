@@ -14,6 +14,9 @@
 
 package com.googlesource.gerrit.plugins.kafka.session;
 
+import static com.gerritforge.gerrit.eventbroker.log.MessageLogger.*;
+
+import com.gerritforge.gerrit.eventbroker.log.MessageLogger;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -39,16 +42,20 @@ public final class KafkaSession {
   private final KafkaProperties properties;
   private final Provider<Producer<String, String>> producerProvider;
   private final KafkaEventsPublisherMetrics publisherMetrics;
+
+  private final MessageLogger msgLog;
   private volatile Producer<String, String> producer;
 
   @Inject
   public KafkaSession(
       Provider<Producer<String, String>> producerProvider,
       KafkaProperties properties,
-      KafkaEventsPublisherMetrics publisherMetrics) {
+      KafkaEventsPublisherMetrics publisherMetrics,
+      MessageLogger msgLog) {
     this.producerProvider = producerProvider;
     this.properties = properties;
     this.publisherMetrics = publisherMetrics;
+    this.msgLog = msgLog;
   }
 
   public boolean isOpen() {
@@ -136,6 +143,7 @@ public final class KafkaSession {
           producer.send(new ProducerRecord<>(topic, "" + System.nanoTime(), messageBody));
       RecordMetadata metadata = future.get();
       LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
+      msgLog.log(Direction.PUBLISH, topic, messageBody);
       publisherMetrics.incrementBrokerPublishedMessage();
       resultF.set(true);
       return resultF;
@@ -154,6 +162,7 @@ public final class KafkaSession {
               (metadata, e) -> {
                 if (metadata != null && e == null) {
                   LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
+                  msgLog.log(Direction.PUBLISH, topic, messageBody);
                   publisherMetrics.incrementBrokerPublishedMessage();
                 } else {
                   LOGGER.error("Cannot send the message", e);
