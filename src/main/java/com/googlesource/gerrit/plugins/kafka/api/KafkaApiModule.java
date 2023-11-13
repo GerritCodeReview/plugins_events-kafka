@@ -96,5 +96,7 @@ public class KafkaApiModule extends LifecycleModule {
         .toInstance(activeConsumersWithGroupId);
 
     DynamicItem.bind(binder(), BrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);
+    //    listener().to(Log4JKafkaMessageLogger.class);
+    //    bind(KafkaMessageLogger.class).to(Log4JKafkaMessageLogger.class);
   }
 }
