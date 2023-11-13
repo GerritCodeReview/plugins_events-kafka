@@ -48,6 +48,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+
+import com.googlesource.gerrit.plugins.kafka.session.Log4jMessageLogger;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.junit.After;
@@ -117,6 +119,7 @@ public class KafkaBrokerApiTest {
 
       bind(KafkaProperties.class).toInstance(kafkaProperties);
       bind(KafkaSession.class).in(Scopes.SINGLETON);
+      bind(Log4jMessageLogger.class).in(Scopes.SINGLETON);
 
       bindKafkaClientImpl();
 
