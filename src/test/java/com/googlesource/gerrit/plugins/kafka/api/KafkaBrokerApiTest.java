@@ -43,6 +43,7 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
+import com.googlesource.gerrit.plugins.kafka.session.Log4jMessageLogger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -117,6 +118,7 @@ public class KafkaBrokerApiTest {
 
       bind(KafkaProperties.class).toInstance(kafkaProperties);
       bind(KafkaSession.class).in(Scopes.SINGLETON);
+      bind(Log4jMessageLogger.class).in(Scopes.SINGLETON);
 
       bindKafkaClientImpl();
 
