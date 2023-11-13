@@ -20,6 +20,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 
 import com.google.common.base.Strings;
+import com.google.gerrit.acceptance.AbstractDaemonTest;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
@@ -64,7 +65,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 
 @RunWith(MockitoJUnitRunner.class)
-public class KafkaBrokerApiTest {
+public class KafkaBrokerApiTest extends AbstractDaemonTest {
 
   static KafkaContainer kafka;
   static KafkaRestContainer kafkaRest;
@@ -117,6 +118,7 @@ public class KafkaBrokerApiTest {
 
       bind(KafkaProperties.class).toInstance(kafkaProperties);
       bind(KafkaSession.class).in(Scopes.SINGLETON);
+      //      bind(Log4jMessageLogger.class).in(Scopes.SINGLETON);
 
       bindKafkaClientImpl();
 
