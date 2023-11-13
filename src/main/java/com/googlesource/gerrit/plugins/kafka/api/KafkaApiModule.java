@@ -31,6 +31,8 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
+import com.googlesource.gerrit.plugins.kafka.session.KafkaMessageLogger;
+import com.googlesource.gerrit.plugins.kafka.session.Log4JKafkaMessageLogger;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventDeserializer;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventNativeSubscriber;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventRestSubscriber;
@@ -96,5 +98,7 @@ public class KafkaApiModule extends LifecycleModule {
         .toInstance(activeConsumersWithGroupId);
 
     DynamicItem.bind(binder(), BrokerApi.class).to(KafkaBrokerApi.class).in(Scopes.SINGLETON);
+    listener().to(Log4JKafkaMessageLogger.class);
+    bind(KafkaMessageLogger.class).to(Log4JKafkaMessageLogger.class);
   }
 }

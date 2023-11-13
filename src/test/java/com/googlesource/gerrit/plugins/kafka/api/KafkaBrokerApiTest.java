@@ -38,9 +38,11 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.googlesource.gerrit.plugins.kafka.KafkaContainerProvider;
 import com.googlesource.gerrit.plugins.kafka.KafkaRestContainer;
+import com.googlesource.gerrit.plugins.kafka.NoopKafkaMessageLogger;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties.ClientType;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
+import com.googlesource.gerrit.plugins.kafka.session.KafkaMessageLogger;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaSession;
 import java.util.ArrayList;
@@ -117,6 +119,7 @@ public class KafkaBrokerApiTest {
 
       bind(KafkaProperties.class).toInstance(kafkaProperties);
       bind(KafkaSession.class).in(Scopes.SINGLETON);
+      bind(KafkaMessageLogger.class).to(NoopKafkaMessageLogger.class);
 
       bindKafkaClientImpl();
 
