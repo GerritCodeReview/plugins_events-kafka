@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd5d6e61_bd5f1538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-12-01T11:28:13Z",
+      "side": 1,
+      "message": "Similar comment to this one:\nhttps://gerrit-review.googlesource.com/c/plugins/events-aws-kinesis/+/392678/comments/b7bb073d_82d3a2d9",
+      "revId": "9d7e4bc05b2886b2f590263a755a229eb3cd1562",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
