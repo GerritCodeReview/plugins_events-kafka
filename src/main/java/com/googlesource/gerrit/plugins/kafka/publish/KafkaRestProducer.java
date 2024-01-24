@@ -21,6 +21,7 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -29,6 +30,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.kafka.clients.consumer.ConsumerGroupMetadata;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
@@ -67,6 +69,11 @@ public class KafkaRestProducer implements Producer<String, String> {
       Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId)
       throws ProducerFencedException {
     unsupported();
+  }
+
+  @Override
+  public void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> map, ConsumerGroupMetadata consumerGroupMetadata) throws ProducerFencedException {
+
   }
 
   @Override
@@ -124,6 +131,11 @@ public class KafkaRestProducer implements Producer<String, String> {
   @Override
   public void close(long timeout, TimeUnit unit) {
     close();
+  }
+
+  @Override
+  public void close(Duration duration) {
+
   }
 
   private String getRecordAsJson(ProducerRecord<String, String> record) {
