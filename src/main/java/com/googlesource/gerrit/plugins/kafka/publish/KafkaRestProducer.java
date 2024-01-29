@@ -21,6 +21,7 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -123,6 +124,11 @@ public class KafkaRestProducer implements Producer<String, String> {
 
   @Override
   public void close(long timeout, TimeUnit unit) {
+    close();
+  }
+
+  @Override
+  public void close(Duration timeout) {
     close();
   }
 
