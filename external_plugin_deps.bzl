@@ -3,8 +3,8 @@ load("//tools/bzl:maven_jar.bzl", "maven_jar")
 def external_plugin_deps():
     maven_jar(
         name = "kafka-client",
-        artifact = "org.apache.kafka:kafka-clients:2.1.1",
-        sha1 = "a7b72831768ccfd69128385130409ae1a0e52f5f",
+        artifact = "org.apache.kafka:kafka-clients:2.3.1",
+        sha1 = "21664b0318d201ec412f9b02357b07ba94009c87",
     )
 
     maven_jar(
