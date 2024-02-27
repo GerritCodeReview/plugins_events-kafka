@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.kafka.api;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
-import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.collect.Sets;
@@ -57,9 +56,7 @@ public class KafkaApiModule extends LifecycleModule {
   public void setPreviousBrokerApi(DynamicItem<BrokerApi> previousBrokerApi) {
     if (previousBrokerApi != null && previousBrokerApi.get() != null) {
       BrokerApi api = previousBrokerApi.get();
-      if (api instanceof ExtendedBrokerApi) {
-        this.activeConsumersWithGroupId = ((ExtendedBrokerApi) api).topicSubscribersWithGroupId();
-      }
+      this.activeConsumersWithGroupId = api.topicSubscribersWithGroupId();
       this.activeConsumers = api.topicSubscribers();
     }
   }
