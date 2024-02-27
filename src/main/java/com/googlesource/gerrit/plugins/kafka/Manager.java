@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.kafka;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
-import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.gerrit.extensions.events.LifecycleListener;
@@ -30,7 +29,7 @@ public class Manager implements LifecycleListener {
   private final KafkaPublisher publisher;
   private final Set<TopicSubscriber> consumers;
   private final Set<TopicSubscriberWithGroupId> consumersWithGroupId;
-  private final ExtendedBrokerApi brokerApi;
+  private final BrokerApi brokerApi;
 
   @Inject
   public Manager(
@@ -40,7 +39,7 @@ public class Manager implements LifecycleListener {
       BrokerApi brokerApi) {
     this.publisher = publisher;
     this.consumers = consumers;
-    this.brokerApi = (ExtendedBrokerApi) brokerApi;
+    this.brokerApi = brokerApi;
     this.consumersWithGroupId = consumersWithGroupId;
   }
 

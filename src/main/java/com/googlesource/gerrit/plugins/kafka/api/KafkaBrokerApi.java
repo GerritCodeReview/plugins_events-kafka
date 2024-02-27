@@ -14,22 +14,24 @@
 
 package com.googlesource.gerrit.plugins.kafka.api;
 
-import com.gerritforge.gerrit.eventbroker.ExtendedBrokerApi;
+import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaPublisher;
 import com.googlesource.gerrit.plugins.kafka.subscribe.KafkaEventSubscriber;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class KafkaBrokerApi implements ExtendedBrokerApi {
+public class KafkaBrokerApi implements BrokerApi {
 
   private final KafkaPublisher publisher;
   private final KafkaEventSubscriber.Factory kafkaEventSubscriberFactory;
@@ -40,7 +42,7 @@ public class KafkaBrokerApi implements ExtendedBrokerApi {
       KafkaPublisher publisher, KafkaEventSubscriber.Factory kafkaEventSubscriberFactory) {
     this.publisher = publisher;
     this.kafkaEventSubscriberFactory = kafkaEventSubscriberFactory;
-    subscribers = new ArrayList<>();
+    subscribers = Collections.synchronizedList(new ArrayList<>());
   }
 
   @Override
@@ -64,6 +66,18 @@ public class KafkaBrokerApi implements ExtendedBrokerApi {
       subscriber.shutdown();
     }
     subscribers.clear();
+  }
+
+  @Override
+  public void disconnect(String topic, @Nullable String groupId) {
+    Set<KafkaEventSubscriber> subscribersToDisconnect =
+        subscribers.stream()
+            .filter(s -> topic.equals(s.getTopic()))
+            .filter(
+                s -> groupId == null || s.getExternalGroupId().stream().anyMatch(groupId::equals))
+            .collect(Collectors.toSet());
+    subscribersToDisconnect.forEach(KafkaEventSubscriber::shutdown);
+    subscribers.removeAll(subscribersToDisconnect);
   }
 
   @Override
