@@ -61,8 +61,8 @@ Additional properties
 `plugin.@PLUGIN@.numberOfSubscribers`
 :   The number of consumers that are expected to be executed. This number will
     be used to allocate a thread pool of a suitable size.
-    Default to `6`. This is to allow enough resources to consume all relevant
-    gerrit topics in a multi-site deployment: `batchIndexEventTopic`
+    Default to `7`. This is to allow enough resources to consume all relevant
+    gerrit topics in a multi-site with pull-replication deployment: `batchIndexEventTopic`
     `streamEventTopic`, `gerritTopic`, `projectListEventTopic`,
     `cacheEventTopic`, `indexEventTopic`
 
