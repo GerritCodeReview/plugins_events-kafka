@@ -30,7 +30,7 @@ import com.google.gerrit.pgm.init.api.Section;
 import com.google.gerrit.server.config.GerritInstanceIdProvider;
 import com.google.inject.Inject;
 
-public class InitConfig implements InitStep {
+public class InitConfig implements InitStep { // TEST
   private static final String GROUP_ID_FIELD = "groupId";
   private static final String POLLING_INTERVAL_FIELD = "pollingIntervalMs";
   private static final String NUMBER_OF_SUBSCRIBERS_FIELD = "numberOfSubscribers";
