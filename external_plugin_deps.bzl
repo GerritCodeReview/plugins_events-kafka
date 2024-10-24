@@ -3,8 +3,8 @@ load("//tools/bzl:maven_jar.bzl", "maven_jar")
 def external_plugin_deps():
     maven_jar(
         name = "kafka-client",
-        artifact = "org.apache.kafka:kafka-clients:3.7.1",
-        sha1 = "75a75c47eb912f3fd06df62a9e4b3b554d5b2bec",
+        artifact = "org.apache.kafka:kafka-clients:3.8.0",
+        sha1 = "84425f801af2df5355b8736e36c1496f172adcf3",
     )
 
     maven_jar(
@@ -19,18 +19,18 @@ def external_plugin_deps():
         sha1 = "f3a3240681faae3fa46b573a4c7e50cec9db0d86",
     )
 
-    TESTCONTAINERS_VERSION = "1.15.3"
+    TESTCONTAINERS_VERSION = "1.20.3"
 
     maven_jar(
         name = "testcontainers",
         artifact = "org.testcontainers:testcontainers:" + TESTCONTAINERS_VERSION,
-        sha1 = "95c6cfde71c2209f0c29cb14e432471e0b111880",
+        sha1 = "2f662a2e20491b8b375c24692395e980c2143795",
     )
 
     maven_jar(
         name = "testcontainers-kafka",
         artifact = "org.testcontainers:kafka:" + TESTCONTAINERS_VERSION,
-        sha1 = "f5aa7be56babf71228872fe9983cce9555dffa13",
+        sha1 = "6f3ea67911df8bc8b75458f32ac9c9141cea3d23",
     )
 
     maven_jar(
