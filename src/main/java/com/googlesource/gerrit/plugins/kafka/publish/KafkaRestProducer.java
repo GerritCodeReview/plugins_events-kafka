@@ -129,11 +129,6 @@ public class KafkaRestProducer implements Producer<String, String> {
   }
 
   @Override
-  public void close(long timeout, TimeUnit unit) {
-    close();
-  }
-
-  @Override
   public void close(Duration timeout) {
     close();
   }
