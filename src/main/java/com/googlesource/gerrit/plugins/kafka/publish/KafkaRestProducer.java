@@ -25,11 +25,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.kafka.clients.consumer.ConsumerGroupMetadata;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
@@ -39,6 +39,7 @@ import org.apache.kafka.common.Metric;
 import org.apache.kafka.common.MetricName;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.Uuid;
 import org.apache.kafka.common.errors.ProducerFencedException;
 
 public class KafkaRestProducer implements Producer<String, String> {
@@ -123,13 +124,20 @@ public class KafkaRestProducer implements Producer<String, String> {
   }
 
   @Override
-  public void close(long timeout, TimeUnit unit) {
+  public void close(Duration timeout) {
     close();
   }
 
   @Override
-  public void close(Duration timeout) {
-    close();
+  public Uuid clientInstanceId(Duration timeout) {
+    return unsupported();
+  }
+
+  @Override
+  public void sendOffsetsToTransaction(
+      Map<TopicPartition, OffsetAndMetadata> offsets, ConsumerGroupMetadata groupMetadata)
+      throws ProducerFencedException {
+    unsupported();
   }
 
   private String getRecordAsJson(ProducerRecord<String, String> record) {
