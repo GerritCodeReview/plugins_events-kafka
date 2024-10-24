@@ -25,7 +25,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -40,6 +39,7 @@ import org.apache.kafka.common.Metric;
 import org.apache.kafka.common.MetricName;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.Uuid;
 import org.apache.kafka.common.errors.ProducerFencedException;
 
 public class KafkaRestProducer implements Producer<String, String> {
@@ -131,13 +131,13 @@ public class KafkaRestProducer implements Producer<String, String> {
   }
 
   @Override
-  public void close(long timeout, TimeUnit unit) {
+  public void close(Duration timeout) {
     close();
   }
 
   @Override
-  public void close(Duration timeout) {
-    close();
+  public Uuid clientInstanceId(Duration duration) {
+    return null;
   }
 
   private String getRecordAsJson(ProducerRecord<String, String> record) {
