@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7456cfeb_a9ee3a9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2024-10-24T17:43:20Z",
+      "side": 1,
+      "message": "I have tested E2E in a multisite setup and the behaviour was expected.",
+      "revId": "a4aceca324583bacb5410c40fed273f78bac1e57",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
