@@ -30,6 +30,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.kafka.clients.consumer.ConsumerGroupMetadata;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
@@ -67,6 +68,11 @@ public class KafkaRestProducer implements Producer<String, String> {
   public void sendOffsetsToTransaction(
       Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId)
       throws ProducerFencedException {
+    unsupported();
+  }
+
+  @Override
+  public void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> map, ConsumerGroupMetadata consumerGroupMetadata) throws ProducerFencedException {
     unsupported();
   }
 
