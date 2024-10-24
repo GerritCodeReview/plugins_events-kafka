@@ -30,15 +30,13 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.kafka.clients.consumer.ConsumerGroupMetadata;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.Metric;
-import org.apache.kafka.common.MetricName;
-import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.*;
 import org.apache.kafka.common.errors.ProducerFencedException;
 
 public class KafkaRestProducer implements Producer<String, String> {
@@ -67,11 +65,6 @@ public class KafkaRestProducer implements Producer<String, String> {
   public void sendOffsetsToTransaction(
       Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId)
       throws ProducerFencedException {
-    unsupported();
-  }
-
-  @Override
-  public void commitTransaction() throws ProducerFencedException {
     unsupported();
   }
 
@@ -122,14 +115,32 @@ public class KafkaRestProducer implements Producer<String, String> {
     }
   }
 
-  @Override
-  public void close(long timeout, TimeUnit unit) {
-    close();
-  }
+  // TODO this method has been removed from Producer<String, String> interface
+//  @Override
+//  public void close(long timeout, TimeUnit unit) {
+//    close();
+//  }
 
   @Override
   public void close(Duration timeout) {
     close();
+  }
+
+  @Override
+  public void commitTransaction() throws ProducerFencedException {
+    unsupported();
+  }
+
+  // TODO new method in the Producer<String, String> interface
+  @Override
+  public Uuid clientInstanceId(Duration timeout) {
+    return null;
+  }
+
+  // TODO new method in the Producer<String, String> interface
+  @Override
+  public void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets, ConsumerGroupMetadata groupMetadata) throws ProducerFencedException {
+
   }
 
   private String getRecordAsJson(ProducerRecord<String, String> record) {
