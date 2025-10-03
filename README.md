@@ -1,4 +1,11 @@
-Kafka: Gerrit event producer for Apache Kafka
+# DEPRECATION NOTICE
+
+GerritForge has decided to [change the license to BSL](https://gitenterprise.me/2025/09/30/re-licensing-gerritforge-plugins-welcome-to-gerrit-enterprise/)
+therefore the Apache 2.0 version of this plugin is deprecated.
+The recommended version of the events-kafka plugin is on [GitHub](https://github.com/GerritForge/events-kafka)
+and the development continues on [GerritHub.io](https://review.gerrithub.io/admin/repos/GerritForge/events-kafka,general).
+
+Kafka: Gerrit event producer for Apache Kafka (DEPRECATED)
 =======================
 
 * Author: GerritForge
