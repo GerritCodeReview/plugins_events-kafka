@@ -102,6 +102,16 @@ Additional properties
 	acknowledge of the message being sent.
 	Default: true
 
+`plugin.@PLUGIN@.eventType`
+:	Event type to publish to Kafka. This option can be specified multiple times to
+	publish multiple event types. Similar to `gerrit stream-events -s` flag.
+	When specified, only events matching the configured types are published.
+	When omitted, all events are published (default behavior).
+	Common event types: `patchset-created`, `comment-added`, `change-merged`,
+	`change-abandoned`, `ref-updated`, `reviewer-added`, `draft-published`,
+	`merge-failed`, `change-restored`.
+	Default: (all events)
+
 `plugin.@PLUGIN@.topic`
 :   Send all gerrit stream events to this topic (when `sendStreamEvents` is set
     to `true`).

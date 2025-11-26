@@ -30,11 +30,13 @@ public class KafkaPublisher implements EventListener {
 
   private final KafkaSession session;
   private final Gson gson;
+  private final EventTypeFilter eventTypeFilter;
 
   @Inject
-  public KafkaPublisher(KafkaSession kafkaSession, @EventGson Gson gson) {
+  public KafkaPublisher(KafkaSession kafkaSession, @EventGson Gson gson, EventTypeFilter eventTypeFilter) {
     this.session = kafkaSession;
     this.gson = gson;
+    this.eventTypeFilter = eventTypeFilter;
   }
 
   public void start() {
@@ -49,7 +51,7 @@ public class KafkaPublisher implements EventListener {
 
   @Override
   public void onEvent(Event event) {
-    if (session.isOpen()) {
+    if (session.isOpen() && eventTypeFilter.shouldPublish(event)) {
       session.publish(gson.toJson(event));
     }
   }
