@@ -49,7 +49,7 @@ Additional properties
 	Default: Gerrit instance-id
 
 `plugin.@PLUGIN@.httpWireLog`
-:	Enable the HTTP wire protocol logging in error_log for all the communication with
+:	Enable the HTTP wire protocol logging in kafka_log for all the communication with
 	the [Confluent REST-API Proxy](https://docs.confluent.io/platform/current/kafka-rest/index.html).
 	**NOTE**: when `plugin.@PLUGIN@.restApiUri` is unset or set to `NATIVE`, this setting is ignored.
 	Default: false

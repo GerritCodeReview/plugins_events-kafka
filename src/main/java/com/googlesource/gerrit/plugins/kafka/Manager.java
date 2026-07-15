@@ -26,6 +26,7 @@ import java.util.Set;
 
 @Singleton
 public class Manager implements LifecycleListener {
+  public static final String KAFKA_LOG_NAME = "kafka_log";
 
   private final KafkaPublisher publisher;
   private final Set<TopicSubscriber> consumers;
