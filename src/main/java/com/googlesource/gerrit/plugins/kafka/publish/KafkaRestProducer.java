@@ -14,9 +14,10 @@
 
 package com.googlesource.gerrit.plugins.kafka.publish;
 
-import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Futures;
+import com.google.gerrit.util.logging.NamedFluentLogger;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.kafka.Manager;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import java.io.IOException;
@@ -44,7 +45,7 @@ import org.apache.kafka.common.errors.ProducerFencedException;
 public class KafkaRestProducer implements Producer<String, String> {
   private static final RecordMetadata ZEROS_RECORD_METADATA =
       new RecordMetadata(null, 0, 0, 0, null, 0, 0);
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final NamedFluentLogger logger = NamedFluentLogger.forName(Manager.KAFKA_LOG_NAME);
   private static final String KAFKA_V2_JSON = "application/vnd.kafka.json.v2+json";
   private final KafkaRestClient restClient;
 

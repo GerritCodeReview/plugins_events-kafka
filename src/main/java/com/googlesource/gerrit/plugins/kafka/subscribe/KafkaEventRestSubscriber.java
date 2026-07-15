@@ -15,18 +15,19 @@ package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
+import com.google.gerrit.util.logging.NamedFluentLogger;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.googlesource.gerrit.plugins.kafka.Manager;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
@@ -61,10 +62,11 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.Deserializer;
 
 public class KafkaEventRestSubscriber implements KafkaEventSubscriber {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final NamedFluentLogger logger = NamedFluentLogger.forName(Manager.KAFKA_LOG_NAME);
   private static final int DELAY_RECONNECT_AFTER_FAILURE_MSEC = 1000;
   // Prefix is a length of 'rest-consumer-' string
   private static final int INSTANCE_ID_PREFIX_LEN = 14;
+
   /**
    * Suffix is a length of a unique identifier for example: '-9836fe85-d838-4722-97c9-4a7b-34e834d'
    */

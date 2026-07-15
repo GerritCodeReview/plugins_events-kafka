@@ -34,6 +34,7 @@ import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxy;
 import com.googlesource.gerrit.plugins.kafka.rest.HttpHostProxyProvider;
 import com.googlesource.gerrit.plugins.kafka.rest.KafkaRestClient;
 import com.googlesource.gerrit.plugins.kafka.session.KafkaProducerProvider;
+import com.googlesource.gerrit.plugins.kafka.session.Log4JKafkaMessageLogger;
 import java.util.concurrent.ExecutorService;
 import org.apache.kafka.clients.producer.Producer;
 
@@ -58,6 +59,7 @@ class Module extends AbstractModule {
   @Override
   protected void configure() {
     DynamicSet.bind(binder(), LifecycleListener.class).to(Manager.class);
+    DynamicSet.bind(binder(), LifecycleListener.class).to(Log4JKafkaMessageLogger.class);
 
     if (configuration.isSendStreamEvents()) {
       DynamicSet.bind(binder(), EventListener.class).to(KafkaPublisher.class);

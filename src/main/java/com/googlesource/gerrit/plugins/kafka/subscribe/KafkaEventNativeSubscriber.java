@@ -15,12 +15,13 @@ package com.googlesource.gerrit.plugins.kafka.subscribe;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
+import com.google.gerrit.util.logging.NamedFluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.googlesource.gerrit.plugins.kafka.Manager;
 import com.googlesource.gerrit.plugins.kafka.broker.ConsumerExecutor;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaSubscriberProperties;
 import java.time.Duration;
@@ -35,7 +36,7 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.Deserializer;
 
 public class KafkaEventNativeSubscriber implements KafkaEventSubscriber {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final NamedFluentLogger logger = NamedFluentLogger.forName(Manager.KAFKA_LOG_NAME);
   private static final int DELAY_RECONNECT_AFTER_FAILURE_MSEC = 1000;
 
   private final OneOffRequestContext oneOffCtx;

@@ -21,6 +21,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.googlesource.gerrit.plugins.kafka.Manager;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics;
 import java.net.URI;
@@ -35,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 public final class KafkaSession {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSession.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Manager.KAFKA_LOG_NAME);
   private final KafkaProperties properties;
   private final Provider<Producer<String, String>> producerProvider;
   private final KafkaEventsPublisherMetrics publisherMetrics;

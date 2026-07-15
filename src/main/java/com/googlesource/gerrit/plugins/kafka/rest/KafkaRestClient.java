@@ -17,22 +17,22 @@ package com.googlesource.gerrit.plugins.kafka.rest;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.base.Function;
-import com.google.common.flogger.FluentLogger;
 import com.google.common.net.MediaType;
 import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.common.Nullable;
+import com.google.gerrit.util.logging.NamedFluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.googlesource.gerrit.plugins.kafka.Manager;
 import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.Enumeration;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -57,7 +57,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class KafkaRestClient {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final NamedFluentLogger logger = NamedFluentLogger.forName(Manager.KAFKA_LOG_NAME);
   private static final String KAFKA_V2_JSON = "application/vnd.kafka.json.v2+json";
   private static final String KAFKA_V2 = "application/vnd.kafka.v2+json";
 
@@ -85,9 +85,6 @@ public class KafkaRestClient {
     httpclient.start();
     this.configuration = configuration;
     kafkaRestApiTimeoutMsec = (int) configuration.getRestApiTimeout().toMillis();
-    if (configuration.isHttpWireLog()) {
-      enableHttpWireLog();
-    }
     this.futureExecutor = executor;
   }
 
@@ -96,15 +93,15 @@ public class KafkaRestClient {
       Logger httpWireLoggger = Logger.getLogger("org.apache.http.wire");
       httpWireLoggger.setLevel(Level.DEBUG);
 
-      @SuppressWarnings("rawtypes")
-      Enumeration rootLoggerAppenders = LogManager.getRootLogger().getAllAppenders();
-      while (rootLoggerAppenders.hasMoreElements()) {
-        Appender logAppender = (Appender) rootLoggerAppenders.nextElement();
-        if (logAppender instanceof AppenderSkeleton) {
-          ((AppenderSkeleton) logAppender).setThreshold(Level.DEBUG);
+      Logger kafkaLogger = LogManager.getLogger(Manager.KAFKA_LOG_NAME);
+      Appender appender = kafkaLogger.getAppender(Manager.KAFKA_LOG_NAME);
+      if (appender != null) {
+        if (appender instanceof AppenderSkeleton) {
+          ((AppenderSkeleton) appender).setThreshold(Level.DEBUG);
         }
-        httpWireLoggger.addAppender(logAppender);
+        httpWireLoggger.addAppender(appender);
       }
+      httpWireLoggger.setAdditivity(false);
 
       logConfigured = true;
     }
@@ -159,7 +156,8 @@ public class KafkaRestClient {
     post.setConfig(createRequestConfig());
     post.setEntity(
         new StringEntity(
-            "{\"format\": \"json\",\"auto.offset.reset\": \"earliest\", \"auto.commit.enable\":\"true\", \"consumer.request.timeout.ms\": \"1000\"}",
+            "{\"format\": \"json\",\"auto.offset.reset\": \"earliest\","
+                + " \"auto.commit.enable\":\"true\", \"consumer.request.timeout.ms\": \"1000\"}",
             ContentType.create(KAFKA_V2, UTF_8)));
     return post;
   }
