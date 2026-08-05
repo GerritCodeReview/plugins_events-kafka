@@ -15,9 +15,7 @@
 package com.googlesource.gerrit.plugins.kafka.session;
 
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -25,8 +23,6 @@ import com.googlesource.gerrit.plugins.kafka.config.KafkaProperties;
 import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Objects;
-import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -151,26 +147,23 @@ public final class KafkaSession {
   }
 
   private ListenableFuture<Boolean> publishAsync(String topic, String messageBody) {
+    SettableFuture<Boolean> resultF = SettableFuture.create();
     try {
-      Future<RecordMetadata> future =
-          producer.send(
-              new ProducerRecord<>(topic, Long.toString(System.nanoTime()), messageBody),
-              (metadata, e) -> {
-                if (metadata != null && e == null) {
-                  LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
-                  msgLog.log(topic, messageBody);
-                  publisherMetrics.incrementBrokerPublishedMessage();
-                } else {
-                  LOGGER.error("Cannot send the message", e);
-                  publisherMetrics.incrementBrokerFailedToPublishMessage();
-                }
-              });
-
-      // The transformation is lightweight, so we can afford using a directExecutor
-      return Futures.transform(
-          JdkFutureAdapters.listenInPoolThread(future),
-          Objects::nonNull,
-          MoreExecutors.directExecutor());
+      producer.send(
+          new ProducerRecord<>(topic, Long.toString(System.nanoTime()), messageBody),
+          (metadata, e) -> {
+            if (metadata != null && e == null) {
+              LOGGER.debug("The offset of the record we just sent is: {}", metadata.offset());
+              msgLog.log(topic, messageBody);
+              publisherMetrics.incrementBrokerPublishedMessage();
+              resultF.set(true);
+            } else {
+              LOGGER.error("Cannot send the message", e);
+              publisherMetrics.incrementBrokerFailedToPublishMessage();
+              resultF.setException(e);
+            }
+          });
+      return resultF;
     } catch (Throwable e) {
       LOGGER.error("Cannot send the message", e);
       publisherMetrics.incrementBrokerFailedToPublishMessage();
