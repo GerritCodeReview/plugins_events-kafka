@@ -26,6 +26,7 @@ import com.googlesource.gerrit.plugins.kafka.publish.KafkaEventsPublisherMetrics
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -168,7 +169,7 @@ public final class KafkaSession {
 
       // The transformation is lightweight, so we can afford using a directExecutor
       return Futures.transform(
-          JdkFutureAdapters.listenInPoolThread(future),
+          JdkFutureAdapters.listenInPoolThread(future, Executors.newVirtualThreadPerTaskExecutor()),
           Objects::nonNull,
           MoreExecutors.directExecutor());
     } catch (Throwable e) {
