@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "29fc26e4_003dacdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3604707
+      },
+      "writtenOn": "2026-08-06T16:23:04Z",
+      "side": 1,
+      "message": "We should explain the issues here: massive thread count spikes and some of the threading errors related to this seen in our logs.",
+      "revId": "b5ff6975d6b3feefb233043482b37d76072495c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "75e2dfad_f8fe79de",
