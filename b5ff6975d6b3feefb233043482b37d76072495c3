@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "95af0d8d_caf4279e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4069542
+      },
+      "writtenOn": "2026-08-20T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29fc26e4_003dacdd",
+      "revId": "b5ff6975d6b3feefb233043482b37d76072495c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "75e2dfad_f8fe79de",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
         "patchSetId": 3
