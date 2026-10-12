@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0dae4141_38eacce2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-10-12T14:19:59Z",
+      "side": 1,
+      "message": "Cool finding and thanks for the fix @achakilam@nvidia.com!",
+      "revId": "56cac465e943fa8093b4f6ce7db81428759e733a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3ecc195e_c95454f3",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
         "patchSetId": 4
