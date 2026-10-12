@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1114d7c8_8273c0fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-10-12T15:51:53Z",
+      "side": 1,
+      "message": "None of the checks we use are blocking.",
+      "parentUuid": "96ac31f2_18246796",
+      "revId": "2415f765066dafd2959bdb3e8efa5ec11e751a89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7bc624d3_e33efc3d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
         "patchSetId": 1
