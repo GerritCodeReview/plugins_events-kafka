@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "96ac31f2_18246796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-10-12T14:35:05Z",
+      "side": 1,
+      "message": "Not sure how I5e69d852 got merged with failing code style checks.",
+      "parentUuid": "0ace0477_19b46726",
+      "revId": "2415f765066dafd2959bdb3e8efa5ec11e751a89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7bc624d3_e33efc3d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kafka/rest/KafkaRestClient.java",
         "patchSetId": 1
